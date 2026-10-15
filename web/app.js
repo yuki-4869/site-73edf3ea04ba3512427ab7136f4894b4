@@ -71,6 +71,17 @@
     return searchIndex;
   }
   const inlineSearch = $("#catalog-search");
+  const detailsToggle = $("#catalog-details");
+  if (detailsToggle) {
+    function showDetails(show) {
+      $(".overview").classList.toggle("show-details", show);
+      detailsToggle.setAttribute("aria-pressed", String(show));
+      detailsToggle.textContent = show ? "説明を隠す" : "説明を表示";
+      storage.write("catalog-details", show);
+    }
+    showDetails(storage.read("catalog-details", false) === true);
+    detailsToggle.addEventListener("click", () => showDetails(detailsToggle.getAttribute("aria-pressed") !== "true"));
+  }
   async function applyFilter() {
     if (!inlineSearch) return;
     const request=++filterRequest;
@@ -81,7 +92,11 @@
     if(request!==filterRequest)return;
     const paths = new Set(index.filter(item => matches(item, query) && (!pinsOnly || pins.has(item.path))).map(item => item.path));
     $$(".library-row").forEach(row => { row.hidden = !paths.has(row.dataset.path); });
-    $$(".category-section").forEach(section => { section.hidden = !$(".library-row:not([hidden])", section); });
+    $$(".category-section").forEach(section => {
+      section.hidden = !$(".library-row:not([hidden])", section);
+      const jump = $('.category-index a[href="#' + section.id + '"]');
+      if (jump) jump.hidden = section.hidden;
+    });
     $("#catalog-count").textContent = paths.size + " 件";
     $("#catalog-empty").hidden = paths.size > 0;
   }
@@ -91,30 +106,26 @@
       pinsOnly = !pinsOnly; $("#pins-filter").setAttribute("aria-pressed", String(pinsOnly)); applyFilter();
     });
   }
-  const tabs = $$("[role=tab]");
-  function selectTab(name, focus = false) {
-    tabs.forEach(tab => {
-      const selected = tab.dataset.tab === name; tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1; $("#" + tab.getAttribute("aria-controls")).hidden = !selected;
-      if (selected && focus) tab.focus();
-    });
-    const toc = $(".toc"); if (toc) toc.hidden = name === "implementation";
+  function revealHash(hash) {
+    let id; try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    let container = target.closest("details"), opened = false;
+    while (container) {
+      if (!container.open) { container.open = true; opened = true; }
+      container = container.parentElement?.closest("details");
+    }
+    return opened ? target : null;
   }
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", () => selectTab(tab.dataset.tab));
-    tab.addEventListener("keydown", event => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-      event.preventDefault();
-      const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
-      selectTab(tabs[next].dataset.tab, true);
-    });
-  });
   function followHash() {
-    if (!tabs.length) return;
-    if (location.hash === "#implementation") selectTab("implementation");
-    else if (location.hash && $("#" + CSS.escape(decodeURIComponent(location.hash.slice(1))))) selectTab("documentation");
+    const target = revealHash(location.hash);
+    if (target) requestAnimationFrame(() => target.scrollIntoView({block:"start"}));
   }
   followHash(); window.addEventListener("hashchange", followHash);
+  document.addEventListener("click", event => {
+    const link = event.target.closest("a[href]");
+    if (link && link.origin === location.origin && link.pathname === location.pathname && link.hash) revealHash(link.hash);
+  });
   const searchDialog = $("#search-dialog");
   let selectedResult = -1;
   function chooseResult(index) {
@@ -159,7 +170,7 @@
     const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
     if ((event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) || (event.key === "/" && !typing)) {
       event.preventDefault();
-      if (inlineSearch && !event.ctrlKey && !event.metaKey) inlineSearch.focus();
+      if (inlineSearch) inlineSearch.focus();
       else $("[data-open-search]").click();
     }
     if (event.key === "Escape") {

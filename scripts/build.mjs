@@ -3,6 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { Marked } from "marked";
+import { prepareDocument, headingLabels, renderProse, mathExtensions } from "./document.mjs";
 
 const ROOT = process.cwd();
 const config = JSON.parse(await fs.readFile("site.config.json", "utf8"));
@@ -24,6 +25,7 @@ const buildTime = process.env.SOURCE_DATE || new Date().toISOString();
 const displayDate = new Date(buildTime).toLocaleString("ja-JP", {timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
 const esc = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
 const plain = value => String(value).replace(/<[^>]*>/g, " ").replace(/!?\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[\x60*#_]/g, "").replace(/\s+/g, " ").trim();
+const searchText = value => String(value).replace(/<\/?(?:a|details|summary|br)\b[^>]*>/gi," ").replace(/!?\[([^\]]+)\]\([^)]*\)/g,"$1").replace(/[\x60*#]/g,"").replace(/\s+/g," ").trim();
 const hrefPath = value => value.split("/").map(encodeURIComponent).join("/");
 const docPathFor = source => "usage/" + source.replace(/\.(cpp|txt)$/, ".md");
 const pagePathFor = source => "library/" + source.replace(/\.(cpp|txt)$/, ".html");
@@ -59,8 +61,11 @@ for(const source of codePaths) codeBuffers.set(source,await fs.readFile(path.joi
 for(const item of dataItems) codeBuffers.set(item.path,await fs.readFile(path.join(ROOT,"data",path.basename(item.path))));
 await fs.rm(out,{recursive:true,force:true}); await fs.mkdir(out,{recursive:true});
 for (const name of ["style.css","app.js","favicon.svg","UIKIT-LICENSE.txt"]) await write("assets/"+name, await fs.readFile("web/"+name));
+await write("assets/katex/katex.min.css", await fs.readFile("node_modules/katex/dist/katex.min.css"));
+await write("assets/katex/LICENSE", await fs.readFile("node_modules/katex/LICENSE"));
+await fs.cp("node_modules/katex/dist/fonts", path.join(out,"assets/katex/fonts"), {recursive:true});
 const shell = await fs.readFile("web/shell.html","utf8");
-const assetVersion=createHash("sha256").update(await fs.readFile("web/style.css")).update(await fs.readFile("web/app.js")).digest("hex").slice(0,12);
+const assetVersion=createHash("sha256").update(await fs.readFile("web/style.css")).update(await fs.readFile("web/app.js")).update(await fs.readFile("package-lock.json")).digest("hex").slice(0,12);
 const docTargets = new Map([
   ["docs/usage/index.md","index.html"],
   ["README.md","index.html"],
@@ -112,14 +117,16 @@ function highlightCpp(code) {
 }
 function renderMarkdown(text,currentDoc) {
   const toc=[];
+  const labelFor=headingLabels(text);
   const used = new Set(Array.from(text.matchAll(/<a\s+id="([^"]+)"/g),m=>m[1]));
   const renderer={
     heading(token) {
       const title=plain(token.text);
       const raw=title.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu,"").trim().replace(/\s+/g,"-")||"section";
       let id=raw,n=1; while(used.has(id))id=raw+"-"+n++;used.add(id);
-      if(token.depth===2||token.depth===3)toc.push({title,id,depth:token.depth});
-      return "<h"+token.depth+' id="'+esc(id)+'">'+this.parser.parseInline(token.tokens)+"</h"+token.depth+">\n";
+      const label=labelFor(title);
+      if(token.depth===2||token.depth===3)toc.push({title:label,id,depth:token.depth});
+      return "<h"+token.depth+' id="'+esc(id)+'">'+(label===title?this.parser.parseInline(token.tokens):esc(label))+"</h"+token.depth+">\n";
     },
     link(token) {
       const url=rewriteLink(token.href,currentDoc);
@@ -130,11 +137,24 @@ function renderMarkdown(text,currentDoc) {
       const lang=(token.lang||"").split(/\s/)[0];
       const body=/^(cpp|c\+\+|c|cc)$/.test(lang) ? highlightCpp(token.text) : esc(token.text);
       return '<div class="code-wrap"><pre><code class="language-'+esc(lang||"text")+'">'+body+"</code></pre></div>\n";
+    },
+    text(token) {
+      if(token.tokens)return this.parser.parseInline(token.tokens);
+      return token.escaped ? token.text : renderProse(token.text);
+    },
+    html(token) {
+      // These documents use HTML only for anchors and native disclosures.
+      // Preserve C++ template arguments that Markdown otherwise treats as tags.
+      return /^\s*<\/?(?:a|details|summary|br)(?=[\s>/])/i.test(token.text) ? token.text : esc(token.text);
     }
   };
-  const marked=new Marked({gfm:true,renderer});
+  const marked=new Marked({gfm:true,renderer,extensions:mathExtensions});
   const html=marked.parse(text).replace(/<table>/g,'<div class="table-wrap"><table>').replace(/<\/table>/g,"</table></div>");
   return {html,toc};
+}
+function tableOfContents(rendered) {
+  if(!rendered.toc.length)return "";
+  return '<details class="toc"><summary>目次</summary><nav aria-label="このページの目次">'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</nav></details>";
 }
 function navigation(current) {
   return categories.map((category,i)=>{
@@ -160,8 +180,8 @@ for(const entry of entries) {
   const isData=entry.path.endsWith(".txt");
   let raw;
   try {raw=await fs.readFile(path.join(ROOT,"content",docPathFor(entry.path)),"utf8");}
-  catch {raw="# "+entry.title+"\n\nこのライブラリの実装を参照できます。\n\n## 使い方\n\n実装タブでコードを確認してください。API・制約・計算量の説明は追記予定です。\n";}
-  raw=raw.replace(/^# .*\r?\n/,"").replace(/^\[説明書の目次\].*\r?\n/gm,"");
+  catch {raw="# "+entry.title+"\n\nこのライブラリの実装を参照できます。\n\n## 使い方\n\nページ末尾の実装でコードを確認してください。API・制約・計算量の説明は追記予定です。\n";}
+  raw=prepareDocument(raw);
   const rendered=renderMarkdown(raw,"docs/"+docPathFor(entry.path));
   const source=codeBuffers.get(entry.path);
   const text=source.toString("utf8");
@@ -169,33 +189,30 @@ for(const entry of entries) {
   const stale=!isData && documentationRevisions[entry.path]!==blob;
   const codeUrl=isData ? config.siteOrigin+base+"assets/data/"+path.basename(entry.path) : sourceUrl+hrefPath(entry.path);
   const sourceName=isData ? "データ" : "実装";
-  const content='<div class="breadcrumb"><a href="'+base+'">ライブラリ一覧</a><span aria-hidden="true">/</span><a href="'+base+'#category-'+(categories.findIndex(x=>x.id===entry.categoryId)+1)+'">'+esc(entry.category)+"</a></div>"+
-    '<header class="doc-heading"><div class="page-label">'+esc(entry.category)+'</div><div class="page-heading"><div><h1>'+esc(entry.title)+'</h1><div class="doc-path">'+esc(entry.path)+'</div><p class="page-lead">'+esc(entry.description)+'</p></div><span class="version-chip">source <span class="mono">'+revision.slice(0,7)+'</span></span></div>'+
-    '<div class="doc-actions"><button class="action-button primary" data-copy-source>コードをコピー</button><button class="action-button" data-copy-url="'+esc(codeUrl)+'">参照URLをコピー</button><a class="action-button" href="'+esc(codeUrl)+'" target="_blank" rel="noopener noreferrer">'+(isData?"データを開く":"GitHubで開く ↗")+'</a><button class="action-button" data-pin="'+esc(entry.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></header>'+
-    '<div class="doc-layout"><div class="doc-main"><div class="tabs" role="tablist" aria-label="表示内容"><button class="tab" id="tab-documentation" role="tab" data-tab="documentation" aria-controls="documentation" aria-selected="true">使い方<span class="tab-count">'+rendered.toc.length+'</span></button><button class="tab" id="tab-implementation" role="tab" data-tab="implementation" aria-controls="implementation" aria-selected="false" tabindex="-1">'+sourceName+'</button></div>'+
-    '<section id="documentation" role="tabpanel" aria-labelledby="tab-documentation" class="doc-body">'+
-    (stale?'<blockquote><p>公開コードが更新されています。この説明は更新前の内容を含む可能性があります。実装タブで現在のコードを確認してください。</p></blockquote>':"")+rendered.html+'</section>'+
-    '<section id="implementation" role="tabpanel" aria-labelledby="tab-implementation" hidden><div class="source-panel-bar"><span>'+esc(entry.path)+' · '+text.split("\n").length+' lines</span><a class="action-button" href="'+base+'sources/'+hrefPath(entry.path)+'" download>ダウンロード ↓</a></div><pre class="source-code"><code id="full-source">'+(isData?esc(text):highlightCpp(text))+'</code></pre><p class="source-note">'+(isData?"素数表はテキストデータです。先頭の説明行を除いて利用してください。":"公開リポジトリの上記コミットと同じコードです。必要な共通定義は「共通設定・添字」を確認してください。")+'</p></section>'+
+  const content='<nav class="breadcrumb" aria-label="現在の位置"><a href="'+base+'">一覧</a><span aria-hidden="true">/</span><a href="'+base+'#category-'+(categories.findIndex(x=>x.id===entry.categoryId)+1)+'">'+esc(entry.category)+"</a></nav>"+
+    '<header class="doc-heading"><h1>'+esc(entry.title)+'</h1><div class="doc-tools"><a href="#implementation">'+sourceName+'を見る</a><button class="text-button" data-copy-source>コードをコピー</button><a href="'+base+'guide/common.html">共通設定</a>'+tableOfContents(rendered)+'</div></header>'+
+    '<div class="doc-main"><article id="documentation" class="doc-body">'+
+    (stale?'<blockquote><p>公開コードが更新されています。この説明は更新前の内容を含む可能性があります。ページ末尾の実装で現在のコードを確認してください。</p></blockquote>':"")+rendered.html+'</article>'+
+    '<details id="implementation" class="implementation"><summary>'+sourceName+'</summary><div class="source-panel-bar"><span>'+esc(entry.path)+' · '+text.split("\n").length+' lines</span><div class="source-actions"><button class="text-button" data-copy-source>コードをコピー</button><button class="text-button" data-copy-url="'+esc(codeUrl)+'">参照URLをコピー</button><a href="'+esc(codeUrl)+'" target="_blank" rel="noopener noreferrer">'+(isData?"データを開く":"GitHubで開く ↗")+'</a><a href="'+base+'sources/'+hrefPath(entry.path)+'" download>ダウンロード</a><button class="pin-button" data-pin="'+esc(entry.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></div><pre class="source-code"><code id="full-source">'+(isData?esc(text):highlightCpp(text))+'</code></pre><p class="source-note">'+(isData?"素数表はテキストデータです。先頭の説明行を除いて利用してください。":"公開コードの固定版を表示しています。必要な型エイリアス・マクロは共通設定を参照してください。")+'</p></details>'+
     '<nav class="doc-pagination" aria-label="前後のライブラリ">'+
     (entries.indexOf(entry)>0?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)-1].path)+'"><small>← 前のライブラリ</small>'+esc(entries[entries.indexOf(entry)-1].title)+"</a>":"<span></span>")+
-    (entries.indexOf(entry)<entries.length-1?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)+1].path)+'"><small>次のライブラリ →</small>'+esc(entries[entries.indexOf(entry)+1].title)+"</a>":"")+'</nav>'+footer()+'</div>'+
-    '<details class="toc" aria-label="このページの目次"><summary>目次</summary>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</details></div>";
+    (entries.indexOf(entry)<entries.length-1?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)+1].path)+'"><small>次のライブラリ →</small>'+esc(entries[entries.indexOf(entry)+1].title)+"</a>":"")+'</nav>'+footer()+'</div>';
   await write(pagePathFor(entry.path),layout({title:entry.title,description:entry.description,id:entry.path,content,current:entry}));
   await write("sources/"+entry.path,source);
   if(isData)await write("assets/data/"+path.basename(entry.path),source);
-  searchIndex.push({...entry,url:pagePathFor(entry.path),text:plain(raw).slice(0,42000)});
+  searchIndex.push({...entry,url:pagePathFor(entry.path),text:searchText(raw).slice(0,42000)});
   if(!isData)manifest.push({path:entry.path,sha256:createHash("sha256").update(source).digest("hex"),blob:createHash("sha1").update("blob "+source.length+"\0").update(source).digest("hex"),bytes:source.length,url:codeUrl});
   documentRecords.push({source:entry.path,output:pagePathFor(entry.path),headings:rendered.toc.length});
 }
-const header='<div class="breadcrumb"><span>yuki4869</span><span aria-hidden="true">/</span><span>Reference</span></div><header class="page-heading"><div><div class="page-label">ALGORITHM REFERENCE</div><h1>ライブラリ一覧</h1><p class="page-lead">実装・API・制約・計算量を、すぐ参照できるように。</p></div><span class="version-chip">source <span class="mono">'+revision.slice(0,7)+'</span></span></header>'+
-  '<div class="overview-stats"><span><strong>'+codePaths.length+'</strong>C++コード</span><span><strong>'+categories.length+'</strong>分類</span><span><strong>C++23</strong></span><span class="last-update">ソース同期 '+esc(displayDate)+' JST</span></div>'+
-  '<div class="overview-tools"><label class="inline-search"><span aria-hidden="true">⌕</span><input type="search" id="catalog-search" placeholder="名前・関数・用途で絞り込み…" aria-label="ライブラリを絞り込む" autocomplete="off"><kbd>/</kbd></label><button class="filter-button" id="pins-filter" aria-pressed="false">☆ ピン留め</button></div>'+
-  '<div class="result-info"><span id="catalog-count" aria-live="polite">'+entries.length+' 件</span><span>APIから探すなら <button data-open-search class="text-button">全体検索 ↗</button></span></div>';
+const header='<header class="page-heading"><h1>ライブラリ一覧</h1><p class="index-guides">C++23 · <a href="'+base+'guide/common.html">共通設定</a> · <a href="'+base+'guide/review-notes.html">確認事項・既知の制約</a></p></header>'+
+  '<label class="inline-search"><span aria-hidden="true">⌕</span><input type="search" id="catalog-search" placeholder="名前・関数・用途で検索…" aria-label="ライブラリを絞り込む" autocomplete="off"><kbd>/</kbd></label>'+
+  '<div class="catalog-controls"><span id="catalog-count" aria-live="polite">'+entries.length+' 件</span><button class="text-button" id="catalog-details" aria-pressed="false">説明を表示</button><button class="text-button" id="pins-filter" aria-pressed="false">ピン留めのみ</button></div>'+
+  '<nav class="category-index" aria-label="分類から探す">'+categories.map((c,i)=>'<a href="#category-'+(i+1)+'">'+esc(c.title)+'</a>').join("")+'</nav>';
 let sections="";
 for(let i=0;i<categories.length;i++){
   const category=categories[i],items=entries.filter(x=>x.categoryId===category.id);
-  sections+='<section class="category-section" id="category-'+(i+1)+'"><div class="category-title"><span class="category-number">'+String(i+1).padStart(2,"0")+'</span><h2>'+esc(category.title)+'</h2><span class="category-count">'+items.length+' 件</span></div><div class="catalog-list">'+
-    items.map(item=>'<div class="library-row" data-path="'+esc(item.path)+'" data-title="'+esc(item.title)+'" data-description="'+esc(item.description)+'" data-category="'+esc(item.category)+'"><a class="library-link" href="'+base+pagePathFor(item.path)+'">'+esc(item.title)+(item.path.endsWith(".txt")?'<span class="data-tag">DATA</span>':"")+'<small>'+esc(item.path)+'</small></a><span class="row-description">'+esc(item.description)+'</span><button class="pin-button" data-pin="'+esc(item.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div>').join("")+'</div></section>';
+  sections+='<section class="category-section" id="category-'+(i+1)+'"><h2>'+esc(category.title)+'</h2><ul class="catalog-list">'+
+    items.map(item=>'<li class="library-row" data-path="'+esc(item.path)+'" data-title="'+esc(item.title)+'" data-description="'+esc(item.description)+'" data-category="'+esc(item.category)+'"><a class="library-link" href="'+base+pagePathFor(item.path)+'">'+esc(item.title)+(item.path.endsWith(".txt")?'<span class="data-tag">DATA</span>':"")+'</a><div class="row-details"><small>'+esc(item.path)+'</small><p>'+esc(item.description)+'</p><button class="pin-button" data-pin="'+esc(item.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></li>').join("")+'</ul></section>';
 }
 await write("index.html",layout({title:"ライブラリ一覧",description:"競技プログラミング用C++ライブラリのAPI・制約・計算量・使用例",id:"index",home:true,mainClass:"overview",content:header+sections+'<p id="catalog-empty" class="empty-state" hidden>該当するライブラリがありません。検索語やピン留めの条件を変えてください。</p>'+footer()}));
 const guides=[
@@ -208,7 +225,7 @@ const guides=[
 for(const [slug,file,title] of guides){
   const raw=(await fs.readFile("content/"+file,"utf8")).replace(/^# .*\r?\n/,"");
   const rendered=renderMarkdown(raw,"docs/"+file);
-  const content='<div class="breadcrumb"><a href="'+base+'">ライブラリ一覧</a><span aria-hidden="true">/</span><span>Guide</span></div><header class="page-heading"><div><div class="page-label">GUIDE</div><h1>'+esc(title)+'</h1></div></header><div class="doc-layout"><div class="doc-main"><article class="doc-body">'+rendered.html+'</article>'+footer()+'</div><details class="toc" aria-label="このページの目次"><summary>目次</summary>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</details></div>";
+  const content='<nav class="breadcrumb" aria-label="現在の位置"><a href="'+base+'">一覧</a><span aria-hidden="true">/</span><span>ガイド</span></nav><header class="doc-heading"><h1>'+esc(title)+'</h1>'+tableOfContents(rendered)+'</header><div class="doc-main"><article class="doc-body">'+rendered.html+'</article>'+footer()+'</div>';
   await write("guide/"+slug+".html",layout({title,id:"guide/"+slug,content}));
 }
 await write("assets/search.json",JSON.stringify(searchIndex));

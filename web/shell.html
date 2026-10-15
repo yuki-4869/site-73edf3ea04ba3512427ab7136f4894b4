@@ -4,34 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="description" content="@@DESCRIPTION@@">
   <meta name="source-version" content="@@SOURCE_SHA@@">
   <title>@@TITLE@@ · yuki4869 Library</title>
-  <link rel="icon" href="@@BASE@@assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="@@BASE@@assets/style.css">
-  <script src="@@BASE@@assets/app.js" defer></script>
+  <link rel="icon" href="@@BASE@@assets/favicon.svg?v=@@ASSET_VERSION@@" type="image/svg+xml">
+  <link rel="stylesheet" href="@@BASE@@assets/style.css?v=@@ASSET_VERSION@@">
+  <script src="@@BASE@@assets/app.js?v=@@ASSET_VERSION@@" defer></script>
 </head>
 <body data-base="@@BASE@@" data-page="@@PAGE_ID@@">
   <a class="skip-link" href="#main">本文へ移動</a>
   <header class="topbar">
-    <button class="icon-button menu-button" id="menu-toggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false">☰</button>
-    <a class="brand" href="@@BASE@@"><span class="brand-mark" aria-hidden="true">λ</span><span>yuki4869<span class="brand-divider">/</span><strong>Library</strong></span></a>
+    <a class="brand" href="@@BASE@@">yuki4869 Library</a>
     <div class="topbar-right">
+      <button class="icon-button menu-button" id="menu-toggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false">☰</button>
       <button class="search-trigger" data-open-search><span aria-hidden="true">⌕</span><span>ライブラリを検索</span><kbd>⌘ K</kbd></button>
       <a class="top-source" href="https://github.com/yuki-4869/Algorithm" target="_blank" rel="noopener noreferrer">公開コード <span aria-hidden="true">↗</span></a>
-      <button class="icon-button" id="theme-toggle" aria-label="配色を切り替える" title="配色を切り替える">◐</button>
     </div>
   </header>
   <button id="nav-shade" class="nav-shade" aria-label="メニューを閉じる" hidden></button>
   <aside class="sidebar" id="sidebar" aria-label="ライブラリの分類">
     <div class="sidebar-top">
-      <p class="eyebrow">REFERENCE</p>
+      <div class="drawer-heading"><span>ライブラリ</span><button class="icon-button" id="menu-close" aria-label="メニューを閉じる">×</button></div>
       <a class="nav-home @@HOME_ACTIVE@@" href="@@BASE@@">ライブラリ一覧 <span>@@COUNT@@</span></a>
     </div>
     <nav>@@NAV@@</nav>
     <div class="sidebar-guides">
-      <p class="eyebrow">GUIDES</p>
+      <p class="eyebrow">ガイド</p>
       <a href="@@BASE@@guide/common.html">共通設定・添字</a>
       <a href="@@BASE@@guide/validation.html">検証記録</a>
       <a href="@@BASE@@guide/review-notes.html">確認事項・既知の制約</a>

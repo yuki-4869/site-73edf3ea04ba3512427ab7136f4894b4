@@ -29,7 +29,8 @@ for(const p of docs){
  for(const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)){
   const url=match[1].replace(/&amp;/g,"&");
   if(/^(https?:|mailto:|data:)/.test(url))continue;
-  const [raw,anchor]=url.split("#");
+  const [withQuery,anchor]=url.split("#");
+  const raw=withQuery.split("?")[0];
   let target;
   if(!raw)target=p;
   else if(raw.startsWith(config.siteBase))target=path.join(dist,decodeURIComponent(raw.slice(config.siteBase.length)));

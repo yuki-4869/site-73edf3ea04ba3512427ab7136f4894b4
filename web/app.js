@@ -24,24 +24,14 @@
       toast("コピーしました");
     } catch { toast("コピーできませんでした。文字列を選択してコピーしてください。"); }
   }
-  const storedTheme = storage.read("library-theme", "system");
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  function setTheme(theme) {
-    document.documentElement.dataset.theme = theme === "system" ? (media.matches ? "dark" : "light") : theme;
-    $("#theme-toggle").setAttribute("aria-label", document.documentElement.dataset.theme === "dark" ? "明るい配色に切り替える" : "暗い配色に切り替える");
-  }
-  setTheme(storedTheme);
-  $("#theme-toggle").addEventListener("click", () => {
-    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    storage.write("library-theme", next); setTheme(next);
-  });
-  media.addEventListener("change", () => { if (storage.read("library-theme", "system") === "system") setTheme("system"); });
+  document.documentElement.dataset.theme = "light";
   function toggleMenu(open) {
     document.body.classList.toggle("nav-open", open);
     $("#menu-toggle").setAttribute("aria-expanded", String(open)); $("#nav-shade").hidden = !open;
   }
   $("#menu-toggle").addEventListener("click", () => toggleMenu(!document.body.classList.contains("nav-open")));
   $("#nav-shade").addEventListener("click", () => toggleMenu(false));
+  $("#menu-close").addEventListener("click", () => toggleMenu(false));
   $$("#sidebar a").forEach(a => a.addEventListener("click", () => toggleMenu(false)));
   $$("[data-copy-source]").forEach(b => b.addEventListener("click", () => copy($("#full-source").textContent)));
   $$("[data-copy-url]").forEach(b => b.addEventListener("click", () => copy(b.dataset.copyUrl)));

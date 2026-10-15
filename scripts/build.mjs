@@ -58,8 +58,9 @@ const codeBuffers=new Map();
 for(const source of codePaths) codeBuffers.set(source,await fs.readFile(path.join(sourceRoot,source)));
 for(const item of dataItems) codeBuffers.set(item.path,await fs.readFile(path.join(ROOT,"data",path.basename(item.path))));
 await fs.rm(out,{recursive:true,force:true}); await fs.mkdir(out,{recursive:true});
-for (const name of ["style.css","app.js","favicon.svg"]) await write("assets/"+name, await fs.readFile("web/"+name));
+for (const name of ["style.css","app.js","favicon.svg","UIKIT-LICENSE.txt"]) await write("assets/"+name, await fs.readFile("web/"+name));
 const shell = await fs.readFile("web/shell.html","utf8");
+const assetVersion=createHash("sha256").update(await fs.readFile("web/style.css")).update(await fs.readFile("web/app.js")).digest("hex").slice(0,12);
 const docTargets = new Map([
   ["docs/usage/index.md","index.html"],
   ["README.md","index.html"],
@@ -146,10 +147,10 @@ function navigation(current) {
   }).join("");
 }
 function footer() {
-  return '<footer class="site-footer"><span>yuki4869 Algorithm Library <span class="footer-separator">/</span> C++ Reference</span><span>ソース同期 '+esc(displayDate)+' JST <span class="footer-separator">·</span><a href="https://github.com/'+config.sourceRepository+'/commit/'+revision+'">'+revision.slice(0,7)+"</a></span></footer>";
+  return '<footer class="site-footer"><span>yuki4869 Algorithm Library <span class="footer-separator">/</span> C++ ライブラリ</span><span>ソース同期 '+esc(displayDate)+' JST <span class="footer-separator">·</span><a href="https://github.com/'+config.sourceRepository+'/commit/'+revision+'">'+revision.slice(0,7)+"</a></span></footer>";
 }
 function layout({title,description="",id="",content,current=null,home=false,mainClass=""}) {
-  const slots={TITLE:esc(title),DESCRIPTION:esc(description),SOURCE_SHA:revision,SHORT_SHA:revision.slice(0,7),BASE:base,PAGE_ID:esc(id),COUNT:codePaths.length,HOME_ACTIVE:home?"active":"",NAV:navigation(current),MAIN_CLASS:mainClass,CONTENT:content};
+  const slots={TITLE:esc(title),DESCRIPTION:esc(description),SOURCE_SHA:revision,SHORT_SHA:revision.slice(0,7),BASE:base,ASSET_VERSION:assetVersion,PAGE_ID:esc(id),COUNT:codePaths.length,HOME_ACTIVE:home?"active":"",NAV:navigation(current),MAIN_CLASS:mainClass,CONTENT:content};
   return shell.replace(/@@([A-Z_]+)@@/g,(_,key)=>slots[key]??"");
 }
 const searchIndex=[];
@@ -176,9 +177,9 @@ for(const entry of entries) {
     (stale?'<blockquote><p>公開コードが更新されています。この説明は更新前の内容を含む可能性があります。実装タブで現在のコードを確認してください。</p></blockquote>':"")+rendered.html+'</section>'+
     '<section id="implementation" role="tabpanel" aria-labelledby="tab-implementation" hidden><div class="source-panel-bar"><span>'+esc(entry.path)+' · '+text.split("\n").length+' lines</span><a class="action-button" href="'+base+'sources/'+hrefPath(entry.path)+'" download>ダウンロード ↓</a></div><pre class="source-code"><code id="full-source">'+(isData?esc(text):highlightCpp(text))+'</code></pre><p class="source-note">'+(isData?"素数表はテキストデータです。先頭の説明行を除いて利用してください。":"公開リポジトリの上記コミットと同じコードです。必要な共通定義は「共通設定・添字」を確認してください。")+'</p></section>'+
     '<nav class="doc-pagination" aria-label="前後のライブラリ">'+
-    (entries.indexOf(entry)>0?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)-1].path)+'"><small>← PREVIOUS</small>'+esc(entries[entries.indexOf(entry)-1].title)+"</a>":"<span></span>")+
-    (entries.indexOf(entry)<entries.length-1?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)+1].path)+'"><small>NEXT →</small>'+esc(entries[entries.indexOf(entry)+1].title)+"</a>":"")+'</nav>'+footer()+'</div>'+
-    '<aside class="toc" aria-label="このページの目次"><p class="eyebrow">ON THIS PAGE</p>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</aside></div>";
+    (entries.indexOf(entry)>0?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)-1].path)+'"><small>← 前のライブラリ</small>'+esc(entries[entries.indexOf(entry)-1].title)+"</a>":"<span></span>")+
+    (entries.indexOf(entry)<entries.length-1?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)+1].path)+'"><small>次のライブラリ →</small>'+esc(entries[entries.indexOf(entry)+1].title)+"</a>":"")+'</nav>'+footer()+'</div>'+
+    '<details class="toc" aria-label="このページの目次"><summary>目次</summary>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</details></div>";
   await write(pagePathFor(entry.path),layout({title:entry.title,description:entry.description,id:entry.path,content,current:entry}));
   await write("sources/"+entry.path,source);
   if(isData)await write("assets/data/"+path.basename(entry.path),source);
@@ -193,7 +194,7 @@ const header='<div class="breadcrumb"><span>yuki4869</span><span aria-hidden="tr
 let sections="";
 for(let i=0;i<categories.length;i++){
   const category=categories[i],items=entries.filter(x=>x.categoryId===category.id);
-  sections+='<section class="category-section" id="category-'+(i+1)+'"><div class="category-title"><span class="category-number">'+String(i+1).padStart(2,"0")+'</span><h2>'+esc(category.title)+'</h2><span class="category-count">'+items.length+' items</span></div><div class="catalog-list">'+
+  sections+='<section class="category-section" id="category-'+(i+1)+'"><div class="category-title"><span class="category-number">'+String(i+1).padStart(2,"0")+'</span><h2>'+esc(category.title)+'</h2><span class="category-count">'+items.length+' 件</span></div><div class="catalog-list">'+
     items.map(item=>'<div class="library-row" data-path="'+esc(item.path)+'" data-title="'+esc(item.title)+'" data-description="'+esc(item.description)+'" data-category="'+esc(item.category)+'"><a class="library-link" href="'+base+pagePathFor(item.path)+'">'+esc(item.title)+(item.path.endsWith(".txt")?'<span class="data-tag">DATA</span>':"")+'<small>'+esc(item.path)+'</small></a><span class="row-description">'+esc(item.description)+'</span><button class="pin-button" data-pin="'+esc(item.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div>').join("")+'</div></section>';
 }
 await write("index.html",layout({title:"ライブラリ一覧",description:"競技プログラミング用C++ライブラリのAPI・制約・計算量・使用例",id:"index",home:true,mainClass:"overview",content:header+sections+'<p id="catalog-empty" class="empty-state" hidden>該当するライブラリがありません。検索語やピン留めの条件を変えてください。</p>'+footer()}));
@@ -207,7 +208,7 @@ const guides=[
 for(const [slug,file,title] of guides){
   const raw=(await fs.readFile("content/"+file,"utf8")).replace(/^# .*\r?\n/,"");
   const rendered=renderMarkdown(raw,"docs/"+file);
-  const content='<div class="breadcrumb"><a href="'+base+'">ライブラリ一覧</a><span aria-hidden="true">/</span><span>Guide</span></div><header class="page-heading"><div><div class="page-label">GUIDE</div><h1>'+esc(title)+'</h1></div></header><div class="doc-layout"><div class="doc-main"><article class="doc-body">'+rendered.html+'</article>'+footer()+'</div><aside class="toc" aria-label="このページの目次"><p class="eyebrow">ON THIS PAGE</p>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</aside></div>";
+  const content='<div class="breadcrumb"><a href="'+base+'">ライブラリ一覧</a><span aria-hidden="true">/</span><span>Guide</span></div><header class="page-heading"><div><div class="page-label">GUIDE</div><h1>'+esc(title)+'</h1></div></header><div class="doc-layout"><div class="doc-main"><article class="doc-body">'+rendered.html+'</article>'+footer()+'</div><details class="toc" aria-label="このページの目次"><summary>目次</summary>'+rendered.toc.map(h=>'<a href="#'+encodeURIComponent(h.id)+'" class="level-'+h.depth+'">'+esc(h.title)+"</a>").join("")+"</details></div>";
   await write("guide/"+slug+".html",layout({title,id:"guide/"+slug,content}));
 }
 await write("assets/search.json",JSON.stringify(searchIndex));

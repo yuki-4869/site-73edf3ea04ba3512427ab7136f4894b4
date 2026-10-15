@@ -1,0 +1,11 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import {createHash} from "node:crypto";
+const file=process.argv[2];
+if(!file || !file.endsWith(".cpp") || file.includes("..") || path.isAbsolute(file))throw new Error("Pass one source path, e.g. DataStructureBasic/range_set.cpp");
+await fs.access(path.join("content/usage",file.replace(/\.cpp$/,".md")));
+const bytes=await fs.readFile(path.join(process.env.SOURCE_DIR||"source",file));
+const revisions=JSON.parse(await fs.readFile("documentation-revisions.json","utf8"));
+revisions[file]=createHash("sha1").update("blob "+bytes.length+"\0").update(bytes).digest("hex");
+await fs.writeFile("documentation-revisions.json",JSON.stringify(revisions,null,2)+"\n");
+console.log("Marked documentation as reviewed:",file,revisions[file]);

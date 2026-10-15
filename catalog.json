@@ -1,0 +1,457 @@
+[
+  {
+    "title": "template.cpp",
+    "path": "template.cpp",
+    "description": "型エイリアス、入出力、数学補助関数、main の追記用テンプレート",
+    "category": "基本テンプレート",
+    "categoryId": "template"
+  },
+  {
+    "title": "modintのみをincludeするテンプレート",
+    "path": "Templates/modint_only.cpp",
+    "description": "元の名前に反して atcoder/modint の依存が残る",
+    "category": "テンプレートの別版",
+    "categoryId": "Templates"
+  },
+  {
+    "title": "複数テストケース用テンプレート",
+    "path": "Templates/multiple_test_cases.cpp",
+    "description": "solve の末尾を追記して使用",
+    "category": "テンプレートの別版",
+    "categoryId": "Templates"
+  },
+  {
+    "title": "Codeforces用テンプレート",
+    "path": "Templates/codeforces.cpp",
+    "description": "ACL modint の依存あり。Graph の型にも注意",
+    "category": "テンプレートの別版",
+    "categoryId": "Templates"
+  },
+  {
+    "title": "区間集合",
+    "path": "DataStructureBasic/range_set.cpp",
+    "description": "半開区間の統合・追加・削除、mex、被覆数（改訂済み）",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "重み付きUnion-Find",
+    "path": "DataStructureBasic/weighted_union_find.cpp",
+    "description": "potential[b] - potential[a] を管理",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "Rollback Union-Find",
+    "path": "DataStructureBasic/rollback_union_find.cpp",
+    "description": "経路圧縮なし。直前のmerge呼び出しを取り消す",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "座標圧縮",
+    "path": "DataStructureBasic/coordinate_compression.cpp",
+    "description": "Zip・一次元／二次元の圧縮、厳密な検索・復元（改訂済み）",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "Binary Trie",
+    "path": "DataStructureBasic/binary_trie.cpp",
+    "description": "整数集合の管理と全体XOR",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "永続セグメント木",
+    "path": "DataStructureSegment/persistent_segment_tree.cpp",
+    "description": "根を保存して過去の版を参照",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "Wavelet Matrix",
+    "path": "DataStructureSegment/wavelet_matrix.cpp",
+    "description": "静的列。k番目の k は 0-indexed",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "動的重み付きWavelet Matrix",
+    "path": "DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp",
+    "description": "変更に使う可能性のあるキーをuniverseに事前登録",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "Segment Tree Beats",
+    "path": "DataStructureSegment/segment_tree_beats.cpp",
+    "description": "区間のchmin/chmax・加算・代入など",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "Segment Tree Beats の拡張",
+    "path": "DataStructureSegment/segment_tree_beats_extra.cpp",
+    "description": "剰余・除算・平方根・AND/OR、境界検査・一括更新（改訂済み）",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "ACL segtree の各種ラッパー",
+    "path": "DataStructureSegment/segtree_wrappers.cpp",
+    "description": "最小／最大／和などの型と演算",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "ACL lazy_segtree の各種ラッパー",
+    "path": "DataStructureSegment/lazy_segtree_wrappers.cpp",
+    "description": "17種類の区間更新・取得、境界検査・全API一覧（改訂済み）",
+    "category": "区間データ構造",
+    "categoryId": "DataStructureSegment"
+  },
+  {
+    "title": "動的連結性（オンライン）",
+    "path": "DataStructureAdvanced/dynamic_connectivity.cpp",
+    "description": "辺の追加・削除、連結判定、成分サイズ・集計",
+    "category": "高度なデータ構造",
+    "categoryId": "DataStructureAdvanced"
+  },
+  {
+    "title": "Implicit Treap",
+    "path": "DataStructureAdvanced/implicit_treap.cpp",
+    "description": "位置をキーにした列の操作",
+    "category": "高度なデータ構造",
+    "categoryId": "DataStructureAdvanced"
+  },
+  {
+    "title": "Sorted Implicit Treap",
+    "path": "DataStructureAdvanced/sorted_implicit_treap.cpp",
+    "description": "昇順列の管理と集計",
+    "category": "高度なデータ構造",
+    "categoryId": "DataStructureAdvanced"
+  },
+  {
+    "title": "Li Chao Tree",
+    "path": "DiscreteConvexity/li_chao_tree.cpp",
+    "description": "直線・区間直線の最小値／最大値",
+    "category": "CHT・離散凸性",
+    "categoryId": "DiscreteConvexity"
+  },
+  {
+    "title": "Convex Hull Trick",
+    "path": "DiscreteConvexity/convex_hull_trick.cpp",
+    "description": "傾きの追加順に制約。query の x の順序は任意",
+    "category": "CHT・離散凸性",
+    "categoryId": "DiscreteConvexity"
+  },
+  {
+    "title": "Deque CHT",
+    "path": "DiscreteConvexity/deque_cht.cpp",
+    "description": "傾きの追加順とqueryの x の順序に制約",
+    "category": "CHT・離散凸性",
+    "categoryId": "DiscreteConvexity"
+  },
+  {
+    "title": "動的連結性（重み付き・オフライン）",
+    "path": "Graph/offline_dynamic_connectivity_weighted.cpp",
+    "description": "Undo可能なUnion-Find と成分の重さの集計",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "SCCと縮約DAG",
+    "path": "Graph/scc_condensation.cpp",
+    "description": "元のファイル名と異なり、本文はSCC結果と縮約DAGの処理",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "Functional Graph",
+    "path": "Graph/functional_graph.cpp",
+    "description": "サイクル情報、到達可能性、距離",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "オイラー路・閉路",
+    "path": "Graph/euler_trail.cpp",
+    "description": "有向／無向グラフ。全辺を使えない場合は空vector",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "Binary Lifting",
+    "path": "Graph/binary_lifting.cpp",
+    "description": "遷移のダブリングと結合則を満たす集計",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "動的連結性（オフライン）",
+    "path": "Graph/offline_dynamic_connectivity.cpp",
+    "description": "辺の追加・削除・連結性クエリ",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "LowLink",
+    "path": "Graph/lowlink.cpp",
+    "description": "橋・関節点などを計算",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "Cartesian Tree",
+    "path": "Tree/cartesian_tree.cpp",
+    "description": "最小値を根に持つ木を構築",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "LCA",
+    "path": "Tree/lca.cpp",
+    "description": "最小共通祖先・距離・祖先判定",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "Heavy-Light Decomposition",
+    "path": "Tree/hld.cpp",
+    "description": "パスを区間分解。非可換演算向けの順序にも対応",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "全方位木DP",
+    "path": "Tree/rerooting.cpp",
+    "description": "merge・lift・add_vertex を指定",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "木の直径・最遠距離",
+    "path": "Tree/tree_diameter.cpp",
+    "description": "重みなし・非負重み付きの実装を収録",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "木の重心",
+    "path": "Tree/tree_centroid.cpp",
+    "description": "重みなし・頂点重み付きの重心情報",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "Virtual Tree",
+    "path": "Tree/virtual_tree.cpp",
+    "description": "DFS順・深さ・LCA関数を与えて構築",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "DSU on Tree",
+    "path": "Tree/dsu_on_tree.cpp",
+    "description": "部分木クエリ用。再帰を使用",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "約数列挙",
+    "path": "MathNumberTheory/divisors.cpp",
+    "description": "正の整数の約数列挙。負数について確認事項あり",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "mod累乗・逆元",
+    "path": "MathNumberTheory/mod_pow_inverse.cpp",
+    "description": "modinv はフェルマーの小定理を利用。素数mod・逆元の存在が前提",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "10^6 以下の素数表",
+    "path": "MathNumberTheory/primes_upto_1000000.txt",
+    "description": "78,498 個の素数データ",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "約数・倍数ゼータ／メビウス変換",
+    "path": "MathNumberTheory/divisor_multiple_transforms.cpp",
+    "description": "添字 1..N を使用し、f[0] は未使用",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "Miller-Rabin / Pollard Rho",
+    "path": "MathNumberTheory/miller_rabin_pollard_rho.cpp",
+    "description": "uint64_t の素数判定と素因数分解",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "拡張ユークリッド互除法",
+    "path": "MathNumberTheory/extended_euclid.cpp",
+    "description": "一次不定方程式・合同式・逆元",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "線形篩",
+    "path": "MathNumberTheory/linear_sieve.cpp",
+    "description": "素数・最小素因数・phi・mu",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "整数論のまとめ",
+    "path": "MathNumberTheory/number_theory_bundle.cpp",
+    "description": "LinearSieve・素数関連・約数／倍数変換など",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "第二種スターリング数",
+    "path": "MathCombinatorics/stirling_second.cpp",
+    "description": "ACL dynamic_modint を使用",
+    "category": "組合せ",
+    "categoryId": "MathCombinatorics"
+  },
+  {
+    "title": "二項係数の累積和",
+    "path": "MathCombinatorics/binomial_prefix_sum.cpp",
+    "description": "nCr・mint・rep に依存。状態の変更範囲に制約あり",
+    "category": "組合せ",
+    "categoryId": "MathCombinatorics"
+  },
+  {
+    "title": "XOR基底",
+    "path": "LinearAlgebra/xor_basis.cpp",
+    "description": "符号なし整数型を使用",
+    "category": "線形代数",
+    "categoryId": "LinearAlgebra"
+  },
+  {
+    "title": "ガウス消去法",
+    "path": "LinearAlgebra/gaussian_elimination.cpp",
+    "description": "modint などの体上の連立一次方程式",
+    "category": "線形代数",
+    "categoryId": "LinearAlgebra"
+  },
+  {
+    "title": "GF(2) のガウス消去法",
+    "path": "LinearAlgebra/gf2_gaussian_elimination.cpp",
+    "description": "bitset の最終列に右辺を格納",
+    "category": "線形代数",
+    "categoryId": "LinearAlgebra"
+  },
+  {
+    "title": "XOR畳み込み（FWHT）",
+    "path": "FPSandPolynomial/xor_convolution.cpp",
+    "description": "mod版の逆変換は gcd(N,mod)=1 が必要",
+    "category": "畳み込み",
+    "categoryId": "FPSandPolynomial"
+  },
+  {
+    "title": "回文半径",
+    "path": "String/palindrome_radius.cpp",
+    "description": "文字を中心とする奇数長回文の半径。関数内に貼り付けるスニペット",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "Aho-Corasick",
+    "path": "String/aho_corasick.cpp",
+    "description": "複数文字列の照合。文字列追加後にbuild",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "静的Rolling Hash",
+    "path": "String/static_rolling_hash.cpp",
+    "description": "区間は [l,r)。二重のランダム化ハッシュ",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "動的Rolling Hash",
+    "path": "String/dynamic_rolling_hash.cpp",
+    "description": "列の変更に対応するハッシュ",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "二進文字列の順序管理",
+    "path": "String/binary_string_order_set.cpp",
+    "description": "本文のクラス名は StringWaveletMatrix",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "Trie（英小文字）",
+    "path": "String/trie_lowercase.cpp",
+    "description": "本文の文字写像は a..z",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "Trie（英小文字・英大文字）",
+    "path": "String/trie_letters.cpp",
+    "description": "本文のクラス名は TrieAzAZ",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "Trie（数字）",
+    "path": "String/trie_digits.cpp",
+    "description": "文字 0..9",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "Trie（英小文字・数字）",
+    "path": "String/trie_lowercase_digits.cpp",
+    "description": "本文の文字写像は a..z と 0..9",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
+    "title": "偏角ソート",
+    "path": "Geometry/argument_sort.cpp",
+    "description": "整数座標の点を偏角順に整列",
+    "category": "幾何",
+    "categoryId": "Geometry"
+  },
+  {
+    "title": "Mo法",
+    "path": "Search/mo.cpp",
+    "description": "オフライン区間クエリ。add/remove/output を指定",
+    "category": "探索・オフライン処理",
+    "categoryId": "Search"
+  },
+  {
+    "title": "二分探索の穴埋めテンプレート",
+    "path": "Snippets/binary_search.cpp",
+    "description": "ok/ng と check を記入。std::midpoint はC++20",
+    "category": "穴埋め用スニペット",
+    "categoryId": "Snippets"
+  },
+  {
+    "title": "ACL segtree の穴埋めテンプレート",
+    "path": "Snippets/segtree_custom.cpp",
+    "description": "S・op・e を定義して使用",
+    "category": "穴埋め用スニペット",
+    "categoryId": "Snippets"
+  },
+  {
+    "title": "ACL lazy_segtree の穴埋めテンプレート",
+    "path": "Snippets/lazy_segtree_custom.cpp",
+    "description": "S・F・各演算を定義。LazySegBase に依存",
+    "category": "穴埋め用スニペット",
+    "categoryId": "Snippets"
+  }
+]

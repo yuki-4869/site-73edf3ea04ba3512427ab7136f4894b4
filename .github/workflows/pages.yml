@@ -1,0 +1,89 @@
+name: Sync code and deploy library
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: library-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - name: Check out site source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check out public C++ sources
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: yuki-4869/Algorithm
+          ref: main
+          path: source
+          persist-credentials: false
+      - name: Read public source revision
+        id: source
+        run: printf 'sha=%s\n' "$(git -C source rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Check for code changes
+        id: check
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: node scripts/check-update.mjs
+      - name: Install renderer
+        if: steps.check.outputs.changed == 'true'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build reference pages
+        if: steps.check.outputs.changed == 'true'
+        env:
+          SOURCE_DIR: source
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: npm run build
+      - name: Verify pages and source hashes
+        if: steps.check.outputs.changed == 'true'
+        run: npm run check
+      - name: Test synchronization scenarios
+        if: steps.check.outputs.changed == 'true'
+        env:
+          SOURCE_DIR: source
+        run: npm test
+      - name: Configure Pages
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Upload Pages artifact
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+  deploy:
+    if: needs.build.outputs.changed == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy reference
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+

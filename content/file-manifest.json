@@ -1,0 +1,546 @@
+[
+  {
+    "original": "約数列挙.txt",
+    "path": "MathNumberTheory/divisors.cpp",
+    "title": "約数列挙",
+    "note": "正の整数の約数列挙。負数について確認事項あり",
+    "bytes": 395,
+    "sha256": "de69c806b85cb34ce180d872480adb46342e9e6e577724a15cf5ec27b8a78ad9"
+  },
+  {
+    "original": "modの割り算・modの累乗.txt",
+    "path": "MathNumberTheory/mod_pow_inverse.cpp",
+    "title": "mod累乗・逆元",
+    "note": "modinv はフェルマーの小定理を利用。素数mod・逆元の存在が前提",
+    "bytes": 438,
+    "sha256": "6791fabc0bbca4e7c6c23bf87d6d40c2fdb7e5327f36eaa988015feb41e8f057"
+  },
+  {
+    "original": "素数10^6.txt",
+    "path": "MathNumberTheory/primes_upto_1000000.txt",
+    "title": "10^6 以下の素数表",
+    "note": "78,498 個の素数データ",
+    "bytes": 538477,
+    "sha256": "1333c5d10552ee4524dd9c0a909195de1dc74737edabe53af9ce25b38010f413"
+  },
+  {
+    "original": "回文の半径を求める.txt",
+    "path": "String/palindrome_radius.cpp",
+    "title": "回文半径",
+    "note": "文字を中心とする奇数長回文の半径。関数内に貼り付けるスニペット",
+    "bytes": 354,
+    "sha256": "67ec1e34e1c65a835331cdf0fcf5d9fafcd5b669109044736b6da755786fff08"
+  },
+  {
+    "original": "削除可能なUnionFind.txt",
+    "path": "DataStructureAdvanced/dynamic_connectivity.cpp",
+    "title": "動的連結性（オンライン）",
+    "note": "辺の追加・削除、連結判定、成分サイズ・集計",
+    "bytes": 11672,
+    "sha256": "7f56e6c4073baa8219bb71a52433fa57bda73c0f602978c184da178af3b226cb"
+  },
+  {
+    "original": "削除可能なオフラインUnionFind.txt",
+    "path": "Graph/offline_dynamic_connectivity_weighted.cpp",
+    "title": "動的連結性（重み付き・オフライン）",
+    "note": "Undo可能なUnion-Find と成分の重さの集計",
+    "bytes": 4620,
+    "sha256": "09c1301c697ddd2452adec5db6831c73518e43885585e794c97850c7e9c83d8b"
+  },
+  {
+    "original": "RangeSet.txt",
+    "path": "DataStructureBasic/range_set.cpp",
+    "title": "区間集合",
+    "note": "半開区間の追加・削除、mex、被覆数",
+    "bytes": 5354,
+    "sha256": "ed8b9cdc5277e98b887661c34c4e68a95ed2b3a76ea8a8b07f0b0016438a607b",
+    "current_revision": {
+      "commit": "a1fd213bdae0ad520fededc44ef8a91806a53362",
+      "bytes": 13103,
+      "sha256": "976fb419775551814e49fb5cfd225239129a214fd8f7f764add235887a07e727",
+      "note": "2026-10-15: 区間統合・削除・個数管理を改訂し、末尾コメントに全公開API一覧を追記。元のbytes/sha256は初回整理時の記録"
+    }
+  },
+  {
+    "original": "CartesianTree.txt",
+    "path": "Tree/cartesian_tree.cpp",
+    "title": "Cartesian Tree",
+    "note": "最小値を根に持つ木を構築",
+    "bytes": 1263,
+    "sha256": "a7df2b445af2f2841d7e4d7138d27633b64ad28aa6b916dd754628b6c33a7f81"
+  },
+  {
+    "original": "永続セグメント木.txt",
+    "path": "DataStructureSegment/persistent_segment_tree.cpp",
+    "title": "永続セグメント木",
+    "note": "根を保存して過去の版を参照",
+    "bytes": 4125,
+    "sha256": "b05425de7e8d2a05aa371d808167bf3d655d97a3923b829073ac4e0fb1956874"
+  },
+  {
+    "original": "第二種スターリング数.txt",
+    "path": "MathCombinatorics/stirling_second.cpp",
+    "title": "第二種スターリング数",
+    "note": "ACL dynamic_modint を使用",
+    "bytes": 1065,
+    "sha256": "b0ce1f78936fd3d0a3b18a2567474749ad1b09a46806c82717c96191b4aaee8d"
+  },
+  {
+    "original": "偏角ソート.txt",
+    "path": "Geometry/argument_sort.cpp",
+    "title": "偏角ソート",
+    "note": "整数座標の点を偏角順に整列",
+    "bytes": 728,
+    "sha256": "dc484351a1d3c17978a6fe668c7a5d13f4a4572997651fb8ab1a442ce4e15819"
+  },
+  {
+    "original": "ImplicitTreap.txt",
+    "path": "DataStructureAdvanced/implicit_treap.cpp",
+    "title": "Implicit Treap",
+    "note": "位置をキーにした列の操作",
+    "bytes": 4799,
+    "sha256": "0a5f8466c032d56753acfb647017c5cf637fbc6c3d36914b5de68440a9507a6c"
+  },
+  {
+    "original": "二項係数の累積和.txt",
+    "path": "MathCombinatorics/binomial_prefix_sum.cpp",
+    "title": "二項係数の累積和",
+    "note": "nCr・mint・rep に依存。状態の変更範囲に制約あり",
+    "bytes": 1722,
+    "sha256": "b7f6386128c3ad88edad7832f8bac475e30d75cc7f93ebdf3b718e89d13d4a18"
+  },
+  {
+    "original": "約数倍数ゼータメビウス.txt",
+    "path": "MathNumberTheory/divisor_multiple_transforms.cpp",
+    "title": "約数・倍数ゼータ／メビウス変換",
+    "note": "添字 1..N を使用し、f[0] は未使用",
+    "bytes": 4761,
+    "sha256": "6bfd439000a5393734b9bea2be2cffa425cba43e9fe330a5dd2d68442652bb99"
+  },
+  {
+    "original": "SortedImplicitTreap.txt",
+    "path": "DataStructureAdvanced/sorted_implicit_treap.cpp",
+    "title": "Sorted Implicit Treap",
+    "note": "昇順列の管理と集計",
+    "bytes": 20979,
+    "sha256": "3d832e0e5e953d32d865fb22c173e89aaf5265b78b8ff171e84f439e70c4e157"
+  },
+  {
+    "original": "重み付きUnionFind.txt",
+    "path": "DataStructureBasic/weighted_union_find.cpp",
+    "title": "重み付きUnion-Find",
+    "note": "potential[b] - potential[a] を管理",
+    "bytes": 3584,
+    "sha256": "991fd76ea6ac419c6067f8a2920747787ba8e361014add0400b5db1f52226d17"
+  },
+  {
+    "original": "LCA.txt",
+    "path": "Tree/lca.cpp",
+    "title": "LCA",
+    "note": "最小共通祖先・距離・祖先判定",
+    "bytes": 4673,
+    "sha256": "d365191518823a8997eb0f099abe083c86bdfa5a7bea576fce16ace11047d619"
+  },
+  {
+    "original": "HLD.txt",
+    "path": "Tree/hld.cpp",
+    "title": "Heavy-Light Decomposition",
+    "note": "パスを区間分解。非可換演算向けの順序にも対応",
+    "bytes": 8841,
+    "sha256": "1bf9723175d534f08d0677d4e716279d7bc23051df91c5323e7959eec5c22bdd"
+  },
+  {
+    "original": "RollbackUnionFind.txt",
+    "path": "DataStructureBasic/rollback_union_find.cpp",
+    "title": "Rollback Union-Find",
+    "note": "経路圧縮なし。直前のmerge呼び出しを取り消す",
+    "bytes": 4248,
+    "sha256": "1df3098cbdcee5800763541728e2b0a6a579bd5da2bb10b17e5d4d0e0b4a8f23"
+  },
+  {
+    "original": "LiChaoTree.txt",
+    "path": "DiscreteConvexity/li_chao_tree.cpp",
+    "title": "Li Chao Tree",
+    "note": "直線・区間直線の最小値／最大値",
+    "bytes": 6631,
+    "sha256": "1a173f78d2b9a0e8b3565c2ff9767dfc71db7bd5d3a10eafc85563ce8dbfa6ed"
+  },
+  {
+    "original": "ConvexHullTrick.txt",
+    "path": "DiscreteConvexity/convex_hull_trick.cpp",
+    "title": "Convex Hull Trick",
+    "note": "傾きの追加順に制約。query の x の順序は任意",
+    "bytes": 3436,
+    "sha256": "5e57e8c0fa1e3b619a226a279985be8aa5f32d76e8b83b4a532db36091330dff"
+  },
+  {
+    "original": "DequeCHT.txt",
+    "path": "DiscreteConvexity/deque_cht.cpp",
+    "title": "Deque CHT",
+    "note": "傾きの追加順とqueryの x の順序に制約",
+    "bytes": 3929,
+    "sha256": "c182242556f19ba6ba249552f6c247718df505b096b34a3ecae9d243c57679c4"
+  },
+  {
+    "original": "全方位木DP（Rerooting）.txt",
+    "path": "Tree/rerooting.cpp",
+    "title": "全方位木DP",
+    "note": "merge・lift・add_vertex を指定",
+    "bytes": 6768,
+    "sha256": "fe0d92a04c33e18bbd6a424ad3a2b03580a90a7047aaa06a446c4216afc6735f"
+  },
+  {
+    "original": "AhoCorasick.txt",
+    "path": "String/aho_corasick.cpp",
+    "title": "Aho-Corasick",
+    "note": "複数文字列の照合。文字列追加後にbuild",
+    "bytes": 5633,
+    "sha256": "7bd16c7b8f1a04047f864ed99bc90c5fe5f944c0f6a78013b1550a5e57d1db9a"
+  },
+  {
+    "original": "Mo's Algorithm.txt",
+    "path": "Search/mo.cpp",
+    "title": "Mo法",
+    "note": "オフライン区間クエリ。add/remove/output を指定",
+    "bytes": 3790,
+    "sha256": "bebfa096b20d5a2f25d39c3f6ed1234e66e8bed9e6a0cdad02443c7b6b03e52d"
+  },
+  {
+    "original": "XOR基底.txt",
+    "path": "LinearAlgebra/xor_basis.cpp",
+    "title": "XOR基底",
+    "note": "符号なし整数型を使用",
+    "bytes": 3818,
+    "sha256": "a528ff2ab02cc5202cf45fbb30768d5ed5928c11bcb8c800e9e30bb29952b377"
+  },
+  {
+    "original": "Miller-RabinPollard Rho.txt",
+    "path": "MathNumberTheory/miller_rabin_pollard_rho.cpp",
+    "title": "Miller-Rabin / Pollard Rho",
+    "note": "uint64_t の素数判定と素因数分解",
+    "bytes": 4918,
+    "sha256": "ffe969adf8a36306bc0604df643066edb659a65dcf134c0ca5b402d22823f3e5"
+  },
+  {
+    "original": "トポロジカルソート.txt",
+    "path": "Graph/scc_condensation.cpp",
+    "title": "SCCと縮約DAG",
+    "note": "元のファイル名と異なり、本文はSCC結果と縮約DAGの処理",
+    "bytes": 4679,
+    "sha256": "09bd39661ec3a01f48cbfb33bdfdee81100dc42dd011eebaae6b6001c14fea9f"
+  },
+  {
+    "original": "木の直径・全ての頂点からの最遠点までの距離.txt",
+    "path": "Tree/tree_diameter.cpp",
+    "title": "木の直径・最遠距離",
+    "note": "重みなし・非負重み付きの実装を収録",
+    "bytes": 5853,
+    "sha256": "47aa47836b7af8d53b57f4944b6e5fe61c418142debc8e9f66f1113961876e19"
+  },
+  {
+    "original": "StaticRollingHash.txt",
+    "path": "String/static_rolling_hash.cpp",
+    "title": "静的Rolling Hash",
+    "note": "区間は [l,r)。二重のランダム化ハッシュ",
+    "bytes": 9634,
+    "sha256": "3f0d31576ef832fbf5be4971a2a1735fdd46a3e18aed7c498f56affddff9c74b"
+  },
+  {
+    "original": "WaveletMatrix.txt",
+    "path": "DataStructureSegment/wavelet_matrix.cpp",
+    "title": "Wavelet Matrix",
+    "note": "静的列。k番目の k は 0-indexed",
+    "bytes": 8205,
+    "sha256": "bfc363fdb1be3a9d85e9e3714e500dc955d0be8e269cec1ca4ed187807101a5f"
+  },
+  {
+    "original": "DynamicWeightedWaveletMatrix.txt",
+    "path": "DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp",
+    "title": "動的重み付きWavelet Matrix",
+    "note": "変更に使う可能性のあるキーをuniverseに事前登録",
+    "bytes": 18795,
+    "sha256": "6e9fe407f25c401150cabefdeb04f4274a50a6f61333959e330ea59b7e13707b"
+  },
+  {
+    "original": "DynamicRollingHash.txt",
+    "path": "String/dynamic_rolling_hash.cpp",
+    "title": "動的Rolling Hash",
+    "note": "列の変更に対応するハッシュ",
+    "bytes": 16493,
+    "sha256": "058444b74347004a2fd37ceee3f33c2c89a36b2f377e2dec1b5ec91b0bcaa89a"
+  },
+  {
+    "original": "木の重心.txt",
+    "path": "Tree/tree_centroid.cpp",
+    "title": "木の重心",
+    "note": "重みなし・頂点重み付きの重心情報",
+    "bytes": 3565,
+    "sha256": "cf03a629510bbb50391cedaf83aad756477db3116afb76b31ab6f40c0e4d6657"
+  },
+  {
+    "original": "XOR畳み込み.txt",
+    "path": "FPSandPolynomial/xor_convolution.cpp",
+    "title": "XOR畳み込み（FWHT）",
+    "note": "mod版の逆変換は gcd(N,mod)=1 が必要",
+    "bytes": 3729,
+    "sha256": "f204e80f74565baad35bb49dba06f98e49bf7d78b960354345839fda48b0515d"
+  },
+  {
+    "original": "SegmentTreeBeats!.txt",
+    "path": "DataStructureSegment/segment_tree_beats.cpp",
+    "title": "Segment Tree Beats",
+    "note": "区間のchmin/chmax・加算・代入など",
+    "bytes": 9348,
+    "sha256": "9e7fb9981c7673b81c5824092dc96112a003b576547a4a9b1f77cf1db119fde0"
+  },
+  {
+    "original": "Segment Tree Beats! Extra.txt",
+    "path": "DataStructureSegment/segment_tree_beats_extra.cpp",
+    "title": "Segment Tree Beats の拡張",
+    "note": "剰余・除算・平方根・ビット演算の各実装",
+    "bytes": 12793,
+    "sha256": "ae9ce38759ff34164c44a895193d089b57ac1d152dc481cc64b5982b9900c9ae",
+    "current_revision": {
+      "commit": "f9177dec185cbc540c81fa7c94c944c1e87348ac",
+      "bytes": 21198,
+      "sha256": "b681ab57b2f5b48094be8e49575e167d8533be598961fbb7e9756ef2e2827146",
+      "note": "名前解決・境界検査・空状態を修正し、除算・平方根の一括更新と63bitのAND/ORに対応。全公開APIの末尾コメントを整備。"
+    }
+  },
+  {
+    "original": "拡張ユークリッドの互除法.txt",
+    "path": "MathNumberTheory/extended_euclid.cpp",
+    "title": "拡張ユークリッド互除法",
+    "note": "一次不定方程式・合同式・逆元",
+    "bytes": 2295,
+    "sha256": "911bc8ac120788f72f857a563cbe55e448ad037e56a85813ff340b6e0e2aefee"
+  },
+  {
+    "original": "座標圧縮.txt",
+    "path": "DataStructureBasic/coordinate_compression.cpp",
+    "title": "座標圧縮",
+    "note": "Zip・一次元／二次元の圧縮。宣言順について確認事項あり",
+    "bytes": 2773,
+    "sha256": "70ff46abe90992253079218064d13fc4cfc84035fd38d447f0967a4328f57725",
+    "current_revision": {
+      "commit": "0eacd5e38b1bf98e3870a77821d54cee82f011e0",
+      "bytes": 13957,
+      "sha256": "906c0aae5e30705fc7edda51bea4c9e45967388f22a3e550fde8312aea5d0edf",
+      "note": "2026-10-15: 宣言順と構築状態・境界検査を改訂し、厳密検索・変換・復元・比較器対応と全公開APIコメントを追加。元のbytes/sha256は初回整理時の記録"
+    }
+  },
+  {
+    "original": "二部探索テンプレ.txt",
+    "path": "Snippets/binary_search.cpp",
+    "title": "二分探索の穴埋めテンプレート",
+    "note": "ok/ng と check を記入。std::midpoint はC++20",
+    "bytes": 175,
+    "sha256": "0f1e841df45f2d7efb51dc61ab3afffce61a034ff80c756af899d9da5bc82f3a"
+  },
+  {
+    "original": "コードatcoder抜き.txt",
+    "path": "Templates/modint_only.cpp",
+    "title": "modintのみをincludeするテンプレート",
+    "note": "元の名前に反して atcoder/modint の依存が残る",
+    "bytes": 7675,
+    "sha256": "b094cca1da0f1284341de0c7ed0d6eece98f134be22ec99b59bdffd10a424dd6"
+  },
+  {
+    "original": "FunctionalGraph.txt",
+    "path": "Graph/functional_graph.cpp",
+    "title": "Functional Graph",
+    "note": "サイクル情報、到達可能性、距離",
+    "bytes": 3704,
+    "sha256": "3788e9d0b14319bbec58555dba7d718fc7b0cb16bf1c77bc3985bae1e0bf8e46"
+  },
+  {
+    "original": "EulerTrail.txt",
+    "path": "Graph/euler_trail.cpp",
+    "title": "オイラー路・閉路",
+    "note": "有向／無向グラフ。全辺を使えない場合は空vector",
+    "bytes": 1761,
+    "sha256": "965cc681a3d7656738a2eb431e7d29225ee690d056d4bc38889cfc21d170669e"
+  },
+  {
+    "original": "LinearSieve.txt",
+    "path": "MathNumberTheory/linear_sieve.cpp",
+    "title": "線形篩",
+    "note": "素数・最小素因数・phi・mu",
+    "bytes": 1558,
+    "sha256": "01177e3d23d84fb6cad985e797b3f44f3b96e33beb84ee4ab10c3592a2adcffb"
+  },
+  {
+    "original": "BinaryLifting.txt",
+    "path": "Graph/binary_lifting.cpp",
+    "title": "Binary Lifting",
+    "note": "遷移のダブリングと結合則を満たす集計",
+    "bytes": 1454,
+    "sha256": "685eabc4e916adbfcdc52ce8aa53f5305bf4d0764f4666bf444c2a413cc0450d"
+  },
+  {
+    "original": "Gaussian Elimination.txt",
+    "path": "LinearAlgebra/gaussian_elimination.cpp",
+    "title": "ガウス消去法",
+    "note": "modint などの体上の連立一次方程式",
+    "bytes": 1434,
+    "sha256": "d387615b30fef3e72f1b85c48bfbfb9a79e6ad72a0f1a15576e3c68ae1a9989c"
+  },
+  {
+    "original": "GF(2) Gaussian Elimination.txt",
+    "path": "LinearAlgebra/gf2_gaussian_elimination.cpp",
+    "title": "GF(2) のガウス消去法",
+    "note": "bitset の最終列に右辺を格納",
+    "bytes": 1148,
+    "sha256": "d6d2887afede6defec4c3a7863b861a44c16bee7ba0346bf3f9d167fb7c8aa6b"
+  },
+  {
+    "original": "VirtualTreeResult.txt",
+    "path": "Tree/virtual_tree.cpp",
+    "title": "Virtual Tree",
+    "note": "DFS順・深さ・LCA関数を与えて構築",
+    "bytes": 1365,
+    "sha256": "66e3c631ef552a0e26620b538effa100164f4ee0b71d4d56e6b826d1645cc8fc"
+  },
+  {
+    "original": "DSUonTree.txt",
+    "path": "Tree/dsu_on_tree.cpp",
+    "title": "DSU on Tree",
+    "note": "部分木クエリ用。再帰を使用",
+    "bytes": 1812,
+    "sha256": "36f396a04af9d1417f1e40a874b8a5cc481f7853ef2813c8b0723fcb13bd51e0"
+  },
+  {
+    "original": "OfflineDynamicConnectivity.txt",
+    "path": "Graph/offline_dynamic_connectivity.cpp",
+    "title": "動的連結性（オフライン）",
+    "note": "辺の追加・削除・連結性クエリ",
+    "bytes": 2860,
+    "sha256": "9b6cd2bda25591ae28a8b6de542a4696f9c836c3afff23d7ed93c98734a1a6c6"
+  },
+  {
+    "original": "01-StringWavelerMatrix.txt",
+    "path": "String/binary_string_order_set.cpp",
+    "title": "二進文字列の順序管理",
+    "note": "本文のクラス名は StringWaveletMatrix",
+    "bytes": 13226,
+    "sha256": "d0314969b3d81a0f9afb2f7fac178c208ddbe6f26f3626dea3625ab1836ba342"
+  },
+  {
+    "original": "TrieAZ.txt",
+    "path": "String/trie_lowercase.cpp",
+    "title": "Trie（英小文字）",
+    "note": "本文の文字写像は a..z",
+    "bytes": 3698,
+    "sha256": "eeb9c8278877c65d17cb86b950ec1730d3e8ea7cab3607e5164b1218952d56c8"
+  },
+  {
+    "original": "TrieAzaz.txt",
+    "path": "String/trie_letters.cpp",
+    "title": "Trie（英小文字・英大文字）",
+    "note": "本文のクラス名は TrieAzAZ",
+    "bytes": 3587,
+    "sha256": "9edf7b43d4ac1e0a8801e36070073ebd8b486f3cf6de35cef9169f0902fc87de"
+  },
+  {
+    "original": "Trie09.txt",
+    "path": "String/trie_digits.cpp",
+    "title": "Trie（数字）",
+    "note": "文字 0..9",
+    "bytes": 3438,
+    "sha256": "5f3e932301d114d78389704292f0ba755dc05fd60fc068ed185daca862ee2bc8"
+  },
+  {
+    "original": "TrieAZ09.txt",
+    "path": "String/trie_lowercase_digits.cpp",
+    "title": "Trie（英小文字・数字）",
+    "note": "本文の文字写像は a..z と 0..9",
+    "bytes": 3753,
+    "sha256": "87911cadbdf5b45b679af4385625a5a8f031f67e98fed7ee47d50a9874550954"
+  },
+  {
+    "original": "segtree セグ木テンプレ.txt",
+    "path": "DataStructureSegment/segtree_wrappers.cpp",
+    "title": "ACL segtree の各種ラッパー",
+    "note": "最小／最大／和などの型と演算",
+    "bytes": 6685,
+    "sha256": "331d832e87b13d6dfa3e43e0f9be1d113abd0f3e97920a9caf10bf4b8ca0584a"
+  },
+  {
+    "original": "SegXXX.txt",
+    "path": "Snippets/segtree_custom.cpp",
+    "title": "ACL segtree の穴埋めテンプレート",
+    "note": "S・op・e を定義して使用",
+    "bytes": 334,
+    "sha256": "06e7fad07c1353be2096d34cbdc4365d326f056f354602a105285c69bf544aac"
+  },
+  {
+    "original": "lazy_segtree 遅延セグ木テンプレ.txt",
+    "path": "DataStructureSegment/lazy_segtree_wrappers.cpp",
+    "title": "ACL lazy_segtree の各種ラッパー",
+    "note": "区間加算・代入などの組み合わせ",
+    "bytes": 18415,
+    "sha256": "f77899d72d292bb82de41ab7d2ef51e830dcbfc773559c0e61fc18f560dceb84",
+    "current_revision": {
+      "commit": "f9177dec185cbc540c81fa7c94c944c1e87348ac",
+      "bytes": 32258,
+      "sha256": "3cc5c3a95909924e75c543bd34782f7c9d8c76f11bcdf83b5221df55ab4f6110",
+      "note": "17種類のラッパーの構築・境界検査・空状態とmodint型を整備し、全公開APIの返り値・操作・計算量を末尾コメントに記載。"
+    }
+  },
+  {
+    "original": "LazyXXX.txt",
+    "path": "Snippets/lazy_segtree_custom.cpp",
+    "title": "ACL lazy_segtree の穴埋めテンプレート",
+    "note": "S・F・各演算を定義。LazySegBase に依存",
+    "bytes": 1034,
+    "sha256": "3186adc763791d02dceb141feaaa638d4af6f3e5e0af89729965896d2920bdd9"
+  },
+  {
+    "original": "codet.txt",
+    "path": "Templates/multiple_test_cases.cpp",
+    "title": "複数テストケース用テンプレート",
+    "note": "solve の末尾を追記して使用",
+    "bytes": 9080,
+    "sha256": "9826b518a2ee22292929b0893ab70130ef34a199e132eff5e5d3f0ec07a6bdef"
+  },
+  {
+    "original": "codecf.txt",
+    "path": "Templates/codeforces.cpp",
+    "title": "Codeforces用テンプレート",
+    "note": "ACL modint の依存あり。Graph の型にも注意",
+    "bytes": 9473,
+    "sha256": "25f688ad1fef5388579dc8684ce39399ddce25a2c45cbd6e1e300ac538d31f28"
+  },
+  {
+    "original": "素数判定.txt",
+    "path": "MathNumberTheory/number_theory_bundle.cpp",
+    "title": "整数論のまとめ",
+    "note": "LinearSieve・素数関連・約数／倍数変換など",
+    "bytes": 5729,
+    "sha256": "cefbe90957700b70401939f3bc404cf2f5bce3b5a45aefeaddc3f8827719a00c"
+  },
+  {
+    "original": "BinaryTrie.txt",
+    "path": "DataStructureBasic/binary_trie.cpp",
+    "title": "Binary Trie",
+    "note": "整数集合の管理と全体XOR",
+    "bytes": 4716,
+    "sha256": "e617aaf0763009e9d826fa05dbfdbccd1081bb9f1ed380733f6b539e0260197d"
+  },
+  {
+    "original": "LowLink.txt",
+    "path": "Graph/lowlink.cpp",
+    "title": "LowLink",
+    "note": "橋・関節点などを計算",
+    "bytes": 5451,
+    "sha256": "9c9826690ebce44baab0fd4050cc6372e20939a95a5626042365f624cd3d0940"
+  },
+  {
+    "original": "コード.txt",
+    "path": "template.cpp",
+    "title": "基本テンプレート",
+    "note": "main の中身と閉じ括弧を追記して使用",
+    "bytes": 8995,
+    "sha256": "8797c4f17174bee58dd7fcef1b5f6d457ac2ba4b095b20614f5e84520db1703c"
+  }
+]

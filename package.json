@@ -1,0 +1,12 @@
+{
+  "name": "yuki4869-algorithm-reference",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node scripts/test-sync.mjs"
+  },
+  "dependencies": { "marked": "17.0.5" },
+  "engines": { "node": ">=22" }
+}

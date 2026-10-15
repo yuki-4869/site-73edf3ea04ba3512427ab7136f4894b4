@@ -49,6 +49,10 @@ for(const item of source.files){
  const itemSearch=search.find(x=>x.path===item.path);assert(itemSearch,"Missing search entry");
  const html=await fs.readFile(path.join(dist,itemSearch.url),"utf8");
  assert(html.includes('id="full-source"'),"Missing full source");
+ const sourceMarkup=html.match(/<code id="full-source">([\s\S]*?)<\/code>/);
+ assert(sourceMarkup,"Source code container is missing");
+ const renderedText=sourceMarkup[1].replace(/<\/?span[^>]*>/g,"").replace(/&(amp|lt|gt|quot|#39);/g,(_,entity)=>({amp:"&",lt:"<",gt:">",quot:'"',"#39":"'"}[entity]));
+ assert.equal(renderedText.replace(/\r\n?/g,"\n"),bytes.toString("utf8").replace(/\r\n?/g,"\n"),"Rendered copy text differs: "+item.path);
  assert(html.includes('data-copy-url="'+item.url+'"'),"Wrong reference copy URL");
 }
 const index=await fs.readFile(path.join(dist,"index.html"),"utf8");

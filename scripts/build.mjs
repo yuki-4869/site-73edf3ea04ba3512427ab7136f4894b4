@@ -98,6 +98,7 @@ function rewriteLink(href, currentDoc) {
   return base+target+(fragment ? "#"+fragment : (codeSet.has(resolved) ? "#implementation" : ""));
 }
 function highlightCpp(code) {
+  code=code.replace(/\r\n?/g,"\n");
   const tokens = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|^[ \t]*#[^\n]*|\b(?:alignas|alignof|auto|bool|break|case|catch|char|class|concept|const|consteval|constexpr|constinit|continue|decltype|default|delete|do|double|else|enum|explicit|export|extern|false|float|for|friend|if|inline|int|long|namespace|new|noexcept|nullptr|operator|private|protected|public|register|requires|return|short|signed|sizeof|static|static_assert|struct|switch|template|this|thread_local|throw|true|try|typedef|typename|union|unsigned|using|virtual|void|volatile|while)\b|\b(?:0x[0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)[uUlLfF]*\b)/gm;
   let result="",last=0;
   for(const match of code.matchAll(tokens)){

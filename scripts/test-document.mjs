@@ -92,6 +92,8 @@ const hashChanged = new Promise(resolve => doc.window.addEventListener("hashchan
 doc.window.location.hash = "#" + encodeURIComponent(supplement.querySelector("h2").id); await hashChanged;
 assert.equal(supplement.open,true,"Old links into folded verification sections must reveal them");
 assert.equal(doc.document.getElementById("rollbackunionfindmerge").textContent,"merge");
+assert.equal(doc.document.getElementById("rollbackunionfindrollbackall").textContent,"rollback_all","Short labels must retain identifier underscores");
+assert([...doc.document.querySelectorAll(".toc a")].some(a=>a.textContent==="rollback_all"));
 doc.window.close();
 
 const multi = new JSDOM(await fs.readFile(path.join(dist,"library/DataStructureSegment/segtree_wrappers.html"),"utf8"));

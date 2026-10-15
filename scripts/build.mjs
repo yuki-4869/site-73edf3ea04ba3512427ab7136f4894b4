@@ -124,9 +124,10 @@ function renderMarkdown(text,currentDoc) {
       const title=plain(token.text);
       const raw=title.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu,"").trim().replace(/\s+/g,"-")||"section";
       let id=raw,n=1; while(used.has(id))id=raw+"-"+n++;used.add(id);
-      const label=labelFor(title);
+      const displayTitle=searchText(token.text);
+      const label=labelFor(displayTitle);
       if(token.depth===2||token.depth===3)toc.push({title:label,id,depth:token.depth});
-      return "<h"+token.depth+' id="'+esc(id)+'">'+(label===title?this.parser.parseInline(token.tokens):esc(label))+"</h"+token.depth+">\n";
+      return "<h"+token.depth+' id="'+esc(id)+'">'+(label===displayTitle?this.parser.parseInline(token.tokens):esc(label))+"</h"+token.depth+">\n";
     },
     link(token) {
       const url=rewriteLink(token.href,currentDoc);

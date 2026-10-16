@@ -34,6 +34,13 @@ jobs:
           ref: main
           path: source
           persist-credentials: false
+      - name: Check out ACL for C++ verification
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: atcoder/ac-library
+          ref: 864245a00b00dd008d1abfdc239618fdb7d139da
+          path: ac-library
+          persist-credentials: false
       - name: Read public source revision
         id: source
         run: printf 'sha=%s\n' "$(git -C source rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -57,6 +64,20 @@ jobs:
             g++ -std=c++23 -O2 -Wall -Wextra -Wconversion -pedantic -Isource tests/and_zero_permutation_test.cpp -o "$RUNNER_TEMP/and-zero-permutation-test"
             "$RUNNER_TEMP/and-zero-permutation-test"
           fi
+      - name: Check library usage and template compatibility
+        if: steps.check.outputs.changed == 'true'
+        run: python3 tests/check-library.py --source source --acl ac-library --output "$RUNNER_TEMP/library-usage-checks"
+      - name: Run library regressions
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          for name in range_set coordinate_compression segment_wrappers; do
+            g++ -std=c++23 -O2 -Iac-library -Isource "tests/${name}_test.cpp" -o "$RUNNER_TEMP/${name}_test"
+            "$RUNNER_TEMP/${name}_test"
+          done
+          for name in coordinate_compression segment_wrappers; do
+            g++ -std=c++23 -O2 -DNDEBUG -Iac-library -Isource "tests/${name}_test.cpp" -o "$RUNNER_TEMP/${name}_ndebug_test"
+            "$RUNNER_TEMP/${name}_ndebug_test"
+          done
       - name: Build reference pages
         if: steps.check.outputs.changed == 'true'
         env:

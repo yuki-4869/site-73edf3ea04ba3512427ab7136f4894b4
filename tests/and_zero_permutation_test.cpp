@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+#include "silent-check.hpp"
 #include "MathCombinatorics/and_zero_permutation.cpp"
 #include <functional>
 #include <iostream>
@@ -53,9 +55,6 @@ int main() {
     for (int n = 0; n <= 1024; ++n) for (bool zero : {false, true}) check(n, zero);
     for (int k = 1; k <= 20; ++k) for (int delta : {-1, 0, 1})
         for (bool zero : {false, true}) check((1 << k) + delta, zero);
-    bool rejected = false;
-    try { and_zero_permutation(-1); }
-    catch (const std::invalid_argument&) { rejected = true; }
-    require(rejected);
+    require(stops_silently([]{and_zero_permutation(-1);}));
     std::cout << "AND-zero permutation: matching oracle, range, bijection, AND, and boundary checks passed.\n";
 }

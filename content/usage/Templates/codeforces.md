@@ -77,7 +77,7 @@ Nはvector長または二項係数の上側。ll=long long、LL=__int128。
 
 ## この実装の注意点
 
-solveの処理を記入して使用します。名前にatcoder抜きやCodeforcesが含まれていてもACL modint依存は残っています。Graphはvector<pair<ll,ll>>で隣接リストではありません。重み付き木などの実装にはvector<vector<pair<ll,ll>>>を用意してください。
+solveの処理を記入して使用します。名前にatcoder抜きやCodeforcesが含まれていてもACL modint依存は残っています。Graphはvector<vector<pair<ll,ll>>>の重み付き隣接リストです。基本テンプレートと型を統一しています。
 
 <a id="api-1"></a>
 

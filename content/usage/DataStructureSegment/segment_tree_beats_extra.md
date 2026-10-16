@@ -20,7 +20,7 @@
 | SegSqrt | floor平方根 | 和・最小・最大・区間長 |
 | SegBitwiseBeats | bit AND / OR | 上記と区間のbit OR / AND |
 
-ソースの標準ヘッダだけで使用でき、ACL・個人テンプレートには依存しません。
+基本テンプレートの `<bits/stdc++.h>` で標準ヘッダーを読み込みます。型は実装内で明示し、ACLには依存しません。
 
 **制約**
 
@@ -29,7 +29,7 @@
 - 各更新後の全体の和と中間演算がlong longに収まること。算術オーバーフローは一律に検出しません。
 - とくにpoint set・区間assign・bit ORで値を増やす場合、全体の和の上限も確認してください。
 
-範囲外はstd::out_of_range、負の値・負の長さ・0以下の法/除数はstd::invalid_argument、長さの上限超過はstd::length_errorです。
+範囲外、負の値・負の長さ、0以下の法/除数、長さの上限超過はメッセージなしで停止します。
 NDEBUGでも検査します。空区間への更新でも、法・除数・値の妥当性は検査します。
 
 ## コンストラクタ・コピー・ムーブ
@@ -197,9 +197,9 @@ assert(bits.prod(0,0).len==0);
 | 旧版 | 改訂版 |
 | --- | --- |
 | 補助min/maxを手動でstd::修飾 | ファイル全体をそのまま使用可能 |
-| ll・vector・sqrtlの個人設定に依存 | 必要な標準ヘッダと型をソースに収録 |
+| ll・vector・sqrtlの個人設定に依存 | 型を実装で明示し、標準ヘッダーは基本テンプレートに集約 |
 | n / stに直接アクセス | size / prod / get等を使用。内部配列と長さは非公開 |
-| assertの妥当性検査 | NDEBUGでも例外で検出 |
+| assertの妥当性検査 | NDEBUGでもメッセージなしで停止 |
 | Bitwiseの0<=値,mask<2^61 | 0以上のlong long（下位63bit）へ拡張。和の上限条件は別途必要 |
 | Bitwiseの空区間min/maxが0 | 他の型と同じLLONG_MAX / -LLONG_MAXに統一 |
 | INF=2^60 | 空区間用のINFはLLONG_MAXへ変更 |

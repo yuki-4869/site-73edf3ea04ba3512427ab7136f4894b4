@@ -77,7 +77,7 @@ Nはvector長または二項係数の上側。ll=long long、LL=__int128。
 
 ## この実装の注意点
 
-mainまたはsolveの関数本体が途中で終わる記入用ファイルです。問題の処理と閉じ括弧を追記してください。Graphはvector<pair<ll,ll>>で隣接リストではありません。重み付き木などの実装にはvector<vector<pair<ll,ll>>>を用意してください。
+mainまたはsolveの関数本体が途中で終わる記入用ファイルです。問題の処理と閉じ括弧を追記してください。Graphはvector<vector<pair<ll,ll>>>の重み付き隣接リストです。基本テンプレートと型を統一しています。
 
 <a id="api-1"></a>
 

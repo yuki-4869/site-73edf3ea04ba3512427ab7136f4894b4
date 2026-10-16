@@ -23,7 +23,7 @@ class Zip;
 using coordinate_zip::Zip;
 ```
 
-ソースには必要な標準ヘッダを含めています。ファイル全体をグローバルに貼り付けるか、ローカルではincludeして使えます。
+標準ヘッダーは基本テンプレートの `<bits/stdc++.h>` で読み込み、実装本体はその後のグローバル領域に置きます。
 `Zip<long long>` のように短い名前でも利用できます。
 `value_type` はT、`const_iterator` は読み取り専用のイテレータ、`const_reference` は通常 `const T&`（T=boolの場合はbool）です。
 
@@ -32,7 +32,7 @@ using coordinate_zip::Zip;
 - Tはコピー・移動・ソートに必要な操作が可能であること。
 - Compareはstrict weak ordering（厳密弱順序）を定義し、コピー可能であること。既定はstd::less<T>。
 - 同値性は `!compare(a,b) && !compare(b,a)` で判定します。Tのoperator==は不要です。
-- 異なる値の種類数UはINT_MAX以下。超過時はbuildがstd::length_errorを投げます。
+- 異なる値の種類数UはINT_MAX以下。超過時はbuildがメッセージなしで停止します。
 
 比較器で同値とした値のうち、どれを代表値として残すかは保証しません。
 例えばレコードのkeyだけで比較する場合、同じkeyを持つ別のレコードに逆変換されることがあります。
@@ -49,7 +49,7 @@ using coordinate_zip::Zip;
 | clear | 構築済みの空表 |
 | reserve、空の配列・リストのadd | 状態を変更しない |
 
-未構築状態で検索・逆引き・size・empty・values・列挙・配列変換を行うと `std::logic_error` を投げます。NDEBUGでも検出します。
+未構築状態で検索・逆引き・size・empty・values・列挙・配列変換を行うと メッセージなしで停止します。NDEBUGでも検出します。
 未構築でもadd、build、assign、clear、reserve、ready、pending_sizeは利用できます。
 追加して再構築すると、以前の圧縮番号も変わる場合があります。使用する値をすべて登録してから番号を取得してください。
 
@@ -212,7 +212,7 @@ const_reference operator[](int i) const;
 const_reference at(int i) const;
 ```
 
-圧縮番号iの代表値を返します。どちらも境界チェックを行い、番号が範囲外ならstd::out_of_rangeを投げます。
+圧縮番号iの代表値を返します。どちらも境界チェックを行い、番号が範囲外ならメッセージなしで停止します。
 
 **制約**
 
@@ -267,9 +267,9 @@ std::vector<T> unzip(const std::vector<int>& ids) const;
 
 zipは各値のlower位置を返す旧版互換の変換です。未登録値も許可し、番号Uになる場合もあります。
 
-zip_exactは登録値だけを圧縮し、1つでも未登録値があればstd::out_of_rangeを投げます。新しく圧縮番号を配列の添字として使う場合は、こちらも利用できます。
+zip_exactは登録値だけを圧縮し、1つでも未登録値があればメッセージなしで停止します。新しく圧縮番号を配列の添字として使う場合は、こちらも利用できます。
 
-unzipは番号列を代表値の列に復元します。範囲外の番号があればstd::out_of_rangeを投げます。比較器で同値とした別個の値を、元の個別値へ復元する操作ではありません。
+unzipは番号列を代表値の列に復元します。範囲外の番号があればメッセージなしで停止します。比較器で同値とした別個の値を、元の個別値へ復元する操作ではありません。
 
 **計算量**
 
@@ -341,7 +341,7 @@ assert((result==std::vector<std::pair<int,int>>{{1,0},{0,1},{1,1}}));
 | xsへの直接アクセス | values()または読み取り専用走査を使用 |
 | builtフィールド | ready()を使用 |
 | 未構築でもsizeが登録配列の長さを返す | sizeは構築後のU。未構築の長さはpending_size() |
-| assertだけによる未構築・添字の検査 | logic_error / out_of_rangeでNDEBUGでも検出 |
+| assertだけによる未構築・添字の検査 | NDEBUGでもメッセージなしで停止 |
 | 重複除去でTのoperator==を使用 | 比較器の等価性を使用。==がない型も対応 |
 
 既定の空表は構築済みになりました。既存の空表にbuildしても、そのままO(1)で利用できます。
@@ -350,7 +350,7 @@ assert((result==std::vector<std::pair<int,int>>{{1,0},{0,1},{1,1}}));
 
 ## 確認結果
 
-- GCC 13.3.0、GNU C++23でソースの標準ヘッダだけを使う専用テストと、基本テンプレートを併用する使用例を確認。
+- GCC 13.3.0、GNU C++23で標準ヘッダーを先に読み込む専用テストと、基本テンプレートを併用する使用例を確認。
 - 空表、重複、再構築、未登録値、未構築での検索・列挙・変換、範囲外番号、自己参照の追加・置換、コピー・ムーブを確認。
 - long longの最小値・最大値、文字列・pair・tuple・bool、operator== / <のない型、独自の比較器を確認。
 - 昇順long long / 降順intを各64シード・1024ステップ、計131,072ステップで独立なstd::setと比較。各ステップで複数の検索・逆引き・変換も確認。

@@ -36,7 +36,7 @@ struct FunctionalGraph;
 
 ## この実装の注意点
 
-元コード末尾のコメントにある jump / in_cycle / cycle_size / distance / reachable / cycle[id] は、この実装にはありません。コメント内の vector<int> の例もコンストラクタの vector<ll> と一致していません。k回遷移には別ファイルのBinaryLiftingを使用します。
+末尾コメントは実装済みのAPIと一致するように整理済みです。サイクル情報をO(N)で前計算し、k回遷移には別ファイルのBinaryLiftingを使用します。
 
 <a id="api-1"></a>
 

@@ -62,5 +62,6 @@
   "Tree/tree_centroid.cpp": "27fb5ade66553fe5a8baa9f772a28d4fb5f80aea",
   "Tree/tree_diameter.cpp": "5b17f953669e2246ec5bfad648b6c2641a3389de",
   "Tree/virtual_tree.cpp": "1064d9306f6e985988813ae6981d2e310647fb5e",
-  "template.cpp": "42b7ac0ec708d7e9aa38c51ecaa32ed679b1a36f"
+  "template.cpp": "42b7ac0ec708d7e9aa38c51ecaa32ed679b1a36f",
+  "MathCombinatorics/and_zero_permutation.cpp": "eb034e945c811f2cc7925e6661a9dd8ae4c4732a"
 }

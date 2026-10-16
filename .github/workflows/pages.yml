@@ -50,6 +50,13 @@ jobs:
       - name: Install renderer
         if: steps.check.outputs.changed == 'true'
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check AND-zero permutation
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          if [ -f source/MathCombinatorics/and_zero_permutation.cpp ]; then
+            g++ -std=c++23 -O2 -Wall -Wextra -Wconversion -pedantic -Isource tests/and_zero_permutation_test.cpp -o "$RUNNER_TEMP/and-zero-permutation-test"
+            "$RUNNER_TEMP/and-zero-permutation-test"
+          fi
       - name: Build reference pages
         if: steps.check.outputs.changed == 'true'
         env:

@@ -329,6 +329,13 @@
     "categoryId": "MathCombinatorics"
   },
   {
+    "path": "MathCombinatorics/and_zero_permutation.cpp",
+    "title": "ANDが0になる順列",
+    "description": "各位置のビットANDが0となる順列をO(N)で構築。0始まり／1始まりに対応",
+    "category": "組合せ",
+    "categoryId": "MathCombinatorics"
+  },
+  {
     "title": "XOR基底",
     "path": "LinearAlgebra/xor_basis.cpp",
     "description": "符号なし整数型を使用",

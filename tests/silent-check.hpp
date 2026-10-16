@@ -13,6 +13,9 @@ bool stops_silently(F operation) {
     const pid_t child=fork();
     if (child<0) std::abort();
     if (child==0) {
+        // Verify delivery of SIGABRT without invoking host core-dump services.
+        std::signal(SIGABRT,[](int){_exit(199);});
+        alarm(10);
         close(descriptors[0]);
         dup2(descriptors[1],STDOUT_FILENO);
         dup2(descriptors[1],STDERR_FILENO);
@@ -34,5 +37,5 @@ bool stops_silently(F operation) {
     close(descriptors[0]);
     int status=0;
     if (waitpid(child,&status,0)!=child) std::abort();
-    return silent && WIFSIGNALED(status) && WTERMSIG(status)==SIGABRT;
+    return silent && WIFEXITED(status) && WEXITSTATUS(status)==199;
 }

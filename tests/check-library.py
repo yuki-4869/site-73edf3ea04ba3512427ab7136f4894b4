@@ -43,14 +43,25 @@ def common(template):
 
 
 def basic(path):
+    if path in TEMPLATES.values():
+        return documented_example(path)
     return raw(path).split('\n基本の関数\n',1)[1].rsplit('*/',1)[0].strip()
+
+
+def documented_example(path):
+    page=SITE/'content/usage'/Path(path).with_suffix('.md')
+    section=page.read_text().split('## 使用例\n',1)[1]
+    return re.search(r'```cpp\n(.*?)\n```',section,re.S)[1]
 
 
 def policy(path):
     text=raw(path)
-    assert text.count('/*')==text.count('*/')==1, path
-    assert text.endswith('*/\n'), path
-    assert text.index('細かい注意点')<text.index('使える関数一覧')<text.index('基本の関数'),path
+    if path in TEMPLATES.values():
+        assert '//' not in text and '/*' not in text and '*/' not in text, path
+    else:
+        assert text.count('/*')==text.count('*/')==1, path
+        assert text.endswith('*/\n'), path
+        assert text.index('細かい注意点')<text.index('使える関数一覧')<text.index('基本の関数'),path
     body=implementation(path)
     assert '//' not in body and '/*' not in body, path
     assert not re.search(r'\b(?:throw|assert)\s*\(?',body),path
@@ -67,9 +78,7 @@ def translation(path,template,example=False):
     text=implementation(path)
     code=basic(path)
     if example:
-        page=SITE/'content/usage'/Path(path).with_suffix('.md')
-        section=page.read_text().split('## 使用例\n',1)[1]
-        code=re.search(r'```cpp\n(.*?)\n```',section,re.S)[1]
+        code=documented_example(path)
     if path=='template.cpp' or path.startswith('Templates/'):
         return implementation(path).split('signed main(){',1)[0]+'\nint main(){\n'+code+'\n}\n'
     if path=='Tree/virtual_tree.cpp' and example:

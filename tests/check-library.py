@@ -57,12 +57,17 @@ def documented_example(path):
 def policy(path):
     text=raw(path)
     if path in TEMPLATES.values():
-        assert '//' not in text and '/*' not in text and '*/' not in text, path
+        link='// https://github.com/yuki-4869/Algorithm/blob/main/'+path+'\n'
+        assert text.startswith(link), path
+        remainder=text[len(link):]
+        assert '//' not in remainder and '/*' not in remainder and '*/' not in remainder, path
     else:
         assert text.count('/*')==text.count('*/')==1, path
         assert text.endswith('*/\n'), path
         assert text.index('細かい注意点')<text.index('使える関数一覧')<text.index('基本の関数'),path
     body=implementation(path)
+    if path in TEMPLATES.values():
+        body=body.split('\n',1)[1]
     assert '//' not in body and '/*' not in body, path
     assert not re.search(r'\b(?:throw|assert)\s*\(?',body),path
     assert not re.search(r'\b(?:cerr|clog|fprintf|printf|puts|perror)\b',body),path

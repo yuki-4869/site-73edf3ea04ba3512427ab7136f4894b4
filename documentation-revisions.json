@@ -51,9 +51,9 @@
   "String/trie_letters.cpp": "0af1acd6b1bd4599037eac80c028ab5fd403a7bd",
   "String/trie_lowercase.cpp": "26a03dbd9dfbe49aa74f2e1d6eb947c0a57093f1",
   "String/trie_lowercase_digits.cpp": "8c1285e4156c176b6518fe612048d45a9a36fb4d",
-  "Templates/codeforces.cpp": "05bb921e5fd3d38b92a340a6f5424b66a66ef6e4",
+  "Templates/codeforces.cpp": "705e7f17eae541dcdce0d0ddb7b80cce53609d78",
   "Templates/modint_only.cpp": "43e2170ef3a44d80b95b9e85871a6d16912bb407",
-  "Templates/multiple_test_cases.cpp": "ff82663d2886048d75753ad86629dad0dfd87b3d",
+  "Templates/multiple_test_cases.cpp": "fb5d363dbf67cc8b17fc87b472ff18cf6a0463f2",
   "Tree/cartesian_tree.cpp": "96269d4a181086d31198289702748747037a0330",
   "Tree/dsu_on_tree.cpp": "7741fd7e7e4af1aaeb3e48de7afeda99d09af87e",
   "Tree/hld.cpp": "41b44378202fac53c5217374298226d07cc9d130",
@@ -62,6 +62,6 @@
   "Tree/tree_centroid.cpp": "b23853d256810671776b44b7cd02f3ae958a132d",
   "Tree/tree_diameter.cpp": "038b73117b202c83a6221f3c3b984b44d6080dc1",
   "Tree/virtual_tree.cpp": "b967618339c44d7962c4746adbc73ffbbc0f87df",
-  "template.cpp": "7ba0fd2bfe4c7715bc9bc25d5d1ca1dbdb259a0e",
+  "template.cpp": "47294f7eb8d6d8285443921d1157d6f10aff2169",
   "MathCombinatorics/and_zero_permutation.cpp": "4c32e0abf6d61a82b9a9273817b8029c7fbda52e"
 }

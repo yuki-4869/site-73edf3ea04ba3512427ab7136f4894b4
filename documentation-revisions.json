@@ -9,7 +9,7 @@
   "DataStructureBasic/weighted_union_find.cpp": "92c9f61def4a5b37c584747d68408e6675cc6f39",
   "DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp": "6b935e8b3825592e3cf3a0709be7c50555db84ae",
   "DataStructureSegment/lazy_segtree_wrappers.cpp": "4b0eed2ffe749d55029a4b21f3d6632cb2dafd65",
-  "DataStructureSegment/persistent_segment_tree.cpp": "18e687c9272c8183be9011546d58511983181f7a",
+  "DataStructureSegment/persistent_segment_tree.cpp": "fdcd109b0845e9fda715cff2c17ec73d6c423bbb",
   "DataStructureSegment/segment_tree_beats.cpp": "1a6df775ee8744ca1f9bdb3eb965f7b4041cf1e8",
   "DataStructureSegment/segment_tree_beats_extra.cpp": "e83e8b447c537b2d1ba7e536b6760fbd9a8a3f26",
   "DataStructureSegment/segtree_wrappers.cpp": "6e1537a783e6c22fa95a52d65058127629830af3",

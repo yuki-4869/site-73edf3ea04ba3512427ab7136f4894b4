@@ -15,7 +15,7 @@
 | [基本テンプレート](#category-1) | 1 |
 | [テンプレートの別版](#category-2) | 3 |
 | [基礎データ構造](#category-3) | 5 |
-| [区間データ構造](#category-4) | 8 |
+| [区間データ構造](#category-4) | 9 |
 | [高度なデータ構造](#category-5) | 3 |
 | [CHT・離散凸性](#category-6) | 3 |
 | [グラフ](#category-7) | 7 |
@@ -66,7 +66,8 @@
 | 説明ページ | 内容 | 実装 |
 | --- | --- | --- |
 | [Disjoint Sparse Table](DataStructureSegment/disjoint_sparse_table.md) | 静的な結合的区間積をO(1)で取得、非可換演算にも対応 | [コード](../../DataStructureSegment/disjoint_sparse_table.cpp) |
-| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | 過去の版から分岐、容量検査・遅延ノード確保（改訂済み） | [コード](../../DataStructureSegment/persistent_segment_tree.cpp) |
+| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | ACL形式の点更新・区間積・左右探索、コピーで版を保存 | [コード](../../DataStructureSegment/persistent_segment_tree.cpp) |
+| [永続遅延セグメント木](DataStructureSegment/persistent_lazy_segment_tree.md) | ACL形式の区間更新・区間積・左右探索、コピーで版を保存 | [コード](../../DataStructureSegment/persistent_lazy_segment_tree.cpp) |
 | [Wavelet Matrix](DataStructureSegment/wavelet_matrix.md) | 静的列。k番目の k は 0-indexed | [コード](../../DataStructureSegment/wavelet_matrix.cpp) |
 | [動的重み付きWavelet Matrix](DataStructureSegment/dynamic_weighted_wavelet_matrix.md) | 変更に使う可能性のあるキーをuniverseに事前登録 | [コード](../../DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp) |
 | [Segment Tree Beats](DataStructureSegment/segment_tree_beats.md) | 区間のchmin/chmax・加算・代入など | [コード](../../DataStructureSegment/segment_tree_beats.cpp) |

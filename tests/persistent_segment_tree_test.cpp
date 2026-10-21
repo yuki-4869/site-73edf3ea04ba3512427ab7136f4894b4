@@ -1,16 +1,23 @@
 #include <bits/stdc++.h>
+#include <atcoder/segtree>
 #include "silent-check.hpp"
 using ll=long long;
 #include "DataStructureSegment/persistent_segment_tree.cpp"
 
 std::uint64_t checks=0;
-void require(bool ok){++checks;if(!ok)std::abort();}
-struct Sum{ll operator()(ll a,ll b)const{return a+b;}};
-using Tree=PersistentSegmentTree<ll,Sum,200000>;
-static_assert(!std::is_copy_constructible_v<Tree>);
-static_assert(!std::is_copy_assignable_v<Tree>);
-static_assert(!std::is_move_constructible_v<Tree>);
-static_assert(!std::is_move_assignable_v<Tree>);
+void require(bool ok,std::source_location at=std::source_location::current()){
+    ++checks;
+    if(!ok){std::cerr<<"check failed at line "<<at.line()<<'\n';std::abort();}
+}
+ll sum_op(ll a,ll b){return a+b;}
+ll sum_e(){return 0;}
+bool below_six(ll x){return x<6;}
+using Tree=PersistentSegmentTree<ll,sum_op,sum_e,300000>;
+using ACL=atcoder::segtree<ll,sum_op,sum_e>;
+static_assert(std::is_copy_constructible_v<Tree>);
+static_assert(std::is_copy_assignable_v<Tree>);
+static_assert(std::is_nothrow_move_constructible_v<Tree>);
+static_assert(std::is_nothrow_move_assignable_v<Tree>);
 
 ll scan(const std::vector<ll>&a,int l,int r){return std::accumulate(a.begin()+l,a.begin()+r,0LL);}
 ll right_scan(const std::vector<ll>&a,int l,ll limit){
@@ -19,30 +26,46 @@ ll right_scan(const std::vector<ll>&a,int l,ll limit){
     while(r<static_cast<int>(a.size())&&sum+a[r]<=limit)sum+=a[r++];
     return r;
 }
+ll left_scan(const std::vector<ll>&a,int r,ll limit){
+    ll sum=0;
+    int l=r;
+    while(l>0&&sum+a[l-1]<=limit)sum+=a[--l];
+    return l;
+}
 
 void exhaustive(){
-    for(int n=0;n<=6;++n){
-        Tree pst(n,Sum{},0);
+    for(int n=0;n<=7;++n){
         int count=1;
         for(int i=0;i<n;++i)count*=3;
-        std::vector<Tree::Node*> roots;
-        std::vector<std::vector<ll>> arrays;
         for(int mask=0;mask<count;++mask){
             std::vector<ll>a(n);
-            int x=mask;
-            for(auto&v:a){v=x%3-1;x/=3;}
-            const int before=pst.nodes_used();
-            auto root=pst.build(a);
-            require(pst.nodes_used()-before==(n?2*n-1:0));
-            roots.push_back(root);arrays.push_back(a);
+            int bits=mask;
+            for(auto&x:a){x=bits%3-1;bits/=3;}
+            Tree tree(a);
+            ACL acl(a);
+            require(tree.nodes_used()==(n?2*n-1:0));
+            for(int l=0;l<=n;++l)for(int r=l;r<=n;++r){
+                require(tree.prod(l,r)==scan(a,l,r));
+                require(tree.prod(l,r)==acl.prod(l,r));
+            }
+            for(int p=0;p<n;++p){
+                auto next=tree;
+                next.set(p,5);
+                require(next.get(p)==5&&tree.get(p)==a[p]);
+                require(next.all_prod()==tree.all_prod()-a[p]+5);
+            }
         }
-        for(std::size_t t=0;t<roots.size();++t){
-            auto root=roots[t];
-            for(int l=0;l<=n;++l)for(int r=l;r<=n;++r)require(pst.query(root,l,r)==scan(arrays[t],l,r));
-            if(n){
-                auto changed=pst.update(root,n-1,12);
-                require(pst.query(changed,0,n)==scan(arrays[t],0,n)-arrays[t].back()+12);
-                require(pst.query(root,0,n)==scan(arrays[t],0,n));
+        for(int mask=0;mask<(1<<n);++mask){
+            std::vector<ll>a(n);
+            for(int i=0;i<n;++i)a[i]=(mask>>i)&1;
+            const Tree tree(a);
+            ACL acl(a);
+            for(int limit=0;limit<=n+1;++limit)for(int p=0;p<=n;++p){
+                auto pred=[&](ll x){return x<=limit;};
+                require(tree.max_right(p,pred)==right_scan(a,p,limit));
+                require(tree.min_left(p,pred)==left_scan(a,p,limit));
+                require(tree.max_right(p,pred)==acl.max_right(p,pred));
+                require(tree.min_left(p,pred)==acl.min_left(p,pred));
             }
         }
     }
@@ -50,164 +73,149 @@ void exhaustive(){
 
 void branches(){
     std::mt19937_64 rng(20261022);
-    for(int trial=0;trial<400;++trial){
-        const int n=1+static_cast<int>(rng()%40);
-        Tree pst(n,Sum{},0);
-        std::vector<ll> initial(n);
-        for(auto&x:initial)x=static_cast<ll>(rng()%21);
-        std::vector<Tree::Node*> roots{pst.new_tree(),pst.build(initial)};
-        std::vector<std::vector<ll>> arrays{std::vector<ll>(n),initial};
-        for(int step=0;step<160;++step){
-            const std::size_t base=static_cast<std::size_t>(rng()%roots.size());
-            const int i=static_cast<int>(rng()%static_cast<unsigned>(n));
-            std::vector<ll> next=arrays[base];
-            const ll value=static_cast<ll>(rng()%21);
-            const int before=pst.nodes_used();
-            Tree::Node* root;
-            if(rng()%2){root=pst.update(roots[base],i,value);next[i]=value;}
-            else{
-                int calls=0;
-                root=pst.update_apply(roots[base],i,[&](ll x){++calls;return x+value;});
-                require(calls==1);next[i]+=value;
-            }
-            const int added=pst.nodes_used()-before;
-            require(added>=1&&added<=std::bit_width(static_cast<unsigned>(n-1))+1);
-            roots.push_back(root);arrays.push_back(next);
-            const Tree&reader=pst;
-            for(int t=0;t<12;++t){
-                const std::size_t version=static_cast<std::size_t>(rng()%roots.size());
+    for(int trial=0;trial<240;++trial){
+        const int n=1+static_cast<int>(rng()%48);
+        std::vector<ll>a(n);
+        for(auto&x:a)x=static_cast<ll>(rng()%16);
+        std::vector<Tree>versions{Tree(n),Tree(a)};
+        std::vector<ACL>acls{ACL(n),ACL(a)};
+        std::vector<std::vector<ll>>arrays{std::vector<ll>(n),a};
+        for(int step=0;step<200;++step){
+            const std::size_t base=static_cast<std::size_t>(rng()%versions.size());
+            const int p=static_cast<int>(rng()%static_cast<unsigned>(n));
+            const ll value=static_cast<ll>(rng()%31);
+            Tree next=versions[base];
+            ACL next_acl=acls[base];
+            auto next_array=arrays[base];
+            const int before=next.nodes_used();
+            next.set(p,value);next_acl.set(p,value);next_array[p]=value;
+            const int added=next.nodes_used()-before;
+            require(added>=1&&added<=static_cast<int>(std::bit_width(static_cast<unsigned>(n-1)))+1);
+            versions.push_back(next);acls.push_back(next_acl);arrays.push_back(next_array);
+            for(int sample=0;sample<8;++sample){
+                const std::size_t v=static_cast<std::size_t>(rng()%versions.size());
+                const Tree&reader=versions[v];
+                const int used=reader.nodes_used();
                 int l=static_cast<int>(rng()%static_cast<unsigned>(n+1));
                 int r=static_cast<int>(rng()%static_cast<unsigned>(n+1));
                 if(l>r)std::swap(l,r);
-                require(reader.query(roots[version],l,r)==scan(arrays[version],l,r));
-                const ll limit=static_cast<ll>(rng()%151);
-                require(reader.max_right(roots[version],l,[&](ll x){return x<=limit;})==right_scan(arrays[version],l,limit));
+                const int i=static_cast<int>(rng()%static_cast<unsigned>(n));
+                const ll limit=static_cast<ll>(rng()%201);
+                auto pred=[&](ll x){return x<=limit;};
+                require(reader.get(i)==arrays[v][i]&&reader.get(i)==acls[v].get(i));
+                require(reader.prod(l,r)==scan(arrays[v],l,r)&&reader.prod(l,r)==acls[v].prod(l,r));
+                require(reader.all_prod()==scan(arrays[v],0,n));
+                require(reader.max_right(l,pred)==right_scan(arrays[v],l,limit));
+                require(reader.min_left(r,pred)==left_scan(arrays[v],r,limit));
+                require(reader.max_right(l,pred)==acls[v].max_right(l,pred));
+                require(reader.min_left(r,pred)==acls[v].min_left(r,pred));
+                require(reader.nodes_used()==used);
             }
-            require(reader.query(roots[base],0,n)==scan(arrays[base],0,n));
         }
-        const int before=pst.nodes_used();
-        for(std::size_t t=0;t<roots.size();++t)require(pst.query(roots[t],0,n)==scan(arrays[t],0,n));
-        for(int i=0;i<100;++i)require(pst.new_tree()==roots[0]);
-        require(pst.nodes_used()==before);
+        for(std::size_t v=0;v<versions.size();++v)for(int p=0;p<n;++p)require(versions[v].get(p)==arrays[v][p]);
     }
 }
 
+std::string concat(std::string a,std::string b){return a+b;}
+std::string empty_string(){return "";}
 void noncommutative(){
-    auto concat=[](const std::string&a,const std::string&b){return a+b;};
-    using Strings=PersistentSegmentTree<std::string,decltype(concat),20000>;
-    Strings pst(9,concat,"");
-    std::vector<Strings::Node*>roots{pst.new_tree()};
-    std::vector<std::vector<std::string>>arrays{std::vector<std::string>(9)};
-    std::mt19937_64 rng(42);
-    for(int step=0;step<160;++step){
-        const std::size_t base=static_cast<std::size_t>(rng()%roots.size());
-        const int i=static_cast<int>(rng()%9);
-        auto next=arrays[base];
-        next[i]=std::string(1+static_cast<std::size_t>(rng()%2),static_cast<char>('a'+rng()%8));
-        roots.push_back(pst.update(roots[base],i,next[i]));arrays.push_back(next);
+    using Strings=PersistentSegmentTree<std::string,concat,empty_string,10000>;
+    std::vector<Strings>versions{Strings(std::vector<std::string>{"a","","bc","d","","ef","g"})};
+    std::vector<std::vector<std::string>>arrays{{"a","","bc","d","","ef","g"}};
+    std::mt19937_64 rng(4869);
+    for(int step=0;step<120;++step){
+        const std::size_t base=static_cast<std::size_t>(rng()%versions.size());
+        auto next=versions[base];auto a=arrays[base];
+        const int p=static_cast<int>(rng()%7);
+        a[p]=std::string(static_cast<std::size_t>(rng()%3),static_cast<char>('a'+rng()%7));
+        next.set(p,a[p]);versions.push_back(next);arrays.push_back(a);
     }
-    for(std::size_t t=0;t<roots.size();++t)for(int l=0;l<=9;++l){
-        std::string expected;
-        for(int r=l;r<=9;++r){
-            require(pst.query(roots[t],l,r)==expected);
-            const std::string target=expected;
-            auto pred=[&](const std::string&s){return target.starts_with(s);};
-            int end=l;
-            std::string current;
-            while(end<9&&pred(current+arrays[t][end]))current+=arrays[t][end++];
-            require(pst.max_right(roots[t],l,pred)==end);
-            if(r<9)expected+=arrays[t][r];
-        }
+    for(std::size_t v=0;v<versions.size();++v)for(int l=0;l<=7;++l)for(int r=l;r<=7;++r){
+        std::string target;
+        for(int i=l;i<r;++i)target+=arrays[v][i];
+        require(versions[v].prod(l,r)==target);
+        auto prefix=[&](std::string s){return target.starts_with(s);};
+        auto suffix=[&](std::string s){return target.ends_with(s);};
+        int right=l,left=r;
+        std::string current;
+        while(right<7&&prefix(current+arrays[v][right]))current+=arrays[v][right++];
+        current.clear();
+        while(left>0&&suffix(arrays[v][left-1]+current))current=arrays[v][--left]+current;
+        require(versions[v].max_right(l,prefix)==right);
+        require(versions[v].min_left(r,suffix)==left);
     }
 }
 
-struct NoDefault{
-    ll value;
-    NoDefault()=delete;
-    explicit NoDefault(ll x):value(x){}
-};
-struct WrappedSum{NoDefault operator()(const NoDefault&a,const NoDefault&b)const{return NoDefault(a.value+b.value);}};
-struct Counted{
+struct Value{
     static inline int live=0;
-    ll value;
-    explicit Counted(ll x):value(x){++live;}
-    Counted(const Counted&x):value(x.value){++live;}
-    ~Counted(){--live;}
+    ll x;
+    Value()=delete;
+    explicit Value(ll v):x(v){++live;}
+    Value(const Value&v):x(v.x){++live;}
+    Value&operator=(const Value&)=default;
+    ~Value(){--live;}
 };
-struct CountedSum{Counted operator()(const Counted&a,const Counted&b)const{return Counted(a.value+b.value);}};
+Value value_op(Value a,Value b){return Value(a.x+b.x);}
+Value value_e(){return Value(0);}
 
 void boundaries(){
-    PersistentSegmentTree<ll,Sum,1> empty(0,Sum{},0);
-    auto blank=empty.new_tree();
-    require(empty.build({})==blank&&empty.size()==0&&empty.nodes_used()==1);
-    require(empty.query(blank,0,0)==0);
-    require(empty.max_right(blank,0,[](ll x){return x==0;})==0);
-    PersistentSegmentTree<ll,Sum,2> one(1,Sum{},0);
-    auto filled=one.update(one.new_tree(),0,5);
-    require(one.query(filled,0,1)==5&&one.query(one.new_tree(),0,1)==0&&one.nodes_used()==2);
-    require(one.max_right(filled,0,[](ll x){return x<5;})==0);
-    require(one.max_right(filled,0,[](ll x){return x<=5;})==1);
-    PersistentSegmentTree<ll,Sum,6> exact(3,Sum{},0);
-    auto exact_root=exact.build({1,2,3});
-    require(exact.nodes_used()==6&&exact.query(exact_root,0,3)==6);
-    PersistentSegmentTree<ll,Sum> huge(LLONG_MAX,Sum{},0);
-    require(huge.nodes_used()==1&&huge.size()==LLONG_MAX);
-    auto huge_blank=huge.new_tree();
-    auto last=huge.update(huge_blank,LLONG_MAX-1,7);
-    auto middle=huge.update(last,LLONG_MAX/2,11);
-    auto first=huge.update(middle,0,13);
-    require(huge.query(last,LLONG_MAX-1,LLONG_MAX)==7);
-    require(huge.query(middle,0,LLONG_MAX)==18&&huge.query(first,0,LLONG_MAX)==31);
-    require(huge.query(huge_blank,0,LLONG_MAX)==0);
-    require(huge.max_right(last,0,[](ll x){return x<7;})==LLONG_MAX-1);
-    require(huge.max_right(middle,0,[](ll x){return x<=10;})==LLONG_MAX/2);
-    require(huge.max_right(first,LLONG_MAX/2+1,[](ll x){return x<7;})==LLONG_MAX-1);
-    require(huge.max_right(first,LLONG_MAX,[](ll){return true;})==LLONG_MAX);
-    require(huge.nodes_used()<=193);
-    PersistentSegmentTree<NoDefault,WrappedSum,100> wrapped(3,WrappedSum{},NoDefault(0));
-    auto wr=wrapped.build({NoDefault(2),NoDefault(4),NoDefault(8)});
-    auto wr2=wrapped.update_apply(wr,1,[](const NoDefault&v){return NoDefault(v.value+3);});
-    require(wrapped.query(wr,0,3).value==14&&wrapped.query(wr2,0,3).value==17);
-    require(Counted::live==0);
+    Tree empty;
+    require(empty.size()==0&&empty.nodes_used()==0&&empty.all_prod()==0&&empty.prod(0,0)==0);
+    require(empty.max_right<below_six>(0)==0&&empty.min_left<below_six>(0)==0);
+    PersistentSegmentTree<ll,sum_op,sum_e,1> one(1);
+    auto blank=one;
+    one.set(0,5);
+    require(one.nodes_used()==1&&blank.nodes_used()==1&&blank.get(0)==0);
+    require(one.max_right<below_six>(0)==1&&one.min_left<below_six>(1)==0);
+    PersistentSegmentTree<ll,sum_op,sum_e,5> exact(std::vector<ll>{1,2,3});
+    require(exact.nodes_used()==5&&exact.all_prod()==6);
+    require(exact.max_right<below_six>(0)==2&&exact.min_left<below_six>(3)==1);
+    Tree huge(LLONG_MAX);
+    auto old=huge;
+    huge.set(LLONG_MAX-1,7);huge.set(LLONG_MAX/2,11);huge.set(0,13);
+    require(huge.all_prod()==31&&old.all_prod()==0&&old.nodes_used()==huge.nodes_used());
+    require(huge.get(LLONG_MAX-1)==7&&huge.get(LLONG_MAX/2-1)==0);
+    require(huge.max_right(0,[](ll x){return x<13;})==0);
+    require(huge.max_right(1,[](ll x){return x<11;})==LLONG_MAX/2);
+    require(huge.min_left(LLONG_MAX,[](ll x){return x<7;})==LLONG_MAX);
+    require(huge.min_left(LLONG_MAX-1,[](ll x){return x<11;})==LLONG_MAX/2+1);
+    require(huge.nodes_used()<=192);
+    require(Value::live==0);
     {
-        PersistentSegmentTree<Counted,CountedSum,10000000> counted(10,CountedSum{},Counted(0));
-        auto cr=counted.update(counted.new_tree(),5,Counted(10));
-        require(counted.query(cr,0,10).value==10);
-        require(Counted::live==counted.nodes_used()+1);
+        using Wrapped=PersistentSegmentTree<Value,value_op,value_e,100>;
+        Wrapped survivor;
+        {
+            Wrapped original(std::vector<Value>{Value(1),Value(2),Value(3)});
+            survivor=original;
+            original.set(1,Value(8));
+            require(survivor.all_prod().x==6&&original.all_prod().x==12);
+        }
+        require(survivor.get(1).x==2);
+        require(Value::live==survivor.nodes_used());
+        Wrapped moved(std::move(survivor));
+        require(survivor.size()==0&&survivor.all_prod().x==0&&moved.all_prod().x==6);
+        survivor=std::move(moved);
+        require(moved.size()==0&&moved.nodes_used()==0&&survivor.all_prod().x==6);
+        Wrapped*alias=&survivor;
+        survivor=std::move(*alias);
+        require(survivor.all_prod().x==6);
     }
-    require(Counted::live==0);
-    auto min_op=[](ll a,ll b){return std::min(a,b);};
-    PersistentSegmentTree<ll,decltype(min_op),100> minimum(3,min_op,LLONG_MAX);
-    auto mr=minimum.update(minimum.new_tree(),1,2);
-    require(minimum.query(mr,0,3)==2&&minimum.query(mr,2,3)==LLONG_MAX);
-
-    Tree bounded(3,Sum{},0);
-    auto root=bounded.build({1,2,3});
-    auto edited=bounded.update_apply(root,1,[](ll&v){v+=10;return v;});
-    require(bounded.query(root,0,3)==6&&bounded.query(edited,0,3)==16);
-    auto zero=bounded.new_tree();
-    auto edited_zero=bounded.update_apply(zero,1,[](ll&v){v+=9;return v;});
-    require(bounded.query(zero,0,3)==0&&bounded.query(edited_zero,0,3)==9);
-    require(stops_silently([]{Tree invalid(-1,Sum{},0);}));
-    require(stops_silently([&]{empty.update(blank,0,1);}));
-    require(stops_silently([&]{one.update(filled,0,6);}));
-    require(stops_silently([&]{exact.build({1,2,3});}));
-    require(stops_silently([&]{bounded.build({});}));
-    require(stops_silently([&]{bounded.build({1,2,3,4});}));
-    require(stops_silently([&]{bounded.update(root,-1,1);}));
-    require(stops_silently([&]{bounded.update(root,3,1);}));
-    require(stops_silently([&]{bounded.update_apply(root,LLONG_MAX,[](ll x){return x;});}));
-    require(stops_silently([&]{bounded.query(root,-1,1);}));
-    require(stops_silently([&]{bounded.query(root,0,-1);}));
-    require(stops_silently([&]{bounded.query(root,2,1);}));
-    require(stops_silently([&]{bounded.query(root,0,4);}));
-    require(stops_silently([&]{bounded.max_right(root,-1,[](ll){return true;});}));
-    require(stops_silently([&]{bounded.max_right(root,4,[](ll){return true;});}));
-    require(stops_silently([&]{bounded.max_right(root,0,[](ll){return false;});}));
-    require(stops_silently([&]{bounded.max_right(root,3,[](ll){return false;});}));
-    require(stops_silently([&]{bounded.query(nullptr,0,0);}));
-    require(stops_silently([&]{bounded.update(nullptr,0,1);}));
-    require(stops_silently([&]{bounded.max_right(nullptr,3,[](ll){return true;});}));
+    require(Value::live==0);
+    Tree bounded(std::vector<ll>{1,2,3});
+    require(stops_silently([]{Tree invalid(-1);}));
+    require(stops_silently([&]{empty.set(0,1);}));
+    require(stops_silently([&]{one.set(0,6);}));
+    require(stops_silently([&]{exact.set(0,1);}));
+    require(stops_silently([&]{bounded.set(-1,1);}));
+    require(stops_silently([&]{bounded.set(3,1);}));
+    require(stops_silently([&]{bounded.get(LLONG_MAX);}));
+    require(stops_silently([&]{bounded.prod(-1,1);}));
+    require(stops_silently([&]{bounded.prod(2,1);}));
+    require(stops_silently([&]{bounded.prod(0,4);}));
+    require(stops_silently([&]{bounded.max_right(-1,[](ll){return true;});}));
+    require(stops_silently([&]{bounded.min_left(4,[](ll){return true;});}));
+    require(stops_silently([&]{bounded.max_right(3,[](ll){return false;});}));
+    require(stops_silently([&]{bounded.min_left(0,[](ll){return false;});}));
 }
 
-int main(){exhaustive();branches();noncommutative();boundaries();std::cout<<"Persistent Segment Tree: "<<checks<<" checks passed; 64000 branching updates.\n";}
+int main(){exhaustive();branches();noncommutative();boundaries();std::cout<<"Persistent Segment Tree: "<<checks<<" checks passed; 48000 branching updates, ACL comparison.\n";}

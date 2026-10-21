@@ -63,6 +63,18 @@ SOURCE_DIRでソースの取得先を変更できます。
 Git履歴のないディレクトリから生成する場合は、SOURCE_SHAに公開コードの40桁コミットIDを指定します。
 dist/は生成物で、mainには保存しません。
 
+## VS Codeスニペット
+
+公開コードと同じ内容の全C++ソースを1つの `.code-snippets` にまとめられます。コピー・貼り付け用の穴埋めテンプレートも、そのままの内容で収録します。
+既存のスニペット名・入力プレフィックスは `snippet-prefixes.json` に保存しています。新しいコードはcatalogの名前・ファイル名を既定のプレフィックスとします。
+
+    python3 scripts/make-snippets.py --source source --output /tmp/algorithm_YYMMDD-1.code-snippets
+    python3 tests/check-snippets.py --source source --snippets /tmp/algorithm_YYMMDD-1.code-snippets
+
+ソースは変更をcommitしたクリーンなcheckoutを使用します。説明にはコードのコミットを記録し、スニペット展開後の全文を元のソースと比較します。
+以前のファイルがある場合、両コマンドの `--baseline PATH` で既存の名前・プレフィックスも比較できます。
+バックスラッシュ・ドル記号・閉じ波括弧をVS Codeのスニペット構文に合わせてエスケープし、ソース内の文字が欠けないようにしています。
+
 ## AtCoderでの参照
 
 「参照URLをコピー」は、画面に表示している実装と同じコミットの公開コードURLをコピーします。

@@ -1,0 +1,472 @@
+{
+  "DataStructureAdvanced/dynamic_connectivity.cpp": {
+    "name": "削除可能なUnionFind",
+    "prefix": [
+      "削除可能なUnionFind",
+      "dynamic_connectivity"
+    ]
+  },
+  "DataStructureAdvanced/implicit_treap.cpp": {
+    "name": "ImplicitTreap",
+    "prefix": [
+      "ImplicitTreap",
+      "implicit_treap"
+    ]
+  },
+  "DataStructureAdvanced/sorted_implicit_treap.cpp": {
+    "name": "SortedImplicitTreap",
+    "prefix": [
+      "SortedImplicitTreap",
+      "sorted_implicit_treap"
+    ]
+  },
+  "DataStructureBasic/binary_trie.cpp": {
+    "name": "BinaryTrie",
+    "prefix": [
+      "BinaryTrie",
+      "binary_trie"
+    ]
+  },
+  "DataStructureBasic/coordinate_compression.cpp": {
+    "name": "座標圧縮",
+    "prefix": [
+      "座標圧縮",
+      "coordinate_compression"
+    ]
+  },
+  "DataStructureBasic/range_set.cpp": {
+    "name": "RangeSet",
+    "prefix": [
+      "RangeSet",
+      "range_set"
+    ]
+  },
+  "DataStructureBasic/rollback_union_find.cpp": {
+    "name": "RollbackUnionFind",
+    "prefix": [
+      "RollbackUnionFind",
+      "rollback_union_find"
+    ]
+  },
+  "DataStructureBasic/weighted_union_find.cpp": {
+    "name": "重み付きUnionFind",
+    "prefix": [
+      "重み付きUnionFind",
+      "weighted_union_find"
+    ]
+  },
+  "DataStructureSegment/disjoint_sparse_table.cpp": {
+    "name": "DisjointSparseTable",
+    "prefix": [
+      "DisjointSparseTable",
+      "disjoint_sparse_table"
+    ]
+  },
+  "DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp": {
+    "name": "DynamicWeightedWaveletMatrix",
+    "prefix": [
+      "DynamicWeightedWaveletMatrix",
+      "dynamic_weighted_wavelet_matrix"
+    ]
+  },
+  "DataStructureSegment/lazy_segtree_wrappers.cpp": {
+    "name": "lazy_segtree 遅延セグ木テンプレ",
+    "prefix": [
+      "lazy_segtree 遅延セグ木テンプレ",
+      "lazy_segtree_wrappers"
+    ]
+  },
+  "DataStructureSegment/persistent_lazy_segment_tree.cpp": {
+    "name": "永続遅延セグメント木",
+    "prefix": [
+      "永続遅延セグメント木",
+      "persistent_lazy_segment_tree",
+      "PersistentLazySegmentTree"
+    ]
+  },
+  "DataStructureSegment/persistent_segment_tree.cpp": {
+    "name": "永続セグメント木",
+    "prefix": [
+      "永続セグメント木",
+      "persistent_segment_tree"
+    ]
+  },
+  "DataStructureSegment/segment_tree_beats.cpp": {
+    "name": "SegmentTreeBeats!",
+    "prefix": [
+      "SegmentTreeBeats!",
+      "segment_tree_beats"
+    ]
+  },
+  "DataStructureSegment/segment_tree_beats_extra.cpp": {
+    "name": "Segment Tree Beats! Extra",
+    "prefix": [
+      "Segment Tree Beats! Extra",
+      "segment_tree_beats_extra"
+    ]
+  },
+  "DataStructureSegment/segtree_wrappers.cpp": {
+    "name": "segtree セグ木テンプレ",
+    "prefix": [
+      "segtree セグ木テンプレ",
+      "segtree_wrappers"
+    ]
+  },
+  "DataStructureSegment/wavelet_matrix.cpp": {
+    "name": "WaveletMatrix",
+    "prefix": [
+      "WaveletMatrix",
+      "wavelet_matrix"
+    ]
+  },
+  "DiscreteConvexity/convex_hull_trick.cpp": {
+    "name": "ConvexHullTrick",
+    "prefix": [
+      "ConvexHullTrick",
+      "convex_hull_trick"
+    ]
+  },
+  "DiscreteConvexity/deque_cht.cpp": {
+    "name": "DequeCHT",
+    "prefix": [
+      "DequeCHT",
+      "deque_cht"
+    ]
+  },
+  "DiscreteConvexity/li_chao_tree.cpp": {
+    "name": "LiChaoTree",
+    "prefix": [
+      "LiChaoTree",
+      "li_chao_tree"
+    ]
+  },
+  "FPSandPolynomial/xor_convolution.cpp": {
+    "name": "XOR畳み込み",
+    "prefix": [
+      "XOR畳み込み",
+      "xor_convolution"
+    ]
+  },
+  "Geometry/argument_sort.cpp": {
+    "name": "偏角ソート",
+    "prefix": [
+      "偏角ソート",
+      "argument_sort"
+    ]
+  },
+  "Graph/binary_lifting.cpp": {
+    "name": "BinaryLifting",
+    "prefix": [
+      "BinaryLifting",
+      "binary_lifting"
+    ]
+  },
+  "Graph/euler_trail.cpp": {
+    "name": "EulerTrail",
+    "prefix": [
+      "EulerTrail",
+      "euler_trail"
+    ]
+  },
+  "Graph/functional_graph.cpp": {
+    "name": "FunctionalGraph",
+    "prefix": [
+      "FunctionalGraph",
+      "functional_graph"
+    ]
+  },
+  "Graph/lowlink.cpp": {
+    "name": "LowLink",
+    "prefix": [
+      "LowLink",
+      "lowlink"
+    ]
+  },
+  "Graph/offline_dynamic_connectivity.cpp": {
+    "name": "OfflineDynamicConnectivity",
+    "prefix": [
+      "OfflineDynamicConnectivity",
+      "offline_dynamic_connectivity"
+    ]
+  },
+  "Graph/offline_dynamic_connectivity_weighted.cpp": {
+    "name": "削除可能なオフラインUnionFind",
+    "prefix": [
+      "削除可能なオフラインUnionFind",
+      "offline_dynamic_connectivity_weighted"
+    ]
+  },
+  "Graph/scc_condensation.cpp": {
+    "name": "トポロジカルソート",
+    "prefix": [
+      "トポロジカルソート",
+      "scc_condensation"
+    ]
+  },
+  "LinearAlgebra/gaussian_elimination.cpp": {
+    "name": "Gaussian Elimination",
+    "prefix": [
+      "Gaussian Elimination",
+      "gaussian_elimination"
+    ]
+  },
+  "LinearAlgebra/gf2_gaussian_elimination.cpp": {
+    "name": "GF(2) Gaussian Elimination",
+    "prefix": [
+      "GF(2) Gaussian Elimination",
+      "gf2_gaussian_elimination"
+    ]
+  },
+  "LinearAlgebra/xor_basis.cpp": {
+    "name": "XOR基底",
+    "prefix": [
+      "XOR基底",
+      "xor_basis"
+    ]
+  },
+  "MathCombinatorics/and_zero_permutation.cpp": {
+    "name": "and_zero_permutation",
+    "prefix": [
+      "and_zero_permutation"
+    ]
+  },
+  "MathCombinatorics/binomial_prefix_sum.cpp": {
+    "name": "二項係数の累積和",
+    "prefix": [
+      "二項係数の累積和",
+      "binomial_prefix_sum"
+    ]
+  },
+  "MathCombinatorics/stirling_second.cpp": {
+    "name": "第二種スターリング数",
+    "prefix": [
+      "第二種スターリング数",
+      "stirling_second"
+    ]
+  },
+  "MathNumberTheory/divisor_multiple_transforms.cpp": {
+    "name": "約数倍数ゼータメビウス",
+    "prefix": [
+      "約数倍数ゼータメビウス",
+      "divisor_multiple_transforms"
+    ]
+  },
+  "MathNumberTheory/divisors.cpp": {
+    "name": "約数列挙",
+    "prefix": [
+      "約数列挙",
+      "divisors"
+    ]
+  },
+  "MathNumberTheory/extended_euclid.cpp": {
+    "name": "拡張ユークリッドの互除法",
+    "prefix": [
+      "拡張ユークリッドの互除法",
+      "extended_euclid"
+    ]
+  },
+  "MathNumberTheory/linear_sieve.cpp": {
+    "name": "LinearSieve",
+    "prefix": [
+      "LinearSieve",
+      "linear_sieve"
+    ]
+  },
+  "MathNumberTheory/miller_rabin_pollard_rho.cpp": {
+    "name": "Miller-RabinPollard Rho",
+    "prefix": [
+      "Miller-RabinPollard Rho",
+      "miller_rabin_pollard_rho"
+    ]
+  },
+  "MathNumberTheory/mod_pow_inverse.cpp": {
+    "name": "modの割り算・modの累乗",
+    "prefix": [
+      "modの割り算・modの累乗",
+      "mod_pow_inverse"
+    ]
+  },
+  "MathNumberTheory/number_theory_bundle.cpp": {
+    "name": "素数判定",
+    "prefix": [
+      "素数判定",
+      "number_theory_bundle"
+    ]
+  },
+  "Search/mo.cpp": {
+    "name": "Mo's Algorithm",
+    "prefix": [
+      "Mo's Algorithm",
+      "mo"
+    ]
+  },
+  "Snippets/binary_search.cpp": {
+    "name": "二部探索テンプレ",
+    "prefix": [
+      "二部探索テンプレ",
+      "binary_search"
+    ]
+  },
+  "Snippets/lazy_segtree_custom.cpp": {
+    "name": "LazyXXX",
+    "prefix": [
+      "LazyXXX",
+      "lazy_segtree_custom"
+    ]
+  },
+  "Snippets/segtree_custom.cpp": {
+    "name": "SegXXX",
+    "prefix": [
+      "SegXXX",
+      "segtree_custom"
+    ]
+  },
+  "String/aho_corasick.cpp": {
+    "name": "AhoCorasick",
+    "prefix": [
+      "AhoCorasick",
+      "aho_corasick"
+    ]
+  },
+  "String/binary_string_order_set.cpp": {
+    "name": "01-StringWavelerMatrix",
+    "prefix": [
+      "01-StringWavelerMatrix",
+      "binary_string_order_set"
+    ]
+  },
+  "String/dynamic_rolling_hash.cpp": {
+    "name": "DynamicRollingHash",
+    "prefix": [
+      "DynamicRollingHash",
+      "dynamic_rolling_hash"
+    ]
+  },
+  "String/palindrome_radius.cpp": {
+    "name": "回文の半径を求める",
+    "prefix": [
+      "回文の半径を求める",
+      "palindrome_radius"
+    ]
+  },
+  "String/static_rolling_hash.cpp": {
+    "name": "StaticRollingHash",
+    "prefix": [
+      "StaticRollingHash",
+      "static_rolling_hash"
+    ]
+  },
+  "String/trie_digits.cpp": {
+    "name": "Trie09",
+    "prefix": [
+      "Trie09",
+      "trie_digits"
+    ]
+  },
+  "String/trie_letters.cpp": {
+    "name": "TrieAzaz",
+    "prefix": [
+      "TrieAzaz",
+      "trie_letters"
+    ]
+  },
+  "String/trie_lowercase.cpp": {
+    "name": "TrieAZ",
+    "prefix": [
+      "TrieAZ",
+      "trie_lowercase"
+    ]
+  },
+  "String/trie_lowercase_digits.cpp": {
+    "name": "TrieAZ09",
+    "prefix": [
+      "TrieAZ09",
+      "trie_lowercase_digits"
+    ]
+  },
+  "Templates/codeforces.cpp": {
+    "name": "codecf",
+    "prefix": [
+      "codecf",
+      "codeforces"
+    ]
+  },
+  "Templates/modint_only.cpp": {
+    "name": "コードatcoder抜き",
+    "prefix": [
+      "コードatcoder抜き",
+      "modint_only"
+    ]
+  },
+  "Templates/multiple_test_cases.cpp": {
+    "name": "codet",
+    "prefix": [
+      "codet",
+      "multiple_test_cases"
+    ]
+  },
+  "Tree/cartesian_tree.cpp": {
+    "name": "CartesianTree",
+    "prefix": [
+      "CartesianTree",
+      "cartesian_tree"
+    ]
+  },
+  "Tree/dsu_on_tree.cpp": {
+    "name": "DSUonTree",
+    "prefix": [
+      "DSUonTree",
+      "dsu_on_tree"
+    ]
+  },
+  "Tree/hld.cpp": {
+    "name": "HLD",
+    "prefix": [
+      "HLD",
+      "hld"
+    ]
+  },
+  "Tree/lca.cpp": {
+    "name": "LCA",
+    "prefix": [
+      "LCA",
+      "lca"
+    ]
+  },
+  "Tree/rerooting.cpp": {
+    "name": "全方位木DP（Rerooting）",
+    "prefix": [
+      "全方位木DP（Rerooting）",
+      "rerooting"
+    ]
+  },
+  "Tree/tree_centroid.cpp": {
+    "name": "木の重心",
+    "prefix": [
+      "木の重心",
+      "tree_centroid"
+    ]
+  },
+  "Tree/tree_diameter.cpp": {
+    "name": "木の直径・全ての頂点からの最遠点までの距離",
+    "prefix": [
+      "木の直径・全ての頂点からの最遠点までの距離",
+      "tree_diameter"
+    ]
+  },
+  "Tree/virtual_tree.cpp": {
+    "name": "VirtualTreeResult",
+    "prefix": [
+      "VirtualTreeResult",
+      "virtual_tree"
+    ]
+  },
+  "template.cpp": {
+    "name": "コード",
+    "prefix": [
+      "コード",
+      "template",
+      "code"
+    ]
+  }
+}

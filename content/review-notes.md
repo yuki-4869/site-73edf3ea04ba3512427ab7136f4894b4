@@ -43,7 +43,7 @@ xs / builtへの直接アクセスと、未構築時のsizeの利用について
 
 LazyAffineSumの既定modは998244353です。別mod、内部フィールド、SegSqrt::Nodeの変更は、[遅延セグ木](usage/DataStructureSegment/lazy_segtree_wrappers.md)・[Beats拡張](usage/DataStructureSegment/segment_tree_beats_extra.md)の移行表を参照してください。整数の中間結果・和がlong longに収まることは呼び出し側の制約です。
 
-## 永続セグメント木の改訂（2026-10-22）
+## 永続セグメント木の根ポインタ版の改訂記録（2026-10-22）
 
 [使い方](usage/DataStructureSegment/persistent_segment_tree.md) · [専用テスト](../tests/persistent_segment_tree_test.cpp)
 
@@ -53,7 +53,19 @@ LazyAffineSumの既定modは998244353です。別mod、内部フィールド、S
 - 中点を `l+(r-l)/2` に変更し、N=LLONG_MAXの疎な木でも更新・取得・境界探索を確認。
 - 三値列の全列挙、64,000回の過去の版からの分岐、非可換演算とmax_right、容量境界、デフォルト構築できない型、破棄を専用テストへ追加。
 
-基本APIは維持しています。内部フィールドへの直接アクセスとコピー・ムーブ禁止については、使い方ページの「入力検査と旧版からの移行」を参照してください。
+この節は根ポインタ方式の時点の記録です。その後、次のACL形式への変更で本体のコピー・ムーブを再設計しました。
+
+## 永続セグメント木のACL形式への変更・永続遅延版の追加（2026-10-22）
+
+[永続セグメント木](usage/DataStructureSegment/persistent_segment_tree.md) · [永続遅延セグメント木](usage/DataStructureSegment/persistent_lazy_segment_tree.md)
+
+- 通常版を `PersistentSegmentTree<S,op,e>` に変更。ACLと同じ `set/get/prod/all_prod/max_right/min_left` を提供し、左右探索の両呼び出し形式に対応。
+- `PersistentLazySegmentTree<S,op,e,F,mapping,composition,id>` を新設し、ACLと同じ1点・区間applyを提供。
+- `auto old=seg;` によるO(1)の版の保存へ統一。不変ノードと共有領域で寿命を管理し、元の木の破棄後もコピーを利用可能。
+- 遅延版は更新時に子をコピーしてpushし、読み取りはタグを持ち下ろす。取得・左右探索はconstで、ノードの変更・追加確保を行わない。
+- 通常版48,000回、遅延版60,000回の過去の版からの分岐をACL・通常配列と比較。非可換演算、合成順、単位元を変える写像、巨大な添字、コピー・ムーブ・容量境界も検証。
+
+通常版の旧根ポインタAPIは置き換えています。移行方法は使い方ページの「入力検査と旧APIからの移行」にまとめています。新たな依存ヘッダーはありません。
 
 ## 優先して確認・修正する項目
 

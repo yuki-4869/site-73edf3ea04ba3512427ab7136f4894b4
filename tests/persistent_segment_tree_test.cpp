@@ -183,6 +183,11 @@ void boundaries(){
 
     Tree bounded(3,Sum{},0);
     auto root=bounded.build({1,2,3});
+    auto edited=bounded.update_apply(root,1,[](ll&v){v+=10;return v;});
+    require(bounded.query(root,0,3)==6&&bounded.query(edited,0,3)==16);
+    auto zero=bounded.new_tree();
+    auto edited_zero=bounded.update_apply(zero,1,[](ll&v){v+=9;return v;});
+    require(bounded.query(zero,0,3)==0&&bounded.query(edited_zero,0,3)==9);
     require(stops_silently([]{Tree invalid(-1,Sum{},0);}));
     require(stops_silently([&]{empty.update(blank,0,1);}));
     require(stops_silently([&]{one.update(filled,0,6);}));

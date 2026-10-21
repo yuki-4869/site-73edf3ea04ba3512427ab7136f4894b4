@@ -137,6 +137,7 @@ python3 tests/check_examples.py \
 | [RangeSet::covered / mex](DataStructureBasic/range_set.md) | insert(5,10) → insert(1,5) → covered(1,10), mex(1) | false, 5 | true, 10 |
 | [RangeSet::erase](DataStructureBasic/range_set.md) | 旧版の代入エラーだけを除去して部分削除を確認 | 削除数7、総被覆数2 | 改訂版は検証用修正不要。削除数4、総被覆数5 |
 | [座標圧縮](DataStructureBasic/coordinate_compression.md) | 既定のusing宣言と構築状態 | 旧版は宣言順でコンパイルエラー。NDEBUGでは未構築の検査も消える | 宣言順を修正。状態・境界検査をNDEBUGでも実施 |
+| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | NODES=1の上限超過更新、N=LLONG_MAXの末尾更新 | AddressSanitizerで範囲外書き込み、UBSanで中点の整数オーバーフローを再現 | 容量超過は書き込み前に停止。中点計算を修正し、巨大な添字での更新・取得・境界探索が成功 |
 | [約数列挙](MathNumberTheory/divisors.md) | get_divisors(-4) | -4 -2 -2 -1 1 2 2 4 | 未修正。期待値は -4 -2 -1 1 2 4 |
 
 旧RangeSetの結果は [改訂前の版](https://github.com/yuki-4869/Algorithm/blob/335d61be5c0f520c94a7bc0a81b3257b52dae4f4/DataStructureBasic/range_set.cpp) に対する記録です。
@@ -153,7 +154,7 @@ python3 tests/check_examples.py \
 | [動的連結性（重み付き・オフライン）](Graph/offline_dynamic_connectivity_weighted.md) | コンパイル・実行成功 | 成功 |
 | [区間集合（改訂版）](DataStructureBasic/range_set.md) | コンパイル・実行成功 | 成功。回帰・ランダム・型の端も追加確認 |
 | [Cartesian Tree](Tree/cartesian_tree.md) | コンパイル・実行成功 | エラー（対処は上表） |
-| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | コンパイル・実行成功 | 成功 |
+| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | コンパイル・実行成功 | 成功。分岐更新・境界探索・容量・巨大な添字も追加確認 |
 | [第二種スターリング数](MathCombinatorics/stirling_second.md) | コンパイル・実行成功 | 成功 |
 | [偏角ソート](Geometry/argument_sort.md) | コンパイル・実行成功 | 成功 |
 | [Implicit Treap](DataStructureAdvanced/implicit_treap.md) | コンパイル・実行成功 | 成功 |

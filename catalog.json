@@ -72,7 +72,7 @@
   {
     "title": "永続セグメント木",
     "path": "DataStructureSegment/persistent_segment_tree.cpp",
-    "description": "根を保存して過去の版を参照",
+    "description": "過去の版から分岐、容量検査・遅延ノード確保（改訂済み）",
     "category": "区間データ構造",
     "categoryId": "DataStructureSegment"
   },

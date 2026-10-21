@@ -43,18 +43,29 @@ xs / builtへの直接アクセスと、未構築時のsizeの利用について
 
 LazyAffineSumの既定modは998244353です。別mod、内部フィールド、SegSqrt::Nodeの変更は、[遅延セグ木](usage/DataStructureSegment/lazy_segtree_wrappers.md)・[Beats拡張](usage/DataStructureSegment/segment_tree_beats_extra.md)の移行表を参照してください。整数の中間結果・和がlong longに収まることは呼び出し側の制約です。
 
+## 永続セグメント木の改訂（2026-10-22）
+
+[使い方](usage/DataStructureSegment/persistent_segment_tree.md) · [専用テスト](../tests/persistent_segment_tree_test.cpp)
+
+- 番兵生成時の未初期化ポインタ参照を除去。ノードをdequeへ必要な分だけ確保し、追加前に容量を検査。
+- 木本体のコピー・ムーブを禁止し、二重解放や他の本体への内部ポインタ混在を防止。根ポインタによるO(1)の版の共有は維持。
+- N=0、buildの長さ、添字・区間、nullptr、探索述語の単位元検査を追加。検査はNDEBUGでも有効で、違反時はメッセージなしで停止。
+- 中点を `l+(r-l)/2` に変更し、N=LLONG_MAXの疎な木でも更新・取得・境界探索を確認。
+- 三値列の全列挙、64,000回の過去の版からの分岐、非可換演算とmax_right、容量境界、デフォルト構築できない型、破棄を専用テストへ追加。
+
+基本APIは維持しています。内部フィールドへの直接アクセスとコピー・ムーブ禁止については、使い方ページの「入力検査と旧版からの移行」を参照してください。
+
 ## 優先して確認・修正する項目
 
-C++23（GCC 13.3.0）での確認結果に基づく、残っている項目の優先順です。RangeSet・座標圧縮・遅延セグ木ラッパー・Beats拡張は改訂で修正済みです。
+C++23（GCC 13.3.0）での確認結果に基づく、残っている項目の優先順です。RangeSet・座標圧縮・遅延セグ木ラッパー・Beats拡張・永続セグメント木は改訂で修正済みです。
 
 | 優先度 | 対象 | 理由・次に行うこと |
 | --- | --- | --- |
 | **高** | [オンライン動的連結性](usage/DataStructureAdvanced/dynamic_connectivity.md)、[オフライン動的連結性](usage/Graph/offline_dynamic_connectivity.md)、[Cartesian Tree](usage/Tree/cartesian_tree.md) | 全角空白、基本テンプレートのpマクロとの衝突、グローバルの未宣言vでコンパイル不可。説明書の対処をコードへ反映する |
-| **利用前に確認** | [永続セグメント木](usage/DataStructureSegment/persistent_segment_tree.md) | poolの容量超過を検出せず、既定容量は1,000万ノード。コピーすると同じpoolを共有し二重解放する。NODESの見積もり、容量チェック、コピー禁止または所有権設計を確認する |
 | **負数を扱うなら高** | [約数列挙](usage/MathNumberTheory/divisors.md) | get_divisors(-4)で±2が重複する。絶対値に対する平方判定へ直し、負の完全平方数を確認する |
 | **使用例を整備** | [Functional Graph](usage/Graph/functional_graph.md)、[全方位DP](usage/Tree/rerooting.md) | 前者の末尾コメントは実装にないAPIを掲載。後者は未記入のidentity()を含む。使い方コメントを実際のAPI・完成例へ合わせる |
 
-次は **コピー時のコンパイルエラー群 → 永続セグメント木の容量と所有権** の順を推奨します。
+次は **コピー時のコンパイルエラー群** の確認を推奨します。
 詳しい再現例と確認範囲は [C++23での確認結果](usage/validation.md) を参照してください。
 
 ## 初回整理時に確認した事項

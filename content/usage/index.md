@@ -66,7 +66,7 @@
 | 説明ページ | 内容 | 実装 |
 | --- | --- | --- |
 | [Disjoint Sparse Table](DataStructureSegment/disjoint_sparse_table.md) | 静的な結合的区間積をO(1)で取得、非可換演算にも対応 | [コード](../../DataStructureSegment/disjoint_sparse_table.cpp) |
-| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | 根を保存して過去の版を参照 | [コード](../../DataStructureSegment/persistent_segment_tree.cpp) |
+| [永続セグメント木](DataStructureSegment/persistent_segment_tree.md) | 過去の版から分岐、容量検査・遅延ノード確保（改訂済み） | [コード](../../DataStructureSegment/persistent_segment_tree.cpp) |
 | [Wavelet Matrix](DataStructureSegment/wavelet_matrix.md) | 静的列。k番目の k は 0-indexed | [コード](../../DataStructureSegment/wavelet_matrix.cpp) |
 | [動的重み付きWavelet Matrix](DataStructureSegment/dynamic_weighted_wavelet_matrix.md) | 変更に使う可能性のあるキーをuniverseに事前登録 | [コード](../../DataStructureSegment/dynamic_weighted_wavelet_matrix.cpp) |
 | [Segment Tree Beats](DataStructureSegment/segment_tree_beats.md) | 区間のchmin/chmax・加算・代入など | [コード](../../DataStructureSegment/segment_tree_beats.cpp) |

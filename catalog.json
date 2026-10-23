@@ -175,6 +175,13 @@
     "categoryId": "Graph"
   },
   {
+    "title": "二部最大マッチング（Hopcroft–Karp）",
+    "path": "Graph/hopcroft_karp.cpp",
+    "description": "二部最大マッチング・対応復元・最小頂点被覆、反復探索で長い増加路にも対応",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
     "title": "SCCと縮約DAG",
     "path": "Graph/scc_condensation.cpp",
     "description": "元のファイル名と異なり、本文はSCC結果と縮約DAGの処理",

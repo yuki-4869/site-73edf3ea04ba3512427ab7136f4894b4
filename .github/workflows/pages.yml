@@ -70,11 +70,11 @@ jobs:
       - name: Run library regressions
         if: steps.check.outputs.changed == 'true'
         run: |
-          for name in range_set coordinate_compression segment_wrappers disjoint_sparse_table persistent_segment_tree persistent_lazy_segment_tree; do
+          for name in range_set coordinate_compression segment_wrappers disjoint_sparse_table persistent_segment_tree persistent_lazy_segment_tree hopcroft_karp; do
             g++ -std=c++23 -O2 -Iac-library -Isource "tests/${name}_test.cpp" -o "$RUNNER_TEMP/${name}_test"
             "$RUNNER_TEMP/${name}_test"
           done
-          for name in coordinate_compression segment_wrappers disjoint_sparse_table persistent_segment_tree persistent_lazy_segment_tree; do
+          for name in coordinate_compression segment_wrappers disjoint_sparse_table persistent_segment_tree persistent_lazy_segment_tree hopcroft_karp; do
             g++ -std=c++23 -O2 -DNDEBUG -Iac-library -Isource "tests/${name}_test.cpp" -o "$RUNNER_TEMP/${name}_ndebug_test"
             "$RUNNER_TEMP/${name}_ndebug_test"
           done

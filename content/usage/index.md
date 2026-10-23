@@ -18,7 +18,7 @@
 | [区間データ構造](#category-4) | 9 |
 | [高度なデータ構造](#category-5) | 3 |
 | [CHT・離散凸性](#category-6) | 3 |
-| [グラフ](#category-7) | 7 |
+| [グラフ](#category-7) | 8 |
 | [木](#category-8) | 8 |
 | [整数論](#category-9) | 8 |
 | [組合せ](#category-10) | 2 |
@@ -102,6 +102,7 @@
 | 説明ページ | 内容 | 実装 |
 | --- | --- | --- |
 | [動的連結性（重み付き・オフライン）](Graph/offline_dynamic_connectivity_weighted.md) | Undo可能なUnion-Find と成分の重さの集計 | [コード](../../Graph/offline_dynamic_connectivity_weighted.cpp) |
+| [二部最大マッチング（Hopcroft–Karp）](Graph/hopcroft_karp.md) | 最大対応数・辺の復元・最小頂点被覆、反復探索 | [コード](../../Graph/hopcroft_karp.cpp) |
 | [SCCと縮約DAG](Graph/scc_condensation.md) | 元のファイル名と異なり、本文はSCC結果と縮約DAGの処理 | [コード](../../Graph/scc_condensation.cpp) |
 | [Functional Graph](Graph/functional_graph.md) | サイクル情報、到達可能性、距離 | [コード](../../Graph/functional_graph.cpp) |
 | [オイラー路・閉路](Graph/euler_trail.md) | 有向／無向グラフ。全辺を使えない場合は空vector | [コード](../../Graph/euler_trail.cpp) |

@@ -175,6 +175,14 @@
       "functional_graph"
     ]
   },
+  "Graph/hopcroft_karp.cpp": {
+    "name": "HopcroftKarp",
+    "prefix": [
+      "HopcroftKarp",
+      "hopcroft_karp",
+      "二部最大マッチング"
+    ]
+  },
   "Graph/lowlink.cpp": {
     "name": "LowLink",
     "prefix": [

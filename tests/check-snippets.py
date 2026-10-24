@@ -44,6 +44,12 @@ for name,entry in snippets.items():
 assert seen==paths,(seen^paths)
 for name,path in [('コード','template.cpp'),('codet','Templates/multiple_test_cases.cpp'),('codecf','Templates/codeforces.cpp')]:
     assert snippets[name]['body'][0]=='// https://github.com/yuki-4869/Algorithm/blob/main/'+path,name
+    assert snippets[name]['body'][-1]=='\t',name
+    text=(source/path).read_text()
+    if name=='コード':
+        assert text.endswith('signed main(){\n    ios::sync_with_stdio(false); cin.tie(nullptr);\n\t'),name
+    else:
+        assert text.endswith('void solve(){\n\t'),name
 if args.baseline:
     for name,entry in json.loads(args.baseline.read_text(encoding='utf-8-sig')).items():
         assert name in snippets and snippets[name]['prefix']==entry['prefix'],name

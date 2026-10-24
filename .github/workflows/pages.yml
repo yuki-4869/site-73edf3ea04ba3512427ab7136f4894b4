@@ -64,6 +64,9 @@ jobs:
             g++ -std=c++23 -O2 -Wall -Wextra -Wconversion -pedantic -Isource tests/and_zero_permutation_test.cpp -o "$RUNNER_TEMP/and-zero-permutation-test"
             "$RUNNER_TEMP/and-zero-permutation-test"
           fi
+      - name: Check shortest paths in every template
+        if: steps.check.outputs.changed == 'true'
+        run: python3 tests/check-dijkstra.py --source source --acl ac-library --output "$RUNNER_TEMP/dijkstra-checks"
       - name: Check library usage and template compatibility
         if: steps.check.outputs.changed == 'true'
         run: python3 tests/check-library.py --source source --acl ac-library --output "$RUNNER_TEMP/library-usage-checks"

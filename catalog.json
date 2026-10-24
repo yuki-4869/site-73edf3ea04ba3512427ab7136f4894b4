@@ -2,28 +2,28 @@
   {
     "title": "template.cpp",
     "path": "template.cpp",
-    "description": "型エイリアス、入出力、数学補助関数、main の追記用テンプレート",
+    "description": "型エイリアス、入出力、数学補助関数、main の追記用テンプレート。dijkstraで単一・複数始点の最短距離（graph / Graph）",
     "category": "基本テンプレート",
     "categoryId": "template"
   },
   {
     "title": "modintのみをincludeするテンプレート",
     "path": "Templates/modint_only.cpp",
-    "description": "元の名前に反して atcoder/modint の依存が残る",
+    "description": "元の名前に反して atcoder/modint の依存が残る。dijkstraで単一・複数始点の最短距離（graph / Graph）",
     "category": "テンプレートの別版",
     "categoryId": "Templates"
   },
   {
     "title": "複数テストケース用テンプレート",
     "path": "Templates/multiple_test_cases.cpp",
-    "description": "solve の末尾を追記して使用",
+    "description": "solve の末尾を追記して使用。dijkstraで単一・複数始点の最短距離（graph / Graph）",
     "category": "テンプレートの別版",
     "categoryId": "Templates"
   },
   {
     "title": "Codeforces用テンプレート",
     "path": "Templates/codeforces.cpp",
-    "description": "ACL modint の依存あり。Graph の型にも注意",
+    "description": "ACL modint の依存あり。Graph の型にも注意。dijkstraで単一・複数始点の最短距離（graph / Graph）",
     "category": "テンプレートの別版",
     "categoryId": "Templates"
   },

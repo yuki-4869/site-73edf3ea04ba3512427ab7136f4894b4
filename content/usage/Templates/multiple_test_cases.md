@@ -2,7 +2,7 @@
 
 [説明書の目次](../index.md) · [コード](../../../Templates/multiple_test_cases.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/933b86ab8c6dde6d09fbe6328e4778a780264ed3/Templates/multiple_test_cases.cpp)
 
-競技プログラミングの共通型・入出力・数学補助関数をまとめたテンプレートです。
+競技プログラミングの共通型・入出力・数学補助関数・最短距離をまとめたテンプレートです。
 
 型エイリアス・マクロとコードの置き方は [共通設定](../common.md) を参照してください。
 
@@ -72,6 +72,8 @@ Nはvector長または二項係数の上側。ll=long long、LL=__int128。
 - [ensure_factorial](#api-53)
 - [nCr](#api-54)
 - [nPr](#api-55)
+
+- [dijkstra](#dijkstra)
 
 </details>
 
@@ -924,6 +926,56 @@ N!/(N-r)!をmintで返します。範囲外では0。
 
 - 前計算済みならO(1)、不足時O(N+log mod)。
 
+<a id="dijkstra"></a>
+
+## dijkstra（単一始点・複数始点の最短距離）
+
+```cpp
+vl dijkstra(const graph& g,ll s);
+vl dijkstra(const graph& g,const vl& starts);
+vl dijkstra(const graph& g,initializer_list<ll> starts);
+vl dijkstra(const Graph& g,ll s);
+vl dijkstra(const Graph& g,const vl& starts);
+vl dijkstra(const Graph& g,initializer_list<ll> starts);
+```
+
+| 引数 | 内容 |
+| --- | --- |
+| `g` | `graph` は行き先の列、`Graph` は `(行き先, 重み)` の列からなる隣接リスト |
+| `s` | 単一の始点 |
+| `starts` | 複数の始点。`vl` または `{s1,s2,...}` で指定 |
+
+`N=g.size()` 項の `vl` を返します。`dist[v]` は始点集合のいずれかから頂点 `v` までの最短距離で、各始点の距離は `0`、未到達は `inf`（`9223372036854775807LL`）です。始点の重複は無視し、始点集合が空なら全要素が `inf` になります。入力グラフは変更しません。
+
+`graph` の各辺は距離 `1` としてBFSで処理します。`Graph` は非負重みをダイクストラ法で処理します。有向グラフに対応し、無向グラフでは両方向の辺を登録してください。自己ループ・多重辺・重み `0` にも対応します。
+
+**制約・添字**
+
+- 頂点番号・始点・各辺の行き先は `0` 以上 `N` 未満です。`dist[0],...,dist[N-1]` が頂点番号順の距離です。
+- 1-indexedの隣接リストを `g(N+1)` で用意した場合、返り値も `N+1` 項になります。`dist[1],...,dist[N]` を使い、ちょうど `N` 項必要なら先頭要素を取り除いてください。
+- `Graph` の重みは `0` 以上 `inf` 以下です。必要な最短距離は `inf` 未満としてください。距離の和が `inf` 以上になる遷移は加算前に除外するため、符号付き整数のオーバーフローを起こしません。そのような距離しか持たない頂点も `inf` になります。
+- 頂点数 `0` の場合は空の始点集合を指定してください。
+
+**計算量**
+
+`M` は隣接リストに登録した辺の総数、`K` は始点リストの長さ（単一始点では `1`）です。
+
+| 型 | 時間 | 返り値を含む追加メモリ |
+| --- | --- | --- |
+| `graph` | `O(N+M+K)` | `O(N)`。波括弧の始点指定では変換用に別途 `O(K)` |
+| `Graph` | `O(N+K+M log(M+2))` | `O(N+M)`。波括弧の始点指定では変換用に別途 `O(K)` |
+
+単純グラフの重み付き版は通常の `O((N+M) log(N+1)+K)` と表せます。既存の基本テンプレートに含まれる定義だけで利用でき、ヘッダーの追加は不要です。
+
+```cpp
+graph g={{1},{2},{},{}};
+assert((dijkstra(g,0)==vl{0,1,2,inf}));
+assert((dijkstra(g,vl{0,2})==vl{0,1,0,inf}));
+Graph wg={{{1,5},{2,20}},{{2,7}},{},{}};
+assert((dijkstra(wg,0)==vl{0,5,12,inf}));
+assert((dijkstra(wg,{0,2})==vl{0,5,0,inf}));
+```
+
 ## 取得できる情報
 
 | 名前 | 内容 |
@@ -933,7 +985,7 @@ N!/(N-r)!をmintで返します。範囲外では0。
 | `mint` | modint998244353 |
 | `vl` | vector<ll> |
 | `graph` | vector<vector<ll>> |
-| `Graph` | 重み付きグラフ型（版ごとに相違あり） |
+| `Graph` | vector<vector<pair<ll,ll>>>、各辺は (行き先, 重み) |
 | `rep(i,n)` | 0<=i<nのループ |
 | `all(v)` | begin,endのpair |
 | `fac,finv` | 階乗と逆階乗の表 |
@@ -947,6 +999,12 @@ vl a={3,1,3}; assert(vec_sum(a)==7);
 assert((compress(a)==vl{1,0,1}));
 assert(ceil_div(-5,2)==-2 && floor_div(-5,2)==-3);
 factorial(10); assert(nCr(5,2).val()==10);
+graph g={{1},{2},{},{}};
+assert((dijkstra(g,0)==vl{0,1,2,inf}));
+assert((dijkstra(g,vl{0,2})==vl{0,1,0,inf}));
+Graph wg={{{1,5},{2,20}},{{2,7}},{},{}};
+assert((dijkstra(wg,0)==vl{0,5,12,inf}));
+assert((dijkstra(wg,{0,2})==vl{0,5,0,inf}));
 ```
 
 ## メモリ
@@ -955,7 +1013,7 @@ factorial(10); assert(nCr(5,2).val()==10);
 
 ## 使用例の確認状況
 
-GCC 13.3.0、`-std=c++23` とACLで、掲載例のコンパイル・実行および `assert` の成功を確認しました。
+GNU C++23とACLで、掲載例のコンパイル・実行を確認しています。ダイクストラは4種類のテンプレートそれぞれで、境界条件とFloyd–Warshall法によるランダム比較を行っています。
 
 検証の際の準備:
 

@@ -57,6 +57,9 @@ policy=json.loads((site/'template-policy.json').read_text())
 shared=[]
 for path in policy['shared_templates']:
     full=(source/path).read_text()
+    lines=full.splitlines()
+    first=next(i for i,line in enumerate(lines) if line.startswith('vl vl_n('))
+    assert lines[first+1].startswith('vl vl_N('),path
     comments={}
     for line in full.splitlines():
         if '//' in line and not line.lstrip().startswith('//'):
@@ -76,6 +79,9 @@ assert [line for line in cf.splitlines() if line.startswith('//#include <atcoder
 assert policy['codeforces_expander_comment'] in cf
 assert cf.index(policy['codeforces_expander_comment'])<cf.index('\nvoid solve();')
 lines=(source/policy['line_reference']).read_text().splitlines()
-assert all(line.startswith('vl dijkstra(') for line in lines[87:93])
-assert lines[94].startswith('const vl Pow2={')
+begin,end=policy['line_positions']['dijkstra']
+assert all(line.startswith('vl dijkstra(') for line in lines[begin-1:end])
+assert lines[policy['line_positions']['Pow2']-1].startswith('const vl Pow2={')
+assert cf.count(policy['codeforces_expander_comment'])==1
+assert '/*' not in cf and '*/' not in cf
 print(f'{len(seen)} literal snippets match the complete source bytes; names, prefixes, and template links verified.')

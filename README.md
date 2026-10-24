@@ -112,5 +112,7 @@ ACL公式ドキュメントが使用するUIkit 3.5.16に合わせ、白背景�
 - 共通関数・定数・型定義の順序は `template.cpp`（code）を基準にし、codet・codecfにも同じ順序を適用する。
 - 行数指定はcodeに適用する。codet・codecfは、ヘッダー候補やコメントを保ち、行数より共通宣言の順序を優先する。
 - 旧版にあった行末の短い説明コメントを維持する。codecfではコメント済みACLヘッダー候補11件とexpanderの案内も維持する。
-- expanderの案内はcodecfの `void solve();` より前に置き、記入用main / solveを閉じず、最終行のTab1つを保つ。
+- expanderの案内は `// python /home/yuki4869/expander.py    .cpp` の1行コメントでcodecfの `void solve();` より前に置き、記入用main / solveを閉じず、最終行のTab1つを保つ。
 - 復元元・コメント一覧・候補ヘッダー・展開案内は `template-policy.json` を参照する。テンプレートのブロックコメントは使用例コメントとは限らないため、最初の `/*` だけで共通定義を切り落とさない。
+
+`vl_N` は `vl_n` の直後に配置する。`p(x)` はlong doubleだけ小数点以下12桁の固定小数点表示にし、元のcoutのフラグ・精度と式の評価回数1回を保つ。

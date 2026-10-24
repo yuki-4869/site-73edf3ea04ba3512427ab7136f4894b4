@@ -75,5 +75,12 @@
     "//#include <atcoder/scc>",
     "//#include <atcoder/twosat>"
   ],
-  "codeforces_expander_comment": "    /*\n\n    python /home/yuki4869/expander.py    .cpp\n\n    */"
+  "codeforces_expander_comment": "// python /home/yuki4869/expander.py    .cpp",
+  "line_positions": {
+    "dijkstra": [
+      89,
+      94
+    ],
+    "Pow2": 95
+  }
 }

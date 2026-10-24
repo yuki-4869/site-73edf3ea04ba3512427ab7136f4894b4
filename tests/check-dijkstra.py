@@ -19,7 +19,7 @@ for path in paths:
     full=(source/path).read_text()
     lines=full.splitlines()
     assert all(line.startswith('vl dijkstra(') for line in lines[87:93]),path
-    assert lines[94].startswith('const vector<unsigned long long> Pow2={'),path
+    assert lines[94].startswith('const vl Pow2={'),path
     text=full.split('signed main(){',1)[0]
     cpp=output/(Path(path).stem+'.cpp')
     executable=cpp.with_suffix('')

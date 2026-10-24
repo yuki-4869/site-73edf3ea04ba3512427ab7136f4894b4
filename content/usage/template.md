@@ -74,6 +74,7 @@ Nはvector長または二項係数の上側。ll=long long、LL=__int128。
 - [nPr](#api-55)
 
 - [dijkstra](#dijkstra)
+- [Pow2](#pow2-table)
 
 </details>
 
@@ -930,6 +931,8 @@ N!/(N-r)!をmintで返します。範囲外では0。
 
 ## dijkstra（単一始点・複数始点の最短距離）
 
+6個のオーバーロードを各1行にまとめ、テンプレートの88〜93行目に配置しています。
+
 ```cpp
 vl dijkstra(const graph& g,ll s);
 vl dijkstra(const graph& g,const vl& starts);
@@ -976,6 +979,33 @@ assert((dijkstra(wg,0)==vl{0,5,12,inf}));
 assert((dijkstra(wg,{0,2})==vl{0,5,0,inf}));
 ```
 
+<a id="pow2-table"></a>
+
+## Pow2（2の累乗の前計算済み配列）
+
+```cpp
+const vector<unsigned long long> Pow2;
+```
+
+`Pow2[i]` は `2^i`（`0<=i<=63`）です。64個の値をすべて整数リテラルとして展開し、テンプレートの95行目に配置しています。利用時の前計算関数の呼び出しは不要です。
+
+`Pow2[0]=1ULL`、`Pow2[63]=9223372036854775808ULL` です。`2^63` は `vl` の要素型 `ll` の正数範囲を超えるため、この配列には `unsigned long long` を使用します。`Pow2[63]` を `ll` に代入すると正の値を保持できません。負数との比較・計算では符号なし型への変換に注意し、符号付きで扱いたい場合は `(LL)Pow2[i]` としてください。
+
+| 操作 | 返り値 | 制約 | 計算量 |
+| --- | --- | --- | --- |
+| `Pow2[i]` | `const unsigned long long&`（値は `2^i`） | `0<=i<=63` | `O(1)` |
+| `Pow2.size()` | `size_t`、常に64 | なし | `O(1)` |
+
+配列は読み取り専用です。`factorial()` が用意するmodintの `pow2` とは別の配列で、法を取らない整数値を保持します。追加メモリは固定長64項です。
+
+```cpp
+auto p=Pow2[10];
+assert(p==1024ULL);
+assert(Pow2.size()==64 && Pow2[63]==9223372036854775808ULL);
+LL positive=(LL)Pow2[63];
+assert(positive==((LL)1<<63));
+```
+
 ## 取得できる情報
 
 | 名前 | 内容 |
@@ -989,6 +1019,7 @@ assert((dijkstra(wg,{0,2})==vl{0,5,0,inf}));
 | `rep(i,n)` | 0<=i<nのループ |
 | `all(v)` | begin,endのpair |
 | `fac,finv` | 階乗と逆階乗の表 |
+| `Pow2` | `const vector<unsigned long long>`、`2^0`〜`2^63` の64項 |
 
 ## 使用例
 
@@ -999,6 +1030,7 @@ vl a={3,1,3}; assert(vec_sum(a)==7);
 assert((compress(a)==vl{1,0,1}));
 assert(ceil_div(-5,2)==-2 && floor_div(-5,2)==-3);
 factorial(10); assert(nCr(5,2).val()==10);
+assert(Pow2.size()==64 && Pow2[0]==1ULL && Pow2[63]==9223372036854775808ULL);
 graph g={{1},{2},{},{}};
 assert((dijkstra(g,0)==vl{0,1,2,inf}));
 assert((dijkstra(g,vl{0,2})==vl{0,1,0,inf}));

@@ -42,6 +42,9 @@ void dijkstra_test_compare(const graph& g,const Graph& wg,const vl& starts){
 }
 
 void dijkstra_test_all(){
+    dijkstra_test_require(Pow2.size()==64);
+    for(size_t i=0;i<64;i++) dijkstra_test_require(Pow2[i]==(1ULL<<i));
+    dijkstra_test_require((LL)Pow2[63]==((LL)1<<63));
     static_assert(is_same_v<decltype(dijkstra(declval<const graph&>(),0LL)),vl>);
     static_assert(is_same_v<decltype(dijkstra(declval<const Graph&>(),declval<const vl&>())),vl>);
     dijkstra_test_compare(graph{},Graph{},{});
@@ -103,5 +106,5 @@ void dijkstra_test_all(){
     Graph parallel(2);
     for(ll w=n;w>=0;w--) parallel[0].push_back({1,w});
     dijkstra_test_require(dijkstra(parallel,0)==vl({0,0}));
-    cout<<"Dijkstra passed: 3000 randomized graphs, boundary cases, 200000-vertex chain and parallel edges.\n";
+    cout<<"Dijkstra passed: 3000 randomized graphs, boundary cases, 200000-vertex chain and parallel edges; all 64 Pow2 values passed.\n";
 }

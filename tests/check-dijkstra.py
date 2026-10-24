@@ -16,7 +16,11 @@ output.mkdir(parents=True,exist_ok=True)
 harness=Path(__file__).with_name('dijkstra_test.cpp').read_text()
 paths=['template.cpp','Templates/multiple_test_cases.cpp','Templates/codeforces.cpp','Templates/modint_only.cpp']
 for path in paths:
-    text=(source/path).read_text().split('signed main(){',1)[0]
+    full=(source/path).read_text()
+    lines=full.splitlines()
+    assert all(line.startswith('vl dijkstra(') for line in lines[87:93]),path
+    assert lines[94].startswith('const vector<unsigned long long> Pow2={'),path
+    text=full.split('signed main(){',1)[0]
     cpp=output/(Path(path).stem+'.cpp')
     executable=cpp.with_suffix('')
     cpp.write_text(text+'\n'+harness+'\nint main(){dijkstra_test_all();}\n')

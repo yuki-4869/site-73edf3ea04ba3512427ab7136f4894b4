@@ -53,4 +53,29 @@ for name,path in [('コード','template.cpp'),('codet','Templates/multiple_test
 if args.baseline:
     for name,entry in json.loads(args.baseline.read_text(encoding='utf-8-sig')).items():
         assert name in snippets and snippets[name]['prefix']==entry['prefix'],name
+policy=json.loads((site/'template-policy.json').read_text())
+shared=[]
+for path in policy['shared_templates']:
+    full=(source/path).read_text()
+    comments={}
+    for line in full.splitlines():
+        if '//' in line and not line.lstrip().startswith('//'):
+            code,comment=line.split('//',1)
+            key=re.sub(r'\s+','',code.partition('{')[0].strip())
+            comments[key]=comment.strip()
+    assert comments==policy['inline_comments'],path
+    marker='\nvoid solve();' if path.startswith('Templates/') else '\nsigned main(){'
+    prefix=full.split(marker,1)[0]
+    prefix=prefix[prefix.index('using namespace std;'):]
+    tokens=re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|//[^\n]*|/\*[\s\S]*?\*/')
+    prefix=tokens.sub(lambda m:'' if m[0].startswith(('//','/*')) else m[0],prefix)
+    shared.append(re.sub(r'\s+','',prefix))
+assert len(set(shared))==1,'Common declarations must follow code order in codet/codecf.'
+cf=(source/'Templates/codeforces.cpp').read_text()
+assert [line for line in cf.splitlines() if line.startswith('//#include <atcoder/')]==policy['codeforces_header_candidates']
+assert policy['codeforces_expander_comment'] in cf
+assert cf.index(policy['codeforces_expander_comment'])<cf.index('\nvoid solve();')
+lines=(source/policy['line_reference']).read_text().splitlines()
+assert all(line.startswith('vl dijkstra(') for line in lines[87:93])
+assert lines[94].startswith('const vl Pow2={')
 print(f'{len(seen)} literal snippets match the complete source bytes; names, prefixes, and template links verified.')

@@ -2,7 +2,7 @@
   {
     "title": "template.cpp",
     "path": "template.cpp",
-    "description": "型エイリアス、入出力、数学補助関数、main の追記用テンプレート。dijkstraで単一・複数始点の最短距離（graph / Graph）、Pow2で2^0〜2^60の整数表",
+    "description": "共通型・入出力・数学補助・最短距離・Pow2。旧版の短い説明コメント付き。",
     "category": "基本テンプレート",
     "categoryId": "template"
   },
@@ -16,14 +16,14 @@
   {
     "title": "複数テストケース用テンプレート",
     "path": "Templates/multiple_test_cases.cpp",
-    "description": "solve の末尾を追記して使用。dijkstraで単一・複数始点の最短距離（graph / Graph）、Pow2で2^0〜2^60の整数表",
+    "description": "複数テストケース用。共通関数はcodeと同順、solveの末尾へ追記。",
     "category": "テンプレートの別版",
     "categoryId": "Templates"
   },
   {
     "title": "Codeforces用テンプレート",
     "path": "Templates/codeforces.cpp",
-    "description": "ACL modint の依存あり。Graph の型にも注意。dijkstraで単一・複数始点の最短距離（graph / Graph）、Pow2で2^0〜2^60の整数表",
+    "description": "ACLヘッダー候補・expanderコマンド付き。共通関数はcodeと同順。",
     "category": "テンプレートの別版",
     "categoryId": "Templates"
   },

@@ -18,8 +18,12 @@ paths=['template.cpp','Templates/multiple_test_cases.cpp','Templates/codeforces.
 for path in paths:
     full=(source/path).read_text()
     lines=full.splitlines()
-    assert all(line.startswith('vl dijkstra(') for line in lines[87:93]),path
-    assert lines[94].startswith('const vl Pow2={'),path
+    positions=[i for i,line in enumerate(lines) if line.startswith('vl dijkstra(')]
+    assert len(positions)==6 and positions==list(range(positions[0],positions[0]+6)),path
+    assert any(line.startswith('const vl Pow2={') for line in lines),path
+    if path=='template.cpp':
+        assert positions==list(range(87,93)),path
+        assert lines[94].startswith('const vl Pow2={'),path
     text=full.split('signed main(){',1)[0]
     cpp=output/(Path(path).stem+'.cpp')
     executable=cpp.with_suffix('')

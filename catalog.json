@@ -481,5 +481,12 @@
     "description": "S・F・各演算を定義。LazySegBase に依存",
     "category": "穴埋め用スニペット",
     "categoryId": "Snippets"
+  },
+  {
+    "title": "凸包（整数座標）",
+    "path": "Geometry/convex_hull.cpp",
+    "description": "整数点集合の凸包を反時計回りに構築、境界上の点の保持を選択、128 bit外積",
+    "category": "幾何",
+    "categoryId": "Geometry"
   }
 ]

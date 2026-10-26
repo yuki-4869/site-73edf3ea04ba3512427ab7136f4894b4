@@ -115,4 +115,6 @@ ACL公式ドキュメントが使用するUIkit 3.5.16に合わせ、白背景�
 - expanderの案内は `// python /home/yuki4869/expander.py    .cpp` の1行コメントでcodecfの `void solve();` より前に置き、記入用main / solveを閉じず、最終行のTab1つを保つ。
 - 復元元・コメント一覧・候補ヘッダー・展開案内は `template-policy.json` を参照する。テンプレートのブロックコメントは使用例コメントとは限らないため、最初の `/*` だけで共通定義を切り落とさない。
 
-`vl_N` は `vl_n` の直後に配置する。`p(x)` はlong doubleだけ小数点以下12桁の固定小数点表示にし、元のcoutのフラグ・精度と式の評価回数1回を保つ。
+`vl_N` は `vl_n` の直後に配置する。`p(x)` は通常出力。`pld` 系は数値を12桁出力し書式を復元する。`pe` 系は改行してフラッシュする。
+
+出力APIの仕様はcontent/usage/template.mdの出力関数・マクロを参照。

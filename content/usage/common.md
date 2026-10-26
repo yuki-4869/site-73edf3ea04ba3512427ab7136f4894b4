@@ -89,7 +89,7 @@ Nは要素・頂点数、Mは辺数、sigmaは異なる値数など、各ペー�
 
 ## 2の累乗の整数表
 
-`Pow2[i]` で `2^i`（`0<=i<=60`）を取得します。`code`（`template.cpp`）の95行目に61項を定数として展開済みで、型は `const vl` です。詳しくは [Pow2の説明](template.md#pow2-table) を参照してください。
+`Pow2[i]` で `2^i`（`0<=i<=60`）を取得します。`code`（`template.cpp`）の103行目に61項を定数として展開済みで、型は `const vl` です。詳しくは [Pow2の説明](template.md#pow2-table) を参照してください。
 
 ## テンプレート間の順序と行番号
 
@@ -97,6 +97,4 @@ Nは要素・頂点数、Mは辺数、sigmaは異なる値数など、各ペー�
 
 `codecf` の展開コマンド案内は `// python /home/yuki4869/expander.py    .cpp` の1行コメントで、`void solve();` の前に配置します。3種類とも記入用の `main` / `solve` は閉じず、最終行のTab1つを維持します。
 
-## 型に応じた1行出力
-
-`p(x)` は `x` が `long double`（`ld`）のとき小数点以下12桁の固定小数点形式で出力します。例：`p(1.25L)` は `1.250000000000`。式は1回だけ評価し、出力後は元の `cout` の書式と精度を復元します。他の型は従来の出力形式です。詳しくは [pの説明](template.md#print-line) を参照してください。
+出力APIは [p・pld・pe・cout_ver](template.md#print-line) を参照してください。

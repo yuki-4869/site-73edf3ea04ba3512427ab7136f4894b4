@@ -1,75 +1,29 @@
-void template_print_require(bool condition){
-    if(!condition) abort();
-}
-
-template<class T> void template_print_through(const T& x){
-    p(x);
-}
-
-struct TemplatePrintRvalue{};
-ostream& operator<<(ostream& out,TemplatePrintRvalue&&){
-    return out<<"rvalue";
-}
-
+struct TemplateOutputBuffer: stringbuf{int flushes=0;int sync() override{++flushes;return 0;}};
 void template_print_test_all(){
-    ostringstream out;
-    auto* previous_buffer=cout.rdbuf(out.rdbuf());
-    auto previous_flags=cout.flags();
-    auto previous_precision=cout.precision();
-    cout<<defaultfloat<<noshowpos<<noboolalpha<<dec<<setprecision(6);
-    ld value=1.25L;
-    const ld constant=1.25L;
-    volatile ld vol=3.0L;
-    p(value);
-    p(constant);
-    p(vol);
-    p(0.0L);
-    p(-1.25L);
-    p(0.0000000000016L);
-    p(1000000000000000000.0L);
-    p(42);
-    p(true);
-    p('Z');
-    p("text");
-    p(string("string"));
-    p(mint(7));
-    p(1.25);
-    int calls=0;
-    p((++calls,2.5L));
-    p((++calls,3));
-    template_print_through(7.0L);
-    auto& result=p(99);
-    template_print_require(&result==&cout);
-    if(true) p(10); else p(11);
-    p_yes();
-    p_no();
-    YesNo(true);
-    p(TemplatePrintRvalue{});
-    template_print_require(calls==2);
-    template_print_require(out.str()==
-        "1.250000000000\n1.250000000000\n3.000000000000\n"
-        "0.000000000000\n-1.250000000000\n0.000000000002\n"
-        "1000000000000000000.000000000000\n42\n1\nZ\ntext\nstring\n7\n1.25\n"
-        "2.500000000000\n3\n7.000000000000\n99\n10\nYes\nNo\nYes\nrvalue\n");
-    out.str("");
-    out.clear();
-    cout<<scientific<<setprecision(4);
-    auto expected_flags=cout.flags();
-    auto expected_precision=cout.precision();
-    p(1.25L);
-    template_print_require(cout.flags()==expected_flags && cout.precision()==expected_precision);
-    p(1.25);
-    template_print_require(out.str()=="1.250000000000\n1.2500e+00\n");
-    out.str("");
-    out.clear();
+    TemplateOutputBuffer buffer;
+    auto* previous=cout.rdbuf(&buffer);
+    auto flags=cout.flags();auto precision=cout.precision();
     cout<<defaultfloat<<setprecision(6);
-    p(1.0L)<<"after\n";
-    p(hex);
-    p(255);
-    cout<<dec;
-    template_print_require(out.str()=="1.000000000000\nafter\n\nff\n");
-    cout.flags(previous_flags);
-    cout.precision(previous_precision);
-    cout.rdbuf(previous_buffer);
-    cout<<"Template p passed: 12 decimal places for long double, single evaluation, other types, and stream-state restoration.\n";
+    p(1.25L);p2(1,2);p3(1,2,3);p4(1,2,3,4);
+    pld(1.25L);pld2(1,2.5);pld3(-1,0,3);pld4(1,2,3,4);
+    p(1.25L);p(mint(7));
+    int calls=0;pld2((++calls,1),(++calls,2));
+    cout_ver(vl{3,1,4});cout_ver(vector<string>{"a","b"});cout_ver(vl{});
+    if(calls!=2 || buffer.flushes!=0) abort();
+    pe("?");pe2("?",2);pe3("?",2,3);pe4("?",2,3,4);
+    if(buffer.flushes!=4) abort();
+    string expected="1.25\n1 2\n1 2 3\n1 2 3 4\n"
+      "1.250000000000\n1.000000000000 2.500000000000\n"
+      "-1.000000000000 0.000000000000 3.000000000000\n"
+      "1.000000000000 2.000000000000 3.000000000000 4.000000000000\n"
+      "1.25\n7\n1.000000000000 2.000000000000\n3\n1\n4\na\nb\n?\n? 2\n? 2 3\n? 2 3 4\n";
+    if(buffer.str()!=expected) abort();
+    buffer.str("");cout<<scientific<<setprecision(4);
+    auto scientific_flags=cout.flags();
+    pld2(1.25,2);
+    if(cout.flags()!=scientific_flags || cout.precision()!=4) abort();
+    p(1.25L);
+    if(buffer.str()!="1.250000000000 2.000000000000\n1.2500e+00\n") abort();
+    cout.flags(flags);cout.precision(precision);cout.rdbuf(previous);
+    cout<<"Output tests passed: p, pld1-4, pe1-4 flushes, cout_ver, and restored formatting.\n";
 }

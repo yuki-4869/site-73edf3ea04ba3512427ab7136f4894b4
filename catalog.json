@@ -385,6 +385,13 @@
     "categoryId": "FPSandPolynomial"
   },
   {
+    "title": "部分集合変換・OR／AND畳み込み",
+    "path": "FPSandPolynomial/bitmask_transforms.cpp",
+    "description": "部分集合・上位集合のゼータ／メビウス変換、OR・AND畳み込み、合成数modにも対応",
+    "category": "畳み込み",
+    "categoryId": "FPSandPolynomial"
+  },
+  {
     "title": "回文半径",
     "path": "String/palindrome_radius.cpp",
     "description": "文字を中心とする奇数長回文の半径。関数内に貼り付けるスニペット",

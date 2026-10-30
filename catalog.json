@@ -399,6 +399,13 @@
     "categoryId": "String"
   },
   {
+    "title": "Lyndon分解・最小巡回シフト",
+    "path": "String/lyndon_factorization.cpp",
+    "description": "Duval法による線形時間のLyndon分解と辞書順最小の巡回シフト、同値時は最小位置",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "Aho-Corasick",
     "path": "String/aho_corasick.cpp",
     "description": "複数文字列の照合。文字列追加後にbuild",

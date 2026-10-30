@@ -67,5 +67,6 @@
   "DataStructureSegment/disjoint_sparse_table.cpp": "3355a5890a5836fbf5c3d19bed0797abb4fd4d0e",
   "Graph/hopcroft_karp.cpp": "c92f5b70ffadb03e0e0a9190ad01f2bb9b7617c0",
   "Geometry/convex_hull.cpp": "eb155ef4d8a6505374ba102edae18e2102c18ad4",
-  "FPSandPolynomial/bitmask_transforms.cpp": "7be8a6850b0048633761e9e12be750ff179fe538"
+  "FPSandPolynomial/bitmask_transforms.cpp": "7be8a6850b0048633761e9e12be750ff179fe538",
+  "String/lyndon_factorization.cpp": "7ed405956ef1c5ca67af6e6b6b44f836f6f552b9"
 }

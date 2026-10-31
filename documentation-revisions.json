@@ -25,7 +25,7 @@
   "Graph/lowlink.cpp": "9e74e241a2cfcf54c751617860f6fc346c9a53df",
   "Graph/offline_dynamic_connectivity.cpp": "1f62b1300ef14ee88505c0aac5603a4effcb3035",
   "Graph/offline_dynamic_connectivity_weighted.cpp": "896c142f0c289758dbab2b0693bba59b4f91a267",
-  "Graph/scc_condensation.cpp": "2452335386a7dbefd47a8ae16ea627cdc39b08b9",
+  "Graph/scc_condensation.cpp": "a5f8b60acd146812b02a36dc1d4316e77e54ee79",
   "LinearAlgebra/gaussian_elimination.cpp": "bf2e72345fbcd8bd03e1dec95b264f808beaf229",
   "LinearAlgebra/gf2_gaussian_elimination.cpp": "38b01db6d979065f6659f64c96e233b365382491",
   "LinearAlgebra/xor_basis.cpp": "e0c48f32db8b50d2821d73624fe5b7a6d3e1f2d0",

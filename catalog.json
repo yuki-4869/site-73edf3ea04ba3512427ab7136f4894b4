@@ -184,7 +184,7 @@
   {
     "title": "SCCと縮約DAG",
     "path": "Graph/scc_condensation.cpp",
-    "description": "元のファイル名と異なり、本文はSCC結果と縮約DAGの処理",
+    "description": "SCC分解・縮約DAGと重み付き成分の非0閉路判定",
     "category": "グラフ",
     "categoryId": "Graph"
   },

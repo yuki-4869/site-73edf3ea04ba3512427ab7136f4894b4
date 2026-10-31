@@ -254,7 +254,7 @@
   {
     "title": "木の直径・最遠距離",
     "path": "Tree/tree_diameter.cpp",
-    "description": "重みなし・非負重み付きの実装を収録",
+    "description": "重みなし・非負重み付きの直径・最遠距離・中心を取得",
     "category": "木",
     "categoryId": "Tree"
   },

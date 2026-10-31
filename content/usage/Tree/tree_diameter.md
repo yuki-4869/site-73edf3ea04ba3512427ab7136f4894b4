@@ -1,6 +1,6 @@
 # 木の直径・最遠距離
 
-[説明書の目次](../index.md) · [コード](../../../Tree/tree_diameter.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/933b86ab8c6dde6d09fbe6328e4778a780264ed3/Tree/tree_diameter.cpp)
+[説明書の目次](../index.md) · [コード](../../../Tree/tree_diameter.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/a2ef08353465224c5de4c272b476e42956374895/Tree/tree_diameter.cpp)
 
 木の直径・中心・各頂点からの最遠距離を前計算します。
 
@@ -12,7 +12,7 @@ TreeDiameterは無重み、WeightedTreeDiameterは重み付き。N=頂点数。
 
 **共通の前提**
 
-- gは無向木または空。重み付きGraphは隣接リストのpairが{行き先,辺重み}。重みは非負。距離・累積和はllに収めます。
+- gは非空の連結な無向木。重み付きGraphは隣接リストのpairが{行き先,辺重み}。重みは非負。距離・累積和はllに収めます。
 
 <details>
 <summary>API一覧</summary>
@@ -21,10 +21,12 @@ TreeDiameterは無重み、WeightedTreeDiameterは重み付き。N=頂点数。
 - [TreeDiameter::build](#api-2)
 - [TreeDiameter::get_farthest_dist](#api-3)
 - [TreeDiameter::get_farthest_vertex](#api-4)
+- [TreeDiameter::get_centers](#api-10)
 - [TreeDiameter::on_diameter](#api-5)
 - [WeightedTreeDiameter::build](#api-6)
 - [WeightedTreeDiameter::get_farthest_dist](#api-7)
 - [WeightedTreeDiameter::get_farthest_vertex](#api-8)
+- [WeightedTreeDiameter::get_centers](#api-11)
 - [WeightedTreeDiameter::on_diameter](#api-9)
 
 </details>
@@ -130,6 +132,24 @@ vから最も遠い頂点を1つ返します。
 
 - O(1)。
 
+<a id="api-10"></a>
+
+## TreeDiameter::get_centers
+
+```cpp
+vl get_centers() const;
+```
+
+各頂点から最も遠い頂点までの距離 `ecc[v]` を最小にする頂点を、頂点番号の昇順で返します。この頂点を木の中心と呼び、最小値は `radius` です。
+
+非空の無重み木の中心は1個または2個です。直径の辺数が偶数なら直径経路の中央の1頂点、奇数なら中央の2頂点になります。1頂点の木では `{0}` を返します。
+
+返り値は `centers` のコピーです。返された配列を変更しても、オブジェクト内の情報は変わりません。デフォルト構築後、まだ `build(g)` を呼んでいない場合は空の配列を返します。
+
+**計算量**
+
+- 中心の個数を K として O(K)、追加メモリ O(K)。無重みでは K<=2 なので O(1)。
+
 <a id="api-5"></a>
 
 ## TreeDiameter::on_diameter
@@ -198,6 +218,24 @@ vから最も遠い頂点を1つ返します。
 
 - O(1)。
 
+<a id="api-11"></a>
+
+## WeightedTreeDiameter::get_centers
+
+```cpp
+vl get_centers() const;
+```
+
+辺の重みを距離として、`ecc[v]` を最小にする頂点をすべて頂点番号の昇順で返します。頂点を中心としたときの結果であり、辺の途中の位置は返しません。
+
+重み0の辺がある場合、中心が3頂点以上になることもあります。例えば、すべての辺の重みが0なら全頂点を返します。
+
+返り値は `centers` のコピーです。未構築時は空の配列を返し、`build(g)` 後は再構築した木の中心を返します。
+
+**計算量**
+
+- 中心の個数を K として O(K)、追加メモリ O(K)。K<=N。
+
 <a id="api-9"></a>
 
 ## WeightedTreeDiameter::on_diameter
@@ -237,7 +275,17 @@ vが今回選ばれた直径のpathに含まれるかを返します。
 ```cpp
 graph g={{1},{0,2},{1}}; TreeDiameter t(g);
 assert(t.diameter==2 && t.get_farthest_dist(1)==1);
-assert(t.centers==vl{1});
+assert(t.get_centers()==vl{1});
+
+graph path={{1},{0,2},{1,3},{2}};
+TreeDiameter two(path);
+assert((two.get_centers()==vl{1,2}));
+
+Graph weighted(3);
+weighted[0].push_back({1,0}); weighted[1].push_back({0,0});
+weighted[1].push_back({2,0}); weighted[2].push_back({1,0});
+WeightedTreeDiameter w(weighted);
+assert((w.get_centers()==vl{0,1,2}));
 ```
 
 ## メモリ

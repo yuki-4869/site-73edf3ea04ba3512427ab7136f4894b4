@@ -120,7 +120,7 @@
 | [LCA](Tree/lca.md) | 最小共通祖先・距離・祖先判定 | [コード](../../Tree/lca.cpp) |
 | [Heavy-Light Decomposition](Tree/hld.md) | パスを区間分解。非可換演算向けの順序にも対応 | [コード](../../Tree/hld.cpp) |
 | [全方位木DP](Tree/rerooting.md) | merge・lift・add_vertex を指定 | [コード](../../Tree/rerooting.cpp) |
-| [木の直径・最遠距離](Tree/tree_diameter.md) | 重みなし・非負重み付きの実装を収録 | [コード](../../Tree/tree_diameter.cpp) |
+| [木の直径・最遠距離](Tree/tree_diameter.md) | 重みなし・非負重み付きの直径・最遠距離・中心を取得 | [コード](../../Tree/tree_diameter.cpp) |
 | [木の重心](Tree/tree_centroid.md) | 重みなし・頂点重み付きの重心情報 | [コード](../../Tree/tree_centroid.cpp) |
 | [Virtual Tree](Tree/virtual_tree.md) | DFS順・深さ・LCA関数を与えて構築 | [コード](../../Tree/virtual_tree.cpp) |
 | [DSU on Tree](Tree/dsu_on_tree.md) | 部分木クエリ用。再帰を使用 | [コード](../../Tree/dsu_on_tree.cpp) |

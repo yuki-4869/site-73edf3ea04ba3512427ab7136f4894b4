@@ -324,14 +324,14 @@
   {
     "title": "線形篩",
     "path": "MathNumberTheory/linear_sieve.cpp",
-    "description": "素数・最小素因数・phi・mu",
+    "description": "素数・最小素因数・phi・mu、試し割りとSPFを併用した素因数分解",
     "category": "整数論",
     "categoryId": "MathNumberTheory"
   },
   {
     "title": "整数論のまとめ",
     "path": "MathNumberTheory/number_theory_bundle.cpp",
-    "description": "LinearSieve・素数関連・約数／倍数変換など",
+    "description": "LinearSieve・N²までの完全な素因数分解・約数／倍数変換",
     "category": "整数論",
     "categoryId": "MathNumberTheory"
   },

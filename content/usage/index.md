@@ -137,8 +137,8 @@
 | [約数・倍数ゼータ／メビウス変換](MathNumberTheory/divisor_multiple_transforms.md) | 添字 1..N を使用し、f[0] は未使用 | [コード](../../MathNumberTheory/divisor_multiple_transforms.cpp) |
 | [Miller-Rabin / Pollard Rho](MathNumberTheory/miller_rabin_pollard_rho.md) | uint64_t の素数判定と素因数分解 | [コード](../../MathNumberTheory/miller_rabin_pollard_rho.cpp) |
 | [拡張ユークリッド互除法](MathNumberTheory/extended_euclid.md) | 一次不定方程式・合同式・逆元 | [コード](../../MathNumberTheory/extended_euclid.cpp) |
-| [線形篩](MathNumberTheory/linear_sieve.md) | 素数・最小素因数・phi・mu | [コード](../../MathNumberTheory/linear_sieve.cpp) |
-| [整数論のまとめ](MathNumberTheory/number_theory_bundle.md) | LinearSieve・素数関連・約数／倍数変換など | [コード](../../MathNumberTheory/number_theory_bundle.cpp) |
+| [線形篩](MathNumberTheory/linear_sieve.md) | 素数・最小素因数・phi・mu、試し割りとSPFを併用した素因数分解 | [コード](../../MathNumberTheory/linear_sieve.cpp) |
+| [整数論のまとめ](MathNumberTheory/number_theory_bundle.md) | LinearSieve・N²までの完全な素因数分解・約数／倍数変換 | [コード](../../MathNumberTheory/number_theory_bundle.cpp) |
 
 <a id="category-10"></a>
 

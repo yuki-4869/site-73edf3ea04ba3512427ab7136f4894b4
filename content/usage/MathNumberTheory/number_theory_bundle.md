@@ -1,18 +1,22 @@
 # 整数論のまとめ
 
-[説明書の目次](../index.md) · [コード](../../../MathNumberTheory/number_theory_bundle.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/933b86ab8c6dde6d09fbe6328e4778a780264ed3/MathNumberTheory/number_theory_bundle.cpp)
+[説明書の目次](../index.md) · [コード](../../../MathNumberTheory/number_theory_bundle.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/88a03de2887e9cafbd2d2fe5a1f3a2129844b351/MathNumberTheory/number_theory_bundle.cpp)
 
-整数配列の約数・倍数方向の和とその逆変換を求めます。線形篩と素因数関連のAPIも同じファイルに収録しています。
+整数配列の約数・倍数方向の和とその逆変換を求めます。線形篩と素因数関連のAPIも同じファイルに収録しています。`factor(x)` は前計算上限の二乗まで完全な分解を保証し、それより大きい入力も残りを1因子として返します。
 
 型エイリアス・マクロとコードの置き方は [共通設定](../common.md) を参照してください。
 
 **記号**
 
-N=変換上限、D=xの約数個数。
+N=変換上限、P=篩で前計算した素数の個数、D=約数列挙の出力個数。
+
+F(x) は `factor(x)` の計算量で、x<=S.n なら O(log x)、それ以外は最悪 O(P+log x) とします。
 
 **共通の前提**
 
-- 配列は長さN+1で、添字1..Nを使用。0番目は変更しません。S.n>=N。篩の素因数関連は1<=x<=S.n。変換は値渡しで返します。
+- 配列は長さN+1で、添字1..Nを使用。0番目は変更しません。S.n>=N。変換は値渡しで返します。
+- 篩の前計算上限 S.n>=1。`factor` と `divisors` の入力は `1<=x<=LLONG_MAX` で、完全な素因数分解・全約数の列挙を保証する範囲は x<=S.n^2 です。
+- `factor_list`、`factor_unique`、`rad`、`factor_zobrist`、`omega`、`Omega`、`phi`、`mobius` の入力範囲は、従来どおり 1<=x<=S.n です。最小素因数などの表も前計算した範囲内で使用します。
 
 <details>
 <summary>API一覧</summary>
@@ -127,11 +131,18 @@ x以下の素数個数を返します。
 vp factor(ll x)const;
 ```
 
-昇順の{素因数,指数}列を返します。
+昇順の `{因子,指数}` 列を返します。x=1 は空です。返された因子をそれぞれ指数回掛けた積は、入力 x に等しくなります。
+
+- x<=S.n では、従来どおり最小素因数表 `mn` で分解します。
+- x>S.n では、前計算した素数で試し割りします。同じ素数で割り切った直後の残りが S.n 以下なら、`mn` による分解へ切り替えます。同じ因子の項は重複しません。
+- `p>残り/p` でも試し割りを終了します。最後の残り r>1 は `{r,1}` として追加します。
+- x<=S.n^2 では、すべての因子が素数であることを保証します。それを超える場合、最後の因子は合成数の場合もあります。例えば S.n=20, x=899 では `{{899,1}}` を返します。
+
+S.n 以下の素数で割った後の残りが合成数なら、その素因数はすべて S.n より大きいため、残りは S.n^2 より大きくなります。このため、x<=S.n^2 では完全な分解が保証されます。前計算する表のサイズは引き続き O(S.n) です。
 
 **計算量**
 
-- O(log x)。
+- F(x)。途中で残りが S.n 以下になれば、それ以降の試し割りは行いません。
 
 <a id="api-7"></a>
 
@@ -199,9 +210,11 @@ vl divisors(ll x)const;
 
 昇順の正の約数列を返します。
 
+`factor(x)` を使うため、x<=S.n^2 では全約数を列挙できます。x>S.n^2 で最後の因子が合成数になった場合は、一部の約数だけを返し、全列挙を保証しません。
+
 **計算量**
 
-- O(log x+D log D)。
+- F(x)+O(D log D)。
 
 <a id="api-12"></a>
 
@@ -322,6 +335,10 @@ vmi multiple_mobius(vmi a,const LinearSieve& S);
 ```cpp
 LinearSieve s(20);
 assert(s.factor(12).size()==2 && s.phi(12)==4);
+assert((s.factor(72)==vp{{2,3},{3,2}}));
+assert((s.factor(400)==vp{{2,4},{5,2}}));
+assert((s.factor(899)==vp{{899,1}}));
+assert((s.divisors(899)==vl{1,899}));
 vmi a(21,1); a[0]=0;
 auto b=divisor_zeta(a,s);
 assert(b[12].val()==6);

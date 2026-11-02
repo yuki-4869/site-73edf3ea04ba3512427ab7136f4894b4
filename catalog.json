@@ -63,6 +63,13 @@
     "categoryId": "DataStructureBasic"
   },
   {
+    "title": "SWAG（集約付きキュー）",
+    "path": "DataStructureBasic/swag_queue.cpp",
+    "description": "追加・先頭削除が償却O(1)、全体集約が最悪O(1)、非可換な演算にも対応",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
     "title": "Disjoint Sparse Table",
     "path": "DataStructureSegment/disjoint_sparse_table.cpp",
     "description": "静的な結合的区間積をO(1)で取得、非可換演算にも対応",

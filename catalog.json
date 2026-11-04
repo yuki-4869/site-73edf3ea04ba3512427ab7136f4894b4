@@ -189,6 +189,13 @@
     "categoryId": "Graph"
   },
   {
+    "title": "最小費用割当（Hungarian法）",
+    "path": "Graph/hungarian.cpp",
+    "description": "長方形・負費用に対応する最小費用割当と復元、128bit合計、O(N²M)",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
     "title": "SCCと縮約DAG",
     "path": "Graph/scc_condensation.cpp",
     "description": "SCC分解・縮約DAGと重み付き成分の非0閉路判定",

@@ -13,7 +13,7 @@
 ## 全API
 
 ```cpp
-FPSMint lagrange_consecutive(const FPSVector& y,FPSMint x);
+FPSMint lagrange_consecutive(const FPSVector& values,FPSMint x);
 FPSVector binomial_transform(const FPSVector& a);
 FPSVector inverse_binomial_transform(const FPSVector& a);
 FPSVector stirling2_row(ll n);
@@ -39,6 +39,46 @@ FPSVector partition_numbers(ll n);
 Mは選んだFPSの乗算計算量です。上のnを使う列は**n+1項**を返し、二項変換は入力と同じ項数です。
 作業領域と共有キャッシュはO(N)またはO(n)。法を固定して数え、スカラー逆元の計算がある場合はO(log p)を加えます。
 
+## 引数と返り値の読み方
+
+### lagrange_consecutive(y,x)
+
+| 引数 | 渡す値 |
+| --- | --- |
+| `y`（宣言の `values`） | 連続した点0,1,...,N-1での値。`y[i]=f(i)`。係数列ではない |
+| `x` | 新たに代入したい1個の値。型は `FPSMint` |
+
+返り値は、与えられたN点を通る次数N未満の多項式についての $f(x)$ という**値1個**です。係数は復元しません。例えば `y={1,4,9,16}` は $f(X)=(X+1)^2$ の0,1,2,3での値なので、`lagrange_consecutive(y,10)` は121です。
+点が0,1,...と連続していない場合は [多点評価・多項式補間](multipoint.md) の `interpolate(points,values)` を使います。そちらは値1個ではなく係数列を返します。元の多項式の次数がN以上だと、既知のN点だけから別の点の値を一意に決めることはできません。
+
+### 二項変換・逆二項変換
+
+`a` は第0項からの数列です。返り値bも同じ長さで、第i項は次の値です。入力を変更しません。
+
+$$
+b_i=\sum_{j=0}^{i}\binom{i}{j}a_j,\qquad
+(\text{逆変換})\quad b_i=\sum_{j=0}^{i}(-1)^{i-j}\binom{i}{j}a_j.
+$$
+
+例えば `binomial_transform({1,2,3,4})` は `{1,3,8,20}` です。逆変換へその結果を渡すと元の `{1,2,3,4}` に戻ります。
+
+### nを渡す数列関数
+
+ここでの `n` は非負の**最大の番号**です。返り値は添字0..nの **n+1項**です。FPS本体の `inv(n)` のように項数を渡すAPIとは異なります。
+
+| 呼び出し | 引数nの意味 | 返り値の添字kの意味 | 小さい例 |
+| --- | --- | --- | --- |
+| `stirling2_row(n)` | 分ける相異なる要素の個数 | n要素をk個の空でない区別しないグループに分ける方法数 $S(n,k)$ | n=3で `{0,1,3,1}` |
+| `stirling1_unsigned(n)` | 順列の要素数 | n要素の順列で、巡回置換への分解がk個になるものの数 | n=3で `{0,2,3,1}` |
+| `stirling1_signed(n)` | 下降階乗の因子の個数 | $X(X-1)\cdots(X-n+1)$ の $X^k$ の係数 | n=3で `{0,2,-3,1}` |
+| `bernoulli_numbers(n)` | 欲しいBernoulli数の最大番号 | 第k Bernoulli数 $B_k$ | n=2で $1,-1/2,1/6$ |
+| `bell_numbers(n)` | 欲しいBell数の最大番号 | k要素を空でない区別しないグループへ自由に分ける方法数 | n=3で `{1,1,2,5}` |
+| `partition_numbers(n)` | 分割数を求める整数の上限 | 整数kを正整数の和で表す方法数。項の順序を区別しない | n=5で `{1,1,2,3,5,7}` |
+
+Stirling数の行の添字kは「グループ数・巡回置換数・次数」です。Bell数や分割数の配列では、添字kそのものが対象の要素数・整数です。例えば `stirling2_row(3)[2]=3` と `bell_numbers(3)[2]=2` は異なる量です。
+Bell数では要素を区別し、整数分割数では同じ大きさの項を区別しません。Bell数の値は第二種Stirling数の同じ行の総和です。
+Bernoulli数の分数は法上の逆元で表されます。例えば第2項は `FPSMint(6).inv()` であり、小数ではありません。
+
 ## 定義・制約
 
 - Lagrange補間はy[i]=f(i)、deg f<N、N<=pが前提です。空なら0を返します。xは法上の値として扱い、0<=x.val()<Nなら入力を直接返します。
@@ -60,6 +100,7 @@ FPSVector y={1,4,9,16};
 assert(lagrange_consecutive(y,10)==FPSMint(121));
 FPSVector a={1,2,3,4};
 auto transformed=binomial_transform(a);
+assert((transformed==FPSVector{1,3,8,20}));
 assert(inverse_binomial_transform(transformed)==a);
 assert((stirling1_signed(3)==FPSVector{0,2,-3,1}));
 assert((stirling1_unsigned(3)==FPSVector{0,2,3,1}));
@@ -67,4 +108,7 @@ assert((stirling2_row(3)==FPSVector{0,1,3,1}));
 assert(bernoulli_numbers(1)[1]==-FPSMint(2).inv());
 assert(bell_numbers(3)[3]==FPSMint(5));
 assert(partition_numbers(5)[5]==FPSMint(7));
+assert(bernoulli_numbers(2)[2]==FPSMint(6).inv());
+assert((bell_numbers(3)==FPSVector{1,1,2,5}));
+assert((partition_numbers(5)==FPSVector{1,1,2,3,5,7}));
 ```

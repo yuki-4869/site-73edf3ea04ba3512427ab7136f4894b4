@@ -325,6 +325,20 @@ void invalid_case(string action){
 }
 int main(int argc,char** argv){
     if(argc>1){invalid_case(argv[1]);return 77;}
+    static_assert(is_convertible_v<vector<ll>,FPS>);
+    for(int trial=0;trial<100;trial++){
+        vector<ll> a={LLONG_MIN,LLONG_MAX,-1,0,1,(ll)C::mod(),-(ll)C::mod()};
+        if(trial==0)a.clear();
+        else for(int i=0;i<trial;i++)a.push_back((ll)(fps_test_rng()%2000000000000000001ULL)-1000000000000000000LL);
+        auto original=a;
+        FPS f=a,g(a),assigned={9,8};assigned=a;
+        require(f.size()==a.size()&&g==f&&assigned==f&&a==original);
+        for(size_t i=0;i<a.size();i++){
+            ll expected=a[i]%C::mod();if(expected<0)expected+=C::mod();
+            require(f[i].val()==expected);
+        }
+        FPS copied=f,moved=move(g);require(copied==f&&moved==f);
+    }
     core_tests();rational_tests();points_and_products_tests();combinatorial_tests();
     cout<<"mod="<<C::mod()<<" checks="<<checks<<" passed\n";
 }

@@ -24,7 +24,7 @@ n以下の素数を昇順で返します。
 
 **計算量**
 
-- O(n log log(n+2))。
+- O(n log log n)。
 
 ## divisor_zeta
 
@@ -36,7 +36,7 @@ void divisor_zeta(vector<T>& f);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 ## divisor_mobius
 
@@ -48,7 +48,7 @@ void divisor_mobius(vector<T>& f);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 ## multiple_zeta
 
@@ -60,7 +60,7 @@ void multiple_zeta(vector<T>& f);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 ## multiple_mobius
 
@@ -72,7 +72,7 @@ void multiple_mobius(vector<T>& f);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 ## 使用例
 

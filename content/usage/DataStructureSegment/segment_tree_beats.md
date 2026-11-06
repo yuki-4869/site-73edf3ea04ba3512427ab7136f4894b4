@@ -147,7 +147,7 @@ void chmin(int l,int r,ll x);
 
 **計算量**
 
-- 償却O(log^2N)。
+- 償却O(log^2 N)。
 
 <a id="api-6"></a>
 
@@ -161,7 +161,7 @@ void chmax(int l,int r,ll x);
 
 **計算量**
 
-- 償却O(log^2N)。
+- 償却O(log^2 N)。
 
 <a id="api-7"></a>
 
@@ -175,7 +175,7 @@ void add(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-8"></a>
 
@@ -189,7 +189,7 @@ void assign(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-9"></a>
 
@@ -203,7 +203,7 @@ void clamp(int l,int r,ll lo,ll hi);
 
 **計算量**
 
-- 償却O(log^2N)。
+- 償却O(log^2 N)。
 
 <a id="api-10"></a>
 
@@ -217,7 +217,7 @@ A[i]=xに変更
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-11"></a>
 
@@ -231,7 +231,7 @@ Node prod(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-12"></a>
 
@@ -259,7 +259,7 @@ A[i]を返す
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-14"></a>
 
@@ -273,7 +273,7 @@ ll sum(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-15"></a>
 
@@ -287,7 +287,7 @@ ll min(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-16"></a>
 
@@ -301,7 +301,7 @@ ll max(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-17"></a>
 
@@ -315,7 +315,7 @@ ll second_min(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-18"></a>
 
@@ -329,7 +329,7 @@ ll second_max(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-19"></a>
 
@@ -343,7 +343,7 @@ int count_min(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-20"></a>
 
@@ -357,7 +357,7 @@ int count_max(int l,int r);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-21"></a>
 
@@ -407,7 +407,7 @@ int first_ge(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-24"></a>
 
@@ -421,7 +421,7 @@ int last_ge(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-25"></a>
 
@@ -435,7 +435,7 @@ int first_le(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-26"></a>
 
@@ -449,7 +449,7 @@ int last_le(int l,int r,ll x);
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-27"></a>
 

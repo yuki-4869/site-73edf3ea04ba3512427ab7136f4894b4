@@ -31,7 +31,7 @@ BinaryLifting(vector<ll> f,vector<T> a,T e,function<T(T,T)> op);
 
 **計算量**
 
-- O(64N)。
+- O(N)。
 
 ## BinaryLifting::query
 
@@ -47,7 +47,7 @@ vからk回進んだ頂点と、そのk回の値を順番にopで集約した結
 
 **計算量**
 
-- O(log(k+1))、最大64段。
+- O(log k)、最大64段。
 
 ## BinaryLifting::jump
 
@@ -59,7 +59,7 @@ query(v,k).first、すなわちk回後の頂点を返します。
 
 **計算量**
 
-- O(log(k+1))。
+- O(log k)。
 
 ## BinaryLifting::prod
 
@@ -71,7 +71,7 @@ query(v,k).second、すなわちk回分の集約値を返します。
 
 **計算量**
 
-- O(log(k+1))。
+- O(log k)。
 
 ## 使用例
 
@@ -87,7 +87,7 @@ assert(db.jump(0,0)==0 && db.prod(0,0)==0);
 
 ## メモリ
 
-O(64N)。
+O(N)。
 
 ## 使用例の確認状況
 

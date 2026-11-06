@@ -79,7 +79,7 @@ DynamicWeightedWaveletMatrix( const vector<Key>& key, const vector<Val>& val, ve
 
 **計算量**
 
-- O((N+|universe|) log(N+|universe|+1)+N log sigma log(N+1))の上界。
+- O((N+|universe|) log(N+|universe|)+N log sigma log N)の上界。
 
 ```cpp
 DynamicWeightedWaveletMatrix(const vector<Key>& a, vector<Key> universe) requires same_as<Key, Val>;
@@ -89,7 +89,7 @@ DynamicWeightedWaveletMatrix(const vector<Key>& a, vector<Key> universe) require
 
 **計算量**
 
-- O((N+|universe|) log(N+|universe|+1)+N log sigma log(N+1))の上界。
+- O((N+|universe|) log(N+|universe|)+N log sigma log N)の上界。
 
 <a id="api-2"></a>
 
@@ -174,7 +174,7 @@ void set_key(int p, const Key& key);
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-8"></a>
 
@@ -188,7 +188,7 @@ void set_value(int p, Val val);
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-9"></a>
 
@@ -202,7 +202,7 @@ void set(int p, const Key& key, Val val);
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-10"></a>
 
@@ -216,7 +216,7 @@ Val range_sum(int l, int r) const;
 
 **計算量**
 
-- O(log(N+1))。
+- O(log N)。
 
 <a id="api-11"></a>
 
@@ -230,7 +230,7 @@ key==x の個数
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-12"></a>
 
@@ -245,7 +245,7 @@ key<x の個数
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-13"></a>
 
@@ -259,7 +259,7 @@ key<=x の個数
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-14"></a>
 
@@ -273,7 +273,7 @@ key<x の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-15"></a>
 
@@ -287,7 +287,7 @@ key<=x の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-16"></a>
 
@@ -301,7 +301,7 @@ a<=key<b の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-17"></a>
 
@@ -315,7 +315,7 @@ key==x の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-18"></a>
 
@@ -329,7 +329,7 @@ Key kth_smallest(int l, int r, int k) const;
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-19"></a>
 
@@ -343,7 +343,7 @@ Key kth_largest(int l, int r, int k) const;
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-20"></a>
 
@@ -357,7 +357,7 @@ x未満の最大 key、なければ nullopt
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-21"></a>
 
@@ -371,7 +371,7 @@ x以上の最小 key、なければ nullopt
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-22"></a>
 
@@ -385,7 +385,7 @@ optional<Key> min_key(int l, int r) const;
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-23"></a>
 
@@ -399,7 +399,7 @@ optional<Key> max_key(int l, int r) const;
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-24"></a>
 
@@ -413,7 +413,7 @@ key が小さい方から k 個の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-25"></a>
 
@@ -427,7 +427,7 @@ key が大きい方から k 個の val 総和
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 <a id="api-26"></a>
 
@@ -445,7 +445,7 @@ optional<Key> lower_bound_by_sum(int l, int r, Val k) const;
 
 **計算量**
 
-- 期待O(log sigma log(N+1))。
+- 期待O(log sigma log N)。
 
 ## 使用例
 

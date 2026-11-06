@@ -74,7 +74,7 @@ dynamic_connectivity(int n);
 
 **計算量**
 
-- O(N log(N+1))の上界。
+- O(N log N)の上界。
 
 <a id="api-2"></a>
 

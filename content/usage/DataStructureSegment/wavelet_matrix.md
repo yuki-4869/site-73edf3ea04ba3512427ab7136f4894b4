@@ -66,7 +66,7 @@ explicit WaveletMatrix(const vector<T>& a);
 
 **計算量**
 
-- O(N log(N+1)+NB)。
+- O(N log N+NB)。
 
 <a id="api-2"></a>
 
@@ -80,7 +80,7 @@ void build(const vector<T>& a);
 
 **計算量**
 
-- O(N log(N+1)+NB)。
+- O(N log N+NB)。
 
 <a id="api-3"></a>
 

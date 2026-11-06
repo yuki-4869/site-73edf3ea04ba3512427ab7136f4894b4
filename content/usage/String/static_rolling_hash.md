@@ -199,7 +199,7 @@ Aをk回連結したHashを返す
 
 **計算量**
 
-- O(logK)。
+- O(log K)。
 
 <a id="api-9"></a>
 
@@ -353,7 +353,7 @@ rhとotherのLCP長を返す
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-20"></a>
 
@@ -367,7 +367,7 @@ int lcp(int l1,int r1,int l2,int r2) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-21"></a>
 
@@ -381,7 +381,7 @@ rhとotherのLCS長を返す
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-22"></a>
 
@@ -395,7 +395,7 @@ int lcs(int l1,int r1,int l2,int r2) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-23"></a>
 
@@ -409,7 +409,7 @@ int first_diff(int l1,int r1,int l2,int r2) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-24"></a>
 
@@ -423,7 +423,7 @@ int compare(int l1,int r1,int l2,int r2) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-25"></a>
 
@@ -437,7 +437,7 @@ bool less(int l1,int r1,int l2,int r2) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-26"></a>
 
@@ -451,7 +451,7 @@ c中心の最大奇数回文半径dを返す
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-27"></a>
 
@@ -465,7 +465,7 @@ c-1,c間中心の最大偶数回文半径dを返す
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-28"></a>
 
@@ -479,7 +479,7 @@ pair<int,int> max_palindrome_odd(int c) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-29"></a>
 
@@ -493,7 +493,7 @@ pair<int,int> max_palindrome_even(int c) const;
 
 **計算量**
 
-- O(logN)。
+- O(log N)。
 
 <a id="api-30"></a>
 

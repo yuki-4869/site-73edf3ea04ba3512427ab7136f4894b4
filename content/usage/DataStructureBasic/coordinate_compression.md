@@ -93,9 +93,9 @@ Zip& operator=(Zip&& other);
 
 **計算量**
 
-- 空表の構築: O(1)。配列・リストからの構築: O(M log(M+1))。
+- 空表の構築: O(1)。配列・リストからの構築: O(M log M)。
 - コピー構築: O(N_other)。コピー代入: O(N+N_other)。
-- ムーブ構築: O(1)。ムーブ代入: O(N+1)。
+- ムーブ構築: O(1)。ムーブ代入: O(N)。
 
 <a id="build"></a>
 
@@ -111,7 +111,7 @@ void add(std::initializer_list<T> a);
 
 **計算量**
 
-- 1値: ならしO(1)。配列・リスト: ならしO(M+1)。再確保が必要な1回の操作では既存値の移動も行います。
+- 1値: ならしO(1)。配列・リスト: ならしO(M)。再確保が必要な1回の操作では既存値の移動も行います。
 
 ## build
 
@@ -123,7 +123,7 @@ void build();
 
 **計算量**
 
-- 未構築ならO(N log(N+1))。構築済みならO(1)。
+- 未構築ならO(N log N)。構築済みならO(1)。
 
 ## assign
 
@@ -136,7 +136,7 @@ void assign(std::initializer_list<T> a);
 
 **計算量**
 
-- O(N+M log(M+1))。
+- O(N+M log M)。
 
 <a id="state"></a>
 
@@ -171,7 +171,7 @@ getとlowerは、比較順序でxより前にある登録値の種類数を返�
 
 **計算量**
 
-- O(log(U+1))。
+- O(log U)。
 
 <a id="lookup"></a>
 
@@ -186,7 +186,7 @@ indexはxと同値の登録値があれば、その圧縮番号を返します�
 
 **計算量**
 
-- O(log(U+1))。
+- O(log U)。
 
 ## equal_range / count_range
 
@@ -201,7 +201,7 @@ count_rangeは比較順序でl以上r未満にある登録値の種類数を返�
 
 **計算量**
 
-- O(log(U+1))。
+- O(log U)。
 
 <a id="reverse"></a>
 
@@ -273,7 +273,7 @@ unzipは番号列を代表値の列に復元します。範囲外の番号があ
 
 **計算量**
 
-- zip / zip_exact: O(M log(U+1))。unzip: O(M)。返却配列のメモリはO(M)。
+- zip / zip_exact: O(M log U)。unzip: O(M)。返却配列のメモリはO(M)。
 
 <a id="helpers"></a>
 
@@ -293,7 +293,7 @@ zip2dはpairの第一成分・第二成分を独立に圧縮します。`Zip<pai
 
 **計算量**
 
-- O(M log(M+1))。追加メモリO(M)。
+- O(M log M)。追加メモリO(M)。
 
 <a id="example"></a>
 

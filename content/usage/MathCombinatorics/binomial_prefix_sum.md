@@ -51,7 +51,7 @@ BinomPrefixState(ll n_,ll k_);
 
 **計算量**
 
-- O(min(n,k)+1)（階乗前計算後）。
+- O(min(n,k))（階乗前計算後）。
 
 <a id="api-2"></a>
 
@@ -65,7 +65,7 @@ F(n,k)をmintで返します。
 
 **計算量**
 
-- O(max(0,min(n,k)+1))。
+- O(min(n,k))。k<0の場合はO(1)。
 
 <a id="api-3"></a>
 

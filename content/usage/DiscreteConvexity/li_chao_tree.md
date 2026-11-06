@@ -21,6 +21,8 @@ template<class T = long long, bool MINIMIZE = true>
 struct LiChaoTree;
 ```
 
+計算量のCは定義域に含まれる整数座標の個数（x_right-x_left+1）です。
+
 ## コンストラクタ
 
 ```cpp

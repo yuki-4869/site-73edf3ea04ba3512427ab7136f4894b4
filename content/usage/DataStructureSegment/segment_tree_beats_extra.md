@@ -50,7 +50,7 @@ Type& operator=(Type&& other);
 
 - 既定構築O(1)、n・配列からの構築O(N)。
 - コピー構築O(N_other)、コピー代入O(N+N_other)。
-- ムーブ構築O(1)、ムーブ代入O(N+1)。破棄O(N)。
+- ムーブ構築O(1)、ムーブ代入O(N)。破棄O(N)。
 
 ## init / size / empty / clear
 
@@ -86,7 +86,7 @@ Nodeのsetv・has・lazy_*は内部管理用で、取得結果の情報として
 
 **計算量**
 
-- set / get / prod / sum / min / maxはO(log(N+1))。all_sumはO(1)。
+- set / get / prod / sum / min / maxはO(log N)。all_sumはO(1)。
 
 ## SegMod::mod
 
@@ -120,7 +120,7 @@ d=1は走査せず終了します。区間全体の最小値・最大値を除�
 
 **計算量**
 
-- divideは単発の最悪O(N)、d=1ならO(1)。assignはO(log(N+1))。
+- divideは単発の最悪O(N)、d=1ならO(1)。assignはO(log N)。
 
 ## SegSqrt::sqrt
 

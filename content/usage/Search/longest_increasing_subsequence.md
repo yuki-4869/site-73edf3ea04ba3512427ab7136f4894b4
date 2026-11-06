@@ -48,7 +48,7 @@ LISResult longest_increasing_subsequence(const vl& a, bool strict = true);
 
 NがINT_MAXを超える場合は、NDEBUGでもメッセージなしで停止します。
 
-**計算量**：O(1+N log(N+1))時間、入力列を除いて返り値も含めO(N+1)領域です。
+**計算量**：O(N log N)時間、入力列を除いて返り値も含めO(N)領域です。
 空入力は時間・領域ともO(1)です。再帰を使いません。
 
 ## LISResult::length

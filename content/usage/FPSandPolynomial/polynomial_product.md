@@ -16,8 +16,8 @@ FPS product_linear(const FPSVector& roots);
 
 | API | 返り値・処理 | 計算量 |
 | --- | --- | --- |
-| `polynomial_product(fs)` | 全多項式の積をFPSで返す | O(Slog^2(S+1)) |
-| `product_linear(a)` | Π(X-a[i])をFPSで返す | O(Nlog^2(N+1)) |
+| `polynomial_product(fs)` | 全多項式の積をFPSで返す | O(S log^2 S) |
+| `product_linear(a)` | Π(X-a[i])をFPSで返す | O(N log^2 N) |
 
 Sは入力係数数の総和、Nは根の個数です。空の因子も含む入力走査の時間として、総積では別途O(fs.size())を数えます。
 作業領域は総積でO(S+fs.size())、一次因子でO(N)です。係数・根の添字は0-indexedです。

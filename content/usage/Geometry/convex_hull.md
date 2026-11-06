@@ -55,7 +55,7 @@ vector<pll> convex_hull(vector<pll> points, bool keep_collinear = false);
 
 ### 計算量
 
-$O(1+N\log(N+1))$ 時間、入力の値渡しコピー・作業領域・返り値を含め $O(N+1)$ 領域です。辞書順ソートが支配的で、整列後の走査はO(M)です。
+$O(N \log N)$ 時間、入力の値渡しコピー・作業領域・返り値を含め $O(N)$ 領域です。辞書順ソートが支配的で、整列後の走査はO(M)です。
 
 ## 使用例
 

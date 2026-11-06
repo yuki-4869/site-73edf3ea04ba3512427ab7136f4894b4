@@ -75,7 +75,7 @@ modint型ではvector<Mint>などからも構築できます。
 
 - 既定構築O(1)、配列・nからの構築O(N)。
 - コピー構築O(N_other)、コピー代入O(N+N_other)。
-- ムーブ構築O(1)、ムーブ代入O(N+1)。破棄はO(N)。
+- ムーブ構築O(1)、ムーブ代入O(N)。破棄はO(N)。
 
 ## 共通API
 
@@ -96,7 +96,7 @@ get / prod / all_prodは、それぞれ点・区間・全体の集約情報を�
 
 **計算量**
 
-- size / empty / all_prodはO(1)。それ以外はO(log(N+1))。
+- size / empty / all_prodはO(1)。それ以外はO(log N)。
 - prod(l,l)は単位元、apply(l,l,f)は何もしないためO(1)。
 
 ## max_right / min_left
@@ -119,7 +119,7 @@ max_rightはg(prod(l,r))が成立する最大のr、min_leftはg(prod(l,r))が�
 
 **計算量**
 
-- O(log(N+1))。
+- O(log N)。
 
 ## 加算・代入・chmin・chmax
 
@@ -139,7 +139,7 @@ chminはA[i]=min(A[i],x)、chmaxはA[i]=max(A[i],x)です。
 
 **計算量**
 
-- O(log(N+1))。
+- O(log N)。
 
 ## 一次変換
 
@@ -156,7 +156,7 @@ affineはA[i]=a*A[i]+b。add、mul、assignはそれぞれ(1,x)、(x,0)、(0,x)�
 
 **計算量**
 
-- O(log(N+1))。
+- O(log N)。
 
 ## 0/1反転・等差数列加算
 
@@ -171,7 +171,7 @@ add_linearは配列全体の添字iでA[i]+=a*i+b、add_apは区間左端から�
 
 **計算量**
 
-- O(log(N+1))。
+- O(log N)。
 
 ## 集約情報の取得・変換ヘルパー
 
@@ -190,7 +190,7 @@ LazyAddArgMin / LazyAddArgMax / LazyFlipSum / LazyFlipInv / LazyAPAddSumには�
 
 **計算量**
 
-- 集約取得はO(log(N+1))。cvはO(N)時間・返却メモリ。
+- 集約取得はO(log N)。cvはO(N)時間・返却メモリ。
 
 ## 空区間の返り値
 

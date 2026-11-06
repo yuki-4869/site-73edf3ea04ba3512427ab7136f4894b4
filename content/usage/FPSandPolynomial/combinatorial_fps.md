@@ -29,7 +29,7 @@ FPSVector partition_numbers(ll n);
 | `lagrange_consecutive(y,x)` | 連続点0..N-1の値から求めたf(x) | O(N) |
 | `binomial_transform(a)` | b[n]=Σ C(n,k)a[k] | O(M(N)) |
 | `inverse_binomial_transform(a)` | b[n]=Σ(-1)^(n-k) C(n,k)a[k] | O(M(N)) |
-| `stirling2_row(n)` | S(n,0)..S(n,n) | O(M(n)+nlog(n+1)) |
+| `stirling2_row(n)` | S(n,0)..S(n,n) | O(M(n)+n log n) |
 | `stirling1_signed(n)` | X(X-1)…(X-n+1)の係数0..n | O(M(n)) |
 | `stirling1_unsigned(n)` | 符号を除いた第一種Stirling数0..n | O(M(n)) |
 | `bernoulli_numbers(n)` | B_0..B_n | O(M(n)) |
@@ -37,7 +37,7 @@ FPSVector partition_numbers(ll n);
 | `partition_numbers(n)` | p(0)..p(n) | O(M(n)+sqrt(n)) |
 
 Mは選んだFPSの乗算計算量です。上のnを使う列は**n+1項**を返し、二項変換は入力と同じ項数です。
-作業領域と共有キャッシュはO(N)またはO(n)。法を固定して数え、スカラー逆元の計算がある場合はO(log(p))を加えます。
+作業領域と共有キャッシュはO(N)またはO(n)。法を固定して数え、スカラー逆元の計算がある場合はO(log p)を加えます。
 
 ## 定義・制約
 

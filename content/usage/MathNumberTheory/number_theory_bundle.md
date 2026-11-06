@@ -284,7 +284,7 @@ vmi divisor_zeta(vmi a,const LinearSieve& S);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 <a id="api-17"></a>
 
@@ -298,7 +298,7 @@ vmi divisor_mobius(vmi a,const LinearSieve& S);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 <a id="api-18"></a>
 
@@ -312,7 +312,7 @@ vmi multiple_zeta(vmi a,const LinearSieve& S);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 <a id="api-19"></a>
 
@@ -326,7 +326,7 @@ vmi multiple_mobius(vmi a,const LinearSieve& S);
 
 **計算量**
 
-- O(N log log(N+2))。
+- O(N log log N)。
 
 ## 使用例
 

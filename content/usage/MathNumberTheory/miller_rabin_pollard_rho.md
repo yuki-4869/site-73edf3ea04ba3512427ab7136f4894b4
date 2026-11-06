@@ -46,7 +46,7 @@ a^n mod modを返します。
 
 **計算量**
 
-- O(log(n+1))。
+- O(log n)。
 
 ## PollardRho::is_prime
 

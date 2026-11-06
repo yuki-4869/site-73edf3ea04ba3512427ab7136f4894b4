@@ -24,7 +24,7 @@ Result{g,x,y}を返し、a*x+b*y=g>=0を満たします。gはgcd(a,b)。
 
 **計算量**
 
-- O(log(max(|a|,|b|)+1))。
+- O(log(max(|a|,|b|)))。
 
 ## ext_euclid::bezout
 

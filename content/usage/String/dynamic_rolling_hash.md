@@ -203,7 +203,7 @@ Aをk回連結したHashを返す
 
 **計算量**
 
-- O(logK)。
+- O(log K)。
 
 <a id="api-8"></a>
 
@@ -302,7 +302,7 @@ A[i]を返す
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-15"></a>
 
@@ -317,7 +317,7 @@ A[i]=xに更新
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-16"></a>
 
@@ -334,7 +334,7 @@ iの直前にxを挿入
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-17"></a>
 
@@ -348,7 +348,7 @@ void push_front(ll x);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-18"></a>
 
@@ -362,7 +362,7 @@ void push_back(ll x);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-19"></a>
 
@@ -377,7 +377,7 @@ A[i]を削除
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-20"></a>
 
@@ -392,7 +392,7 @@ void replace(int l,int r,const vector<T>&v);
 
 **計算量**
 
-- 期待O(logN+(r-l)。
+- 期待O(log N+(r-l)。
 
 <a id="api-21"></a>
 
@@ -407,7 +407,7 @@ void range_assign(int l,int r,char c);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-22"></a>
 
@@ -421,7 +421,7 @@ void reverse(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-23"></a>
 
@@ -435,7 +435,7 @@ void rotate(int l,int r,long long k);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-24"></a>
 
@@ -449,7 +449,7 @@ void cut_and_paste(int l,int r,int p);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-25"></a>
 
@@ -463,7 +463,7 @@ void swap_ranges(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-26"></a>
 
@@ -477,7 +477,7 @@ Hash prod(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-27"></a>
 
@@ -505,7 +505,7 @@ array<ull,2> hash(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-29"></a>
 
@@ -519,7 +519,7 @@ reverse([l,r))の二重Hashを返す
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-30"></a>
 
@@ -533,7 +533,7 @@ bool equal(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-31"></a>
 
@@ -547,7 +547,7 @@ bool reverse_equal(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-32"></a>
 
@@ -561,7 +561,7 @@ bool is_palindrome(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-33"></a>
 
@@ -575,7 +575,7 @@ rhとotherの区間一致判定
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-34"></a>
 
@@ -589,7 +589,7 @@ rhとotherのLCP長を返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-35"></a>
 
@@ -603,7 +603,7 @@ int lcp(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-36"></a>
 
@@ -617,7 +617,7 @@ rhとotherのLCS長を返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-37"></a>
 
@@ -631,7 +631,7 @@ int lcs(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-38"></a>
 
@@ -645,7 +645,7 @@ rh区間とother区間反転のLCP長を返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-39"></a>
 
@@ -659,7 +659,7 @@ int lcp_reverse(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-40"></a>
 
@@ -673,7 +673,7 @@ rhとotherの最初の不一致offset、完全一致なら-1
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-41"></a>
 
@@ -687,7 +687,7 @@ int first_diff(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-42"></a>
 
@@ -701,7 +701,7 @@ rhとotherを辞書順比較して-1/0/1を返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-43"></a>
 
@@ -715,7 +715,7 @@ int compare(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-44"></a>
 
@@ -729,7 +729,7 @@ bool less(int l1,int r1,int l2,int r2);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-45"></a>
 
@@ -743,7 +743,7 @@ c中心の最大奇数回文[c-d,c+d+1)のdを返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-46"></a>
 
@@ -757,7 +757,7 @@ c-1,c間中心の最大偶数回文[c-d,c+d)のdを返す
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-47"></a>
 
@@ -771,7 +771,7 @@ pair<int,int> max_palindrome_odd(int c);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-48"></a>
 
@@ -785,7 +785,7 @@ pair<int,int> max_palindrome_even(int c);
 
 **計算量**
 
-- 期待O(log^2N)。
+- 期待O(log^2 N)。
 
 <a id="api-49"></a>
 
@@ -799,7 +799,7 @@ bool has_period(int l,int r,int p);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-50"></a>
 
@@ -813,7 +813,7 @@ bool is_repeat(int l,int r,int p);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-51"></a>
 
@@ -827,7 +827,7 @@ Hash after_erase(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-52"></a>
 
@@ -841,7 +841,7 @@ posにh挿入後の仮想Hashを返す
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-53"></a>
 
@@ -855,7 +855,7 @@ Hash after_replace(int l,int r,const Hash&h);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-54"></a>
 
@@ -869,7 +869,7 @@ Hash after_reverse(int l,int r);
 
 **計算量**
 
-- 期待O(logN)。
+- 期待O(log N)。
 
 <a id="api-55"></a>
 

@@ -22,14 +22,14 @@ FPS interpolate(const FPSVector& x,const FPSVector& y);
 
 | API | 返り値・操作 | 計算量 |
 | --- | --- | --- |
-| `FPSPointSet tree(x)` | 評価点をコピーし、積木を構築 | O(M(N)log(N+1)) |
+| `FPSPointSet tree(x)` | 評価点をコピーし、積木を構築 | O(M(N)log N) |
 | `tree.product()` | Π(X-x[i])をコピーして返す | O(N) |
-| `tree.eval(f)` | xと同じ順でf(x[i])を返す | O(M(D+N)log(D+N+1)) |
-| `tree.interpolate(y)` | 点(x[i],y[i])を通る次数<NのFPS | O(M(N)log(N+1)) |
+| `tree.eval(f)` | xと同じ順でf(x[i])を返す | O(M(D+N)log(D+N)) |
+| `tree.interpolate(y)` | 点(x[i],y[i])を通る次数<NのFPS | O(M(N)log N) |
 | `multipoint_eval(f,x)` | 一度だけの多点評価 | 構築+eval |
 | `interpolate(x,y)` | 一度だけの補間 | 構築+interpolate |
 
-N=x.size()、D=f.size()、MはFPS乗算の計算量です。積木と評価点の保持にO(Nlog(N+1))領域、評価ではさらにO(D+Nlog(N+1))作業領域を使います。
+N=x.size()、D=f.size()、MはFPS乗算の計算量です。積木と評価点の保持にO(N log N)領域、評価ではさらにO(D+N log N)作業領域を使います。
 構築可能な点数は0<=N<=INT_MAX/2に加え、各中間積が選んだFPSのNTT長制限内であることと、メモリを確保できることが必要です。
 
 ## 制約・更新
@@ -38,7 +38,7 @@ N=x.size()、D=f.size()、MはFPS乗算の計算量です。積木と評価点�
 **評価は重複点にも対応**します。補間ではx.size()==y.size()かつ、法上で全x[i]が相異なる必要があります。
 空点集合のproductは{1}、eval・interpolateは空です。補間結果は末尾の0を削除するため、項数はNとは限りません。零多項式は空です。
 
-初回の補間で積多項式の微分値の逆元をまとめて計算し、以後はキャッシュします。逆元の一括計算はO(N+log(p))、微分値の多点評価は別途必要です。
+初回の補間で積多項式の微分値の逆元をまとめて計算し、以後はキャッシュします。逆元の一括計算はO(N+log p)、微分値の多点評価は別途必要です。
 少数の点・低次数の部分問題はHorner法を使います。入力のf・yは変更しません。前提違反はNDEBUG時も無言で停止します。
 旧版で公開されていた構築用のn・sz・x・pは内部化しました。通常の構築・product・eval・interpolateを使うコードは同じ形で利用できます。
 

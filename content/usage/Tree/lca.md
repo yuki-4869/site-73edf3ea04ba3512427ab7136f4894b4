@@ -62,7 +62,7 @@ explicit LCA(int n);
 
 **計算量**
 
-- O(N log(N+1))。
+- O(N log N)。
 
 <a id="api-2"></a>
 
@@ -201,7 +201,7 @@ assert(t.jump(2,3,1)==1 && t.kth_ancestor(0,1)==-1);
 
 ## メモリ
 
-O(N log(N+1))。
+O(N log N)。
 
 ## 使用例の確認状況
 

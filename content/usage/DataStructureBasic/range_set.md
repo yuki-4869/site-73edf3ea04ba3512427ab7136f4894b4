@@ -69,7 +69,7 @@ RangeSet& operator=(RangeSet&& other) noexcept;
 **計算量**
 
 - 空集合の構築: `O(1)`。
-- A個の区間から構築: `O(A log(A+1))`。
+- A個の区間から構築: `O(A log A)`。
 - コピー: `O(K)`。コピー代入は代入先の既存区間の解放も行います。
 - ムーブ構築: `O(1)`。ムーブ代入は代入先の既存区間の解放が必要です。
 
@@ -92,7 +92,7 @@ Count insert(T x);
 
 **計算量**
 
-- `O(log(K+1)+D)`。ここでDは統合する区間数。
+- `O(log K+D)`。ここでDは統合する区間数。
 
 <a id="erase"></a>
 
@@ -110,7 +110,7 @@ Count erase(T x);
 
 **計算量**
 
-- `O(log(K+1)+D)`。ここでDは削除範囲と交わる区間数。
+- `O(log K+D)`。ここでDは削除範囲と交わる区間数。
 
 <a id="covered"></a>
 
@@ -127,7 +127,7 @@ bool contains(T x) const;
 
 **計算量**
 
-- `O(log(K+1))`。空区間の判定は `O(1)`。
+- `O(log K)`。空区間の判定は `O(1)`。
 
 <a id="covering"></a>
 
@@ -147,7 +147,7 @@ ptt covered_by(T l, T r) const;
 
 **計算量**
 
-- `O(log(K+1))`。空区間は `O(1)`。
+- `O(log K)`。空区間は `O(1)`。
 
 <a id="overlaps"></a>
 
@@ -162,7 +162,7 @@ bool overlaps(T l, T r) const;
 
 **計算量**
 
-- `O(log(K+1))`。
+- `O(log K)`。
 
 <a id="mex"></a>
 
@@ -178,7 +178,7 @@ T mex(T x = 0) const;
 
 **計算量**
 
-- `O(log(K+1))`。
+- `O(log K)`。
 
 <a id="count"></a>
 
@@ -194,7 +194,7 @@ Count cover_length() const;
 
 **計算量**
 
-- `count_covered`: `O(log(K+1)+D)`。最悪 `O(K)`。
+- `count_covered`: `O(log K+D)`。最悪 `O(K)`。
 - `cover_length`: `O(1)`。
 
 <a id="state"></a>

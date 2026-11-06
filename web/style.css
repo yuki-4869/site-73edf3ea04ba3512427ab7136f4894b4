@@ -100,6 +100,16 @@ body.nav-open{overflow:hidden}
 .pin-button[aria-pressed=true]{color:#1e87f0}
 .data-tag{margin-left:6px;font-size:11px;color:#999}
 .empty-state{padding:20px 0;color:#666}
+.snippet-trigger{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 24px;padding:12px 16px;border-left:2px solid #1e87f0;background:#fafafa;font-size:14px}
+.snippet-words{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.snippet-words>code{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box}
+.snippet-reference{margin-top:48px;padding-top:24px;border-top:1px solid #e5e5e5}
+.snippet-reference h2{margin:0 0 15px;font-size:1.5rem;font-weight:400}
+.snippet-reference>p{font-size:14px}
+.snippet-reference table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px}
+.snippet-reference th,.snippet-reference td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid #e5e5e5;font-weight:400;overflow-wrap:anywhere}
+.snippet-reference th:first-child{width:42%;padding-left:0}
+.snippet-reference td:last-child{padding-right:0}
 .site-footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:50px;padding-top:20px;border-top:1px solid #e5e5e5;color:#999;font-size:14px}
 .site-footer a{font-family:Consolas,monaco,monospace}
 .doc-heading{margin-bottom:20px}

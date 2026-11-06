@@ -88,10 +88,14 @@
     const query = inlineSearch.value;
     let index;
     try { index = await loadIndex(); }
-    catch { index = $$(".library-row").map(row => ({ path: row.dataset.path, title: row.dataset.title, category: row.dataset.category, description: row.dataset.description, text: "" })); }
+    catch { index = $$(".library-row").map(row => ({ path: row.dataset.path, title: row.dataset.title, category: row.dataset.category, description: row.dataset.description, text: row.dataset.snippetPrefixes || "" })); }
     if(request!==filterRequest)return;
     const paths = new Set(index.filter(item => matches(item, query) && (!pinsOnly || pins.has(item.path))).map(item => item.path));
     $$(".library-row").forEach(row => { row.hidden = !paths.has(row.dataset.path); });
+    const snippetRows=$$(".snippet-reference-row");
+    snippetRows.forEach(row => { row.hidden = !paths.has(row.dataset.path); });
+    const snippetEmpty=$("#snippet-reference-empty");
+    if(snippetEmpty)snippetEmpty.hidden=snippetRows.some(row=>!row.hidden);
     $$(".category-section").forEach(section => {
       section.hidden = !$(".library-row:not([hidden])", section);
       const jump = $('.category-index a[href="#' + section.id + '"]');

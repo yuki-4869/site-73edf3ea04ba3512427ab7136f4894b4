@@ -4,6 +4,8 @@ import assert from "node:assert/strict";
 import { JSDOM } from "jsdom";
 import { Marked } from "marked";
 import { renderProse } from "./document.mjs";
+import { execFileSync } from "node:child_process";
+import os from "node:os";
 
 const dist = path.resolve(process.env.OUTPUT_DIR || "dist");
 const config = JSON.parse(await fs.readFile("site.config.json", "utf8"));
@@ -11,6 +13,16 @@ const index = JSON.parse(await fs.readFile(path.join(dist,"assets/search.json"),
 const app = await fs.readFile("web/app.js", "utf8");
 const css = await fs.readFile("web/style.css", "utf8");
 const tick = () => new Promise(resolve => setImmediate(resolve));
+const snippetTemp=await fs.mkdtemp(path.join(os.tmpdir(),"algorithm-snippet-reference-"));
+const actualSnippets=new Map();
+try {
+  const snippetFile=path.join(snippetTemp,"algorithm.code-snippets");
+  execFileSync("python3",["scripts/make-snippets.py","--source",path.resolve(process.env.SOURCE_DIR||"source"),"--output",snippetFile],{stdio:"pipe"});
+  for(const [name,entry] of Object.entries(JSON.parse(await fs.readFile(snippetFile,"utf8")))) {
+    const sourcePath=entry.description.split(" | ")[1];
+    actualSnippets.set(sourcePath,{name,prefixes:Array.isArray(entry.prefix)?entry.prefix:[entry.prefix]});
+  }
+} finally { await fs.rm(snippetTemp,{recursive:true,force:true}); }
 
 async function page(file, hash = "") {
   const dom = new JSDOM(await fs.readFile(path.join(dist,file),"utf8"), {
@@ -46,6 +58,14 @@ for (const entry of index) {
   markdown.parse(original);
   const dom = new JSDOM(await fs.readFile(path.join(dist,entry.url),"utf8"));
   const doc = dom.window.document;
+  const trigger=doc.querySelector("#documentation .snippet-trigger");
+  const actualSnippet=actualSnippets.get(entry.path);
+  if(actualSnippet) {
+    assert(trigger,`${entry.path}: missing snippet prefixes`);
+    assert.deepEqual([...trigger.querySelectorAll("code")].map(code=>code.textContent),actualSnippet.prefixes,`${entry.path}: snippet prefixes differ from generated file`);
+    const firstHeading=doc.querySelector("#documentation h2");
+    if(firstHeading)assert(trigger.compareDocumentPosition(firstHeading)&dom.window.Node.DOCUMENT_POSITION_FOLLOWING,`${entry.path}: prefixes must precede the type/API headings`);
+  } else assert(!trigger,`${entry.path}: data files must not advertise a snippet`);
   for (const id of [...oldIds,...original.matchAll(/<a\s+id="([^"]+)"/g)].map(x=>typeof x === "string"?x:x[1])) assert(doc.getElementById(id),`${entry.path}: lost anchor ${id}`);
   assert.deepEqual([...doc.querySelectorAll(".doc-body .code-wrap code")].map(c=>c.textContent),snippets,`${entry.path}: example changed`);
   assert.equal(doc.querySelectorAll(".toc").length,oldIds.length?1:0);
@@ -58,6 +78,20 @@ for (const entry of index) {
 const home = await page("index.html");
 const d = home.document;
 assert.equal(d.querySelectorAll(".library-row").length,index.length);
+const reference=d.getElementById("snippet-reference");
+assert(reference,"Missing snippet reference");
+const referenceRows=[...reference.querySelectorAll(".snippet-reference-row")];
+assert.equal(referenceRows.length,actualSnippets.size);
+assert(d.querySelector('.index-guides a[href="#snippet-reference"]'),"Missing jump to snippet reference");
+const lastCategory=[...d.querySelectorAll(".category-section")].at(-1);
+assert(lastCategory.compareDocumentPosition(reference)&home.window.Node.DOCUMENT_POSITION_FOLLOWING,"Reference table must follow the library list");
+for(const row of referenceRows){
+  const actual=actualSnippets.get(row.dataset.path);
+  assert(actual,row.dataset.path);
+  assert.equal(row.querySelector("th a").textContent,actual.name);
+  assert.deepEqual([...row.querySelectorAll("code")].map(code=>code.textContent),actual.prefixes,row.dataset.path);
+  assert.equal(row.querySelector("th a").getAttribute("href"),config.siteBase+index.find(entry=>entry.path===row.dataset.path).url);
+}
 assert.equal(home.window.getComputedStyle(d.querySelector(".row-details")).display,"none");
 d.querySelector("#catalog-details").click();
 assert.equal(home.window.getComputedStyle(d.querySelector(".row-details")).display,"block");
@@ -66,14 +100,21 @@ first.querySelector("[data-pin]").click(); await tick();
 d.querySelector("#pins-filter").click(); await tick();
 assert.equal(d.querySelectorAll(".library-row:not([hidden])").length,1);
 assert.equal(d.querySelector(".library-row:not([hidden])").dataset.path,first.dataset.path);
+assert.equal(d.querySelectorAll(".snippet-reference-row:not([hidden])").length,1,"Snippet reference must follow the pin filter");
 d.querySelector("#pins-filter").click(); await tick();
 const search = d.querySelector("#catalog-search");
 search.value = "zip_exact"; search.dispatchEvent(new home.window.Event("input")); await tick();
 assert(d.querySelector('.library-row[data-path="DataStructureBasic/coordinate_compression.cpp"]:not([hidden])'),"Search must include API names hidden in compact mode");
+search.value = "fps7"; search.dispatchEvent(new home.window.Event("input")); await tick();
+assert(d.querySelector('.library-row[data-path="FPSandPolynomial/fps_mod1000000007.cpp"]:not([hidden])'),"Search must include snippet aliases");
+assert(d.querySelector('.snippet-reference-row[data-path="FPSandPolynomial/fps_mod1000000007.cpp"]:not([hidden])'),"Reference table must follow prefix searches");
+assert.equal(d.querySelectorAll(".snippet-reference-row:not([hidden])").length,1);
 search.value = "no-such-library-fixture-937"; search.dispatchEvent(new home.window.Event("input")); await tick();
 assert.equal(d.querySelectorAll(".library-row:not([hidden])").length,0);
 assert.equal(d.querySelectorAll(".category-index a:not([hidden])").length,0);
 assert.equal(d.querySelector("#catalog-empty").hidden,false);
+assert.equal(d.querySelectorAll(".snippet-reference-row:not([hidden])").length,0);
+assert.equal(d.querySelector("#snippet-reference-empty").hidden,false);
 home.window.close();
 
 const doc = await page("library/DataStructureBasic/rollback_union_find.html","#implementation");

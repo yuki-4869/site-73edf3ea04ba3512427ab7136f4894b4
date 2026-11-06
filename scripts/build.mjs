@@ -8,6 +8,7 @@ import { prepareDocument, headingLabels, renderProse, mathExtensions } from "./d
 const ROOT = process.cwd();
 const config = JSON.parse(await fs.readFile("site.config.json", "utf8"));
 const catalog = JSON.parse(await fs.readFile("catalog.json", "utf8"));
+const snippetPrefixes = JSON.parse(await fs.readFile("snippet-prefixes.json", "utf8"));
 const documentationRevisions = JSON.parse(await fs.readFile("documentation-revisions.json", "utf8"));
 const sourceRoot = path.resolve(process.env.SOURCE_DIR || "source");
 const out = path.resolve(process.env.OUTPUT_DIR || "dist");
@@ -29,6 +30,18 @@ const searchText = value => String(value).replace(/<\/?(?:a|details|summary|br)\
 const hrefPath = value => value.split("/").map(encodeURIComponent).join("/");
 const docPathFor = source => "usage/" + source.replace(/\.(cpp|txt)$/, ".md");
 const pagePathFor = source => "library/" + source.replace(/\.(cpp|txt)$/, ".html");
+function snippetFor(entry) {
+  if (!entry.path.endsWith(".cpp")) return null;
+  const definition = snippetPrefixes[entry.path] || {
+    name:entry.title, prefix:[...new Set([entry.title,path.posix.basename(entry.path,".cpp")])]
+  };
+  const prefixes = Array.isArray(definition.prefix) ? definition.prefix : [definition.prefix];
+  if (!prefixes.length || prefixes.some(value => typeof value !== "string" || !value.trim())) throw new Error("Invalid snippet prefixes: " + entry.path);
+  return {name:definition.name,prefixes};
+}
+function snippetWords(snippet) {
+  return '<span class="snippet-words">'+snippet.prefixes.map(word=>'<code>'+esc(word)+'</code>').join("")+"</span>";
+}
 async function write(relative, value) {
   const target = path.join(out, relative);
   await fs.mkdir(path.dirname(target), {recursive:true}); await fs.writeFile(target, value);
@@ -179,6 +192,7 @@ const manifest=[];
 const documentRecords=[];
 for(const entry of entries) {
   const isData=entry.path.endsWith(".txt");
+  const snippet=snippetFor(entry);
   let raw;
   try {raw=await fs.readFile(path.join(ROOT,"content",docPathFor(entry.path)),"utf8");}
   catch {raw="# "+entry.title+"\n\nこのライブラリの実装を参照できます。\n\n## 使い方\n\nページ末尾の実装でコードを確認してください。API・制約・計算量の説明は追記予定です。\n";}
@@ -193,7 +207,8 @@ for(const entry of entries) {
   const content='<nav class="breadcrumb" aria-label="現在の位置"><a href="'+base+'">一覧</a><span aria-hidden="true">/</span><a href="'+base+'#category-'+(categories.findIndex(x=>x.id===entry.categoryId)+1)+'">'+esc(entry.category)+"</a></nav>"+
     '<header class="doc-heading"><h1>'+esc(entry.title)+'</h1><div class="doc-tools"><a href="#implementation">'+sourceName+'を見る</a><button class="text-button" data-copy-source>コードをコピー</button><a href="'+base+'guide/common.html">共通設定</a>'+tableOfContents(rendered)+'</div></header>'+
     '<div class="doc-main"><article id="documentation" class="doc-body">'+
-    (stale?'<blockquote><p>公開コードが更新されています。この説明は更新前の内容を含む可能性があります。ページ末尾の実装で現在のコードを確認してください。</p></blockquote>':"")+rendered.html+'</article>'+
+    (stale?'<blockquote><p>公開コードが更新されています。この説明は更新前の内容を含む可能性があります。ページ末尾の実装で現在のコードを確認してください。</p></blockquote>':"")+
+    (snippet?'<div class="snippet-trigger" data-snippet-path="'+esc(entry.path)+'"><span>スニペット呼び出し語</span>'+snippetWords(snippet)+'</div>':"")+rendered.html+'</article>'+
     '<details id="implementation" class="implementation"><summary>'+sourceName+'</summary><div class="source-panel-bar"><span>'+esc(entry.path)+' · '+text.split("\n").length+' lines</span><div class="source-actions"><button class="text-button" data-copy-source>コードをコピー</button><button class="text-button" data-copy-url="'+esc(codeUrl)+'">参照URLをコピー</button><a href="'+esc(codeUrl)+'" target="_blank" rel="noopener noreferrer">'+(isData?"データを開く":"GitHubで開く ↗")+'</a><a href="'+base+'sources/'+hrefPath(entry.path)+'" download>ダウンロード</a><button class="pin-button" data-pin="'+esc(entry.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></div><pre class="source-code"><code id="full-source">'+(isData?esc(text):highlightCpp(text))+'</code></pre><p class="source-note">'+(isData?"素数表はテキストデータです。先頭の説明行を除いて利用してください。":"公開コードの固定版を表示しています。必要な型エイリアス・マクロは共通設定を参照してください。")+'</p></details>'+
     '<nav class="doc-pagination" aria-label="前後のライブラリ">'+
     (entries.indexOf(entry)>0?'<a href="'+base+pagePathFor(entries[entries.indexOf(entry)-1].path)+'"><small>← 前のライブラリ</small>'+esc(entries[entries.indexOf(entry)-1].title)+"</a>":"<span></span>")+
@@ -201,11 +216,11 @@ for(const entry of entries) {
   await write(pagePathFor(entry.path),layout({title:entry.title,description:entry.description,id:entry.path,content,current:entry}));
   await write("sources/"+entry.path,source);
   if(isData)await write("assets/data/"+path.basename(entry.path),source);
-  searchIndex.push({...entry,url:pagePathFor(entry.path),text:searchText(raw).slice(0,42000)});
+  searchIndex.push({...entry,url:pagePathFor(entry.path),text:searchText(raw).slice(0,42000)+(snippet?" "+snippet.name+" "+snippet.prefixes.join(" "):"")});
   if(!isData)manifest.push({path:entry.path,sha256:createHash("sha256").update(source).digest("hex"),blob:createHash("sha1").update("blob "+source.length+"\0").update(source).digest("hex"),bytes:source.length,url:codeUrl});
   documentRecords.push({source:entry.path,output:pagePathFor(entry.path),headings:rendered.toc.length});
 }
-const header='<header class="page-heading"><h1>ライブラリ一覧</h1><p class="index-guides">C++23 · <a href="'+base+'guide/common.html">共通設定</a> · <a href="'+base+'guide/review-notes.html">確認事項・既知の制約</a></p></header>'+
+const header='<header class="page-heading"><h1>ライブラリ一覧</h1><p class="index-guides">C++23 · <a href="'+base+'guide/common.html">共通設定</a> · <a href="'+base+'guide/review-notes.html">確認事項・既知の制約</a> · <a href="#snippet-reference">スニペット早見表</a></p></header>'+
   '<label class="inline-search"><span aria-hidden="true">⌕</span><input type="search" id="catalog-search" placeholder="名前・関数・用途で検索…" aria-label="ライブラリを絞り込む" autocomplete="off"><kbd>/</kbd></label>'+
   '<div class="catalog-controls"><span id="catalog-count" aria-live="polite">'+entries.length+' 件</span><button class="text-button" id="catalog-details" aria-pressed="false">説明を表示</button><button class="text-button" id="pins-filter" aria-pressed="false">ピン留めのみ</button></div>'+
   '<nav class="category-index" aria-label="分類から探す">'+categories.map((c,i)=>'<a href="#category-'+(i+1)+'">'+esc(c.title)+'</a>').join("")+'</nav>';
@@ -213,9 +228,12 @@ let sections="";
 for(let i=0;i<categories.length;i++){
   const category=categories[i],items=entries.filter(x=>x.categoryId===category.id);
   sections+='<section class="category-section" id="category-'+(i+1)+'"><h2>'+esc(category.title)+'</h2><ul class="catalog-list">'+
-    items.map(item=>'<li class="library-row" data-path="'+esc(item.path)+'" data-title="'+esc(item.title)+'" data-description="'+esc(item.description)+'" data-category="'+esc(item.category)+'"><a class="library-link" href="'+base+pagePathFor(item.path)+'">'+esc(item.title)+(item.path.endsWith(".txt")?'<span class="data-tag">DATA</span>':"")+'</a><div class="row-details"><small>'+esc(item.path)+'</small><p>'+esc(item.description)+'</p><button class="pin-button" data-pin="'+esc(item.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></li>').join("")+'</ul></section>';
+    items.map(item=>'<li class="library-row" data-path="'+esc(item.path)+'" data-title="'+esc(item.title)+'" data-description="'+esc(item.description)+'" data-category="'+esc(item.category)+'" data-snippet-prefixes="'+esc(snippetFor(item)?.prefixes.join(" ")||"")+'"><a class="library-link" href="'+base+pagePathFor(item.path)+'">'+esc(item.title)+(item.path.endsWith(".txt")?'<span class="data-tag">DATA</span>':"")+'</a><div class="row-details"><small>'+esc(item.path)+'</small><p>'+esc(item.description)+'</p><button class="pin-button" data-pin="'+esc(item.path)+'" aria-pressed="false" aria-label="ピン留めする">☆</button></div></li>').join("")+'</ul></section>';
 }
-await write("index.html",layout({title:"ライブラリ一覧",description:"競技プログラミング用C++ライブラリのAPI・制約・計算量・使用例",id:"index",home:true,mainClass:"overview",content:header+sections+'<p id="catalog-empty" class="empty-state" hidden>該当するライブラリがありません。検索語やピン留めの条件を変えてください。</p>'+footer()}));
+const snippetReference='<section class="snippet-reference" id="snippet-reference"><h2 id="snippet-reference-title">スニペット早見表</h2><p>エディターで呼び出し語を入力し、補完候補からスニペットを選択します。同じ行の呼び出し語は、どれも同じコードを展開します。</p><div class="table-wrap"><table aria-labelledby="snippet-reference-title"><thead><tr><th scope="col">ライブラリ／スニペット</th><th scope="col">呼び出し語（prefix）</th></tr></thead><tbody>'+
+  entries.filter(item=>item.path.endsWith(".cpp")).map(item=>{const snippet=snippetFor(item);return '<tr class="snippet-reference-row" data-path="'+esc(item.path)+'"><th scope="row"><a href="'+base+pagePathFor(item.path)+'">'+esc(snippet.name)+'</a></th><td>'+snippetWords(snippet)+'</td></tr>';}).join("")+
+  '</tbody></table></div><p id="snippet-reference-empty" class="empty-state" hidden>一致するスニペットはありません。</p></section>';
+await write("index.html",layout({title:"ライブラリ一覧",description:"競技プログラミング用C++ライブラリのAPI・制約・計算量・使用例",id:"index",home:true,mainClass:"overview",content:header+sections+'<p id="catalog-empty" class="empty-state" hidden>該当するライブラリがありません。検索語やピン留めの条件を変えてください。</p>'+snippetReference+footer()}));
 const guides=[
   ["common","usage/common.md","共通設定・添字"],
   ["validation","usage/validation.md","検証記録"],

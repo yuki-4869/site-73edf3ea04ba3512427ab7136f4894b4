@@ -476,5 +476,47 @@
       "template",
       "code"
     ]
+  },
+  "FPSandPolynomial/fps.cpp": {
+    "name": "形式的冪級数（998244353）",
+    "prefix": [
+      "fps",
+      "FPS"
+    ]
+  },
+  "FPSandPolynomial/fps_mod1000000007.cpp": {
+    "name": "形式的冪級数（1000000007）",
+    "prefix": [
+      "fps7",
+      "fps_mod1000000007"
+    ]
+  },
+  "FPSandPolynomial/bostan_mori.cpp": {
+    "name": "Bostan–Mori・線形漸化式",
+    "prefix": [
+      "bostan_mori",
+      "BostanMori"
+    ]
+  },
+  "FPSandPolynomial/multipoint.cpp": {
+    "name": "多点評価・多項式補間",
+    "prefix": [
+      "multipoint",
+      "FPSPointSet"
+    ]
+  },
+  "FPSandPolynomial/polynomial_product.cpp": {
+    "name": "多項式の総積",
+    "prefix": [
+      "polynomial_product",
+      "product_linear"
+    ]
+  },
+  "FPSandPolynomial/combinatorial_fps.cpp": {
+    "name": "FPSによる組合せ数列",
+    "prefix": [
+      "combinatorial_fps",
+      "combfps"
+    ]
   }
 }

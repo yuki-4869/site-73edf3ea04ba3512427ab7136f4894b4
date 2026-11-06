@@ -14,6 +14,7 @@ PARSER.add_argument('--source', type=Path, required=True)
 PARSER.add_argument('--acl', type=Path, required=True)
 PARSER.add_argument('--output', type=Path, required=True)
 PARSER.add_argument('--jobs', type=int, default=4)
+PARSER.add_argument('--only',action='append',help='Check only this source path; may be repeated')
 ARGS = PARSER.parse_args()
 SOURCE = ARGS.source.resolve()
 ACL = ARGS.acl.resolve()
@@ -27,6 +28,14 @@ HEADERS = {
     'Snippets/segtree_custom.cpp':['atcoder/segtree'],
     'Snippets/lazy_segtree_custom.cpp':['atcoder/lazysegtree'],
 }
+FPS_EXTENSIONS = {
+    'FPSandPolynomial/bostan_mori.cpp',
+    'FPSandPolynomial/multipoint.cpp',
+    'FPSandPolynomial/polynomial_product.cpp',
+    'FPSandPolynomial/combinatorial_fps.cpp',
+}
+for dependency in FPS_EXTENSIONS | {'FPSandPolynomial/fps.cpp','FPSandPolynomial/fps_mod1000000007.cpp'}:
+    HEADERS[dependency]=['atcoder/convolution']
 resource.setrlimit(resource.RLIMIT_CORE,(0,0))
 
 
@@ -89,6 +98,8 @@ def translation(path,template,example=False):
     if template=='codecf':
         prefix=''.join('#include <'+h+'>\n' for h in HEADERS.get(path,[]))+prefix
     text=implementation(path)
+    if path in FPS_EXTENSIONS:
+        text=implementation('FPSandPolynomial/fps.cpp')+'\n'+text
     code=basic(path)
     if example:
         code=documented_example(path)
@@ -133,6 +144,10 @@ def check(task):
 
 
 paths=sorted(str(p.relative_to(SOURCE)) for p in SOURCE.rglob('*.cpp'))
+if ARGS.only:
+    unknown=set(ARGS.only)-set(paths)
+    if unknown:raise SystemExit('Unknown source paths: '+', '.join(sorted(unknown)))
+    paths=[p for p in paths if p in ARGS.only]
 for path in paths: policy(path)
 tasks=[(p,t,False) for p in paths for t in TEMPLATES if not (p=='template.cpp' or p.startswith('Templates/')) or t=='code']
 tasks += [(p,'code',True) for p in paths]

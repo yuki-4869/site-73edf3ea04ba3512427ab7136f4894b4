@@ -2,6 +2,17 @@
 
 初回整理時はファイル名・配置・拡張子のみを変更し、本文のバイト列を元ファイルと一致させました。その後の実装改訂は、各説明ページに記録しています。
 
+2026-11-06に提供されたFPSの6ファイルは、精査・改訂して次の公開パスに追加しました。これらは初回整理の元データと同一バイト列の保存対象ではありません。
+
+| 提供ファイル | 公開ファイル |
+| --- | --- |
+| fps.cpp | [FPSandPolynomial/fps.cpp](../FPSandPolynomial/fps.cpp) |
+| fps_mod1000000007.cpp | [FPSandPolynomial/fps_mod1000000007.cpp](../FPSandPolynomial/fps_mod1000000007.cpp) |
+| bostan_mori.cpp | [FPSandPolynomial/bostan_mori.cpp](../FPSandPolynomial/bostan_mori.cpp) |
+| multipoint.cpp | [FPSandPolynomial/multipoint.cpp](../FPSandPolynomial/multipoint.cpp) |
+| polynomial_product.cpp | [FPSandPolynomial/polynomial_product.cpp](../FPSandPolynomial/polynomial_product.cpp) |
+| combinatorial_fps.cpp | [FPSandPolynomial/combinatorial_fps.cpp](../FPSandPolynomial/combinatorial_fps.cpp) |
+
 [RangeSet](usage/DataStructureBasic/range_set.md)、[座標圧縮](usage/DataStructureBasic/coordinate_compression.md)、[遅延セグ木ラッパー](usage/DataStructureSegment/lazy_segtree_wrappers.md)、[Beats拡張](usage/DataStructureSegment/segment_tree_beats_extra.md)は2026-10-15に実装を改訂しています。file-manifest.jsonのbytes・sha256は初回整理時の記録で、改訂後の値は該当ファイルのcurrent_revisionに記録しています。
 元の `.txt` をC++コードとして閲覧しやすい `.cpp` に変更しています。素数表は `.txt` のままです。
 

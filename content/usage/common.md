@@ -78,6 +78,7 @@ Nは要素・頂点数、Mは辺数、sigmaは異なる値数など、各ペー�
 | --- | --- |
 | セグ木ラッパー・汎用セグ木雛形 | `#include <atcoder/segtree>` |
 | 遅延セグ木ラッパー・汎用遅延セグ木雛形 | `#include <atcoder/lazysegtree>` |
+| FPS本体・Bostan–Mori・多点評価／補間・多項式総積・FPS組合せ数列 | `#include <atcoder/convolution>` |
 
 汎用遅延セグ木雛形は、別途 `LazySegBase`（遅延セグ木ラッパーに定義）も先に配置します。基本テンプレートの `Graph` は全て重み付き隣接リストに揃えています。
 

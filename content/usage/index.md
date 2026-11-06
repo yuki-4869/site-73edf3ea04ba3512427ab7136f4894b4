@@ -23,7 +23,7 @@
 | [整数論](#category-9) | 8 |
 | [組合せ](#category-10) | 2 |
 | [線形代数](#category-11) | 3 |
-| [畳み込み](#category-12) | 1 |
+| [FPS・多項式・畳み込み](#category-12) | 8 |
 | [文字列](#category-13) | 9 |
 | [幾何](#category-14) | 1 |
 | [探索・オフライン処理](#category-15) | 1 |
@@ -161,11 +161,17 @@
 
 <a id="category-12"></a>
 
-## 畳み込み
+## FPS・多項式・畳み込み
 
 | 説明ページ | 内容 | 実装 |
 | --- | --- | --- |
 | [XOR畳み込み（FWHT）](FPSandPolynomial/xor_convolution.md) | mod版の逆変換は gcd(N,mod)=1 が必要 | [コード](../../FPSandPolynomial/xor_convolution.cpp) |
+| [形式的冪級数（998244353）](FPSandPolynomial/fps.md) | 逆数・log・exp・累乗・平方根・多項式除算・Taylor shift | [コード](../../FPSandPolynomial/fps.cpp) |
+| [形式的冪級数（1000000007）](FPSandPolynomial/fps_mod1000000007.md) | 3素数NTTとCRTによる1000000007用FPS | [コード](../../FPSandPolynomial/fps_mod1000000007.cpp) |
+| [Bostan–Mori・線形漸化式](FPSandPolynomial/bostan_mori.md) | 有理式の第n係数、漸化式の第n項、Berlekamp–Massey | [コード](../../FPSandPolynomial/bostan_mori.cpp) |
+| [多点評価・多項式補間](FPSandPolynomial/multipoint.md) | 固定点の積木、多点評価、補間、補間用逆元の再利用 | [コード](../../FPSandPolynomial/multipoint.cpp) |
+| [多項式の総積](FPSandPolynomial/polynomial_product.md) | 小さい多項式からの総積と一次因子の平衡積 | [コード](../../FPSandPolynomial/polynomial_product.cpp) |
+| [FPSによる組合せ数列](FPSandPolynomial/combinatorial_fps.md) | 二項変換、Stirling数、Bernoulli数、Bell数、整数分割数 | [コード](../../FPSandPolynomial/combinatorial_fps.cpp) |
 
 <a id="category-13"></a>
 

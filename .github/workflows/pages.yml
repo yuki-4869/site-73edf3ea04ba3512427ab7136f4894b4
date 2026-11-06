@@ -81,6 +81,11 @@ jobs:
             g++ -std=c++23 -O2 -DNDEBUG -Iac-library -Isource "tests/${name}_test.cpp" -o "$RUNNER_TEMP/${name}_ndebug_test"
             "$RUNNER_TEMP/${name}_ndebug_test"
           done
+      - name: Check FPS under both fields
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          python3 tests/check-fps.py --source source --acl ac-library --templates --output "$RUNNER_TEMP/fps-checks"
+          python3 tests/check-fps-large.py --source source --acl ac-library --output "$RUNNER_TEMP/fps-large-checks"
       - name: Check VS Code snippets
         if: steps.check.outputs.changed == 'true'
         run: |

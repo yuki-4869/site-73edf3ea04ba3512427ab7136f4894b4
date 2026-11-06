@@ -71,5 +71,11 @@
   "String/lyndon_factorization.cpp": "7ed405956ef1c5ca67af6e6b6b44f836f6f552b9",
   "DataStructureBasic/swag_queue.cpp": "26df450b825e3fc49267d65d0e57801d445fc740",
   "Graph/hungarian.cpp": "2fda6f9d0e0c10c45362032a5f71a0878cc2a1a9",
-  "Search/longest_increasing_subsequence.cpp": "cabc2f0c357326f6e4c6c56c38debac21b4d34e7"
+  "Search/longest_increasing_subsequence.cpp": "cabc2f0c357326f6e4c6c56c38debac21b4d34e7",
+  "FPSandPolynomial/fps.cpp": "b2a6ed10617be2b97acaf0a2a6ab87b80ec8b046",
+  "FPSandPolynomial/fps_mod1000000007.cpp": "3cf585adc0487cd56e38b6a5c3c0b91531bf2dbc",
+  "FPSandPolynomial/bostan_mori.cpp": "e6a1a4b6688e75914ca0f9473dccbdf9cb656416",
+  "FPSandPolynomial/multipoint.cpp": "c877de4656de2b92e4b5a85360d0a651e04f1925",
+  "FPSandPolynomial/polynomial_product.cpp": "0c94d50930fbac494b939df87f23fcb770cc8e2b",
+  "FPSandPolynomial/combinatorial_fps.cpp": "48a297887019332696800a5bbd2a6b795cd12497"
 }

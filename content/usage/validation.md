@@ -1,5 +1,38 @@
 # C++23での確認結果
 
+## FPS一式の復元・改訂（2026-11-06）
+
+[998244353版](FPSandPolynomial/fps.md)・[1000000007版](FPSandPolynomial/fps_mod1000000007.md) と、Bostan–Mori、多点評価／補間、多項式総積、組合せ数列を追加しました。
+提供された旧6ファイルから、主要な関数名を維持して改訂しています。4つの拡張の係数型を選択したFPSに合わせ、両方の法で利用できます。
+
+| 検証 | 結果 |
+| --- | --- |
+| 両方の法×通常・NDEBUG・ASan/UBSanの6構成 | 各80,798件で成功 |
+| 両方の法×code/codet/codecf×通常・NDEBUGの12構成 | 各80,798件で成功 |
+| 負の項数・シフト、零の除数、不正な定数項、重複点補間、配列長不一致など | 各構成で12種類の無言停止を確認 |
+| 新規6ファイルの末尾例×3テンプレート、および説明ページの例 | 24件のC++23コンパイル・実行成功 |
+| 4拡張を個別に貼り、両方のFPS本体と末尾例を使用 | 本体を含め10件成功 |
+| 逆数・sqrt・log/exp・微分恒等式 | 998244353で65,539項、1000000007で16,387項が成功 |
+| 多点評価・補間の再利用、Stirling数、分割数 | 1,001点、8,193次、10,000までを独立計算と比較して一致 |
+
+小規模では畳み込み・微積分・逆数・log/exp・累乗・平方根・筆算除算・Taylor shift、漸化式、補間、組合せ数列を愚直解と比較しています。
+閾値32・60・2冪の前後、空・零・定数、先頭0、LLONG_MAXの指数・添字も確認しました。有限列の最短漸化式は小さい列で独立した連立方程式の判定とも比較しています。
+ASan/UBSanでは実行環境の制限でLeakSanitizerを無効にしています。
+
+整数逆元・階乗のキャッシュ、必要な接頭辞のみの処理、998244353版逆数のNTT再利用、補間用逆元の一括計算、総積のコピー削減、第一種Stirling数の倍長化、分割数のFPS逆数による計算を行っています。
+旧版と同じ入力・g++ -O2・3回の中央値では、998244353版の逆数65,536項が29.41→9.73ms、分割数100,000項が123.73→20.26msでした。測定値は環境・入力に依存します。
+
+`FPSPointSet`の内部データn・sz・x・pは非公開にしています。外部から直接変更する旧コードは移行が必要です。
+旧版CRTの整数復元は長さ制限内で安全であり、この部分を誤りとして修正したものではありません。今回の検証は全入力の正当性の証明ではありません。
+
+専用テストは `tests/check-fps.py`・`tests/check-fps-large.py` と対応するhppです。公開時にも両法と3テンプレート、大きい次数を検証します。
+
+```sh
+python3 tests/check-fps.py --source source --acl ac-library --templates --output /tmp/fps-templates
+python3 tests/check-fps.py --source source --acl ac-library --sanitizers --output /tmp/fps-sanitizers
+python3 tests/check-fps-large.py --source source --acl ac-library --output /tmp/fps-large
+```
+
 ## 二部最大マッチングの追加検証（2026-10-23）
 
 [Hopcroft–Karp法](Graph/hopcroft_karp.md) を追加しました。専用テストは `tests/hopcroft_karp_test.cpp` です。

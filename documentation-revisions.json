@@ -70,5 +70,6 @@
   "FPSandPolynomial/bitmask_transforms.cpp": "7be8a6850b0048633761e9e12be750ff179fe538",
   "String/lyndon_factorization.cpp": "7ed405956ef1c5ca67af6e6b6b44f836f6f552b9",
   "DataStructureBasic/swag_queue.cpp": "26df450b825e3fc49267d65d0e57801d445fc740",
-  "Graph/hungarian.cpp": "2fda6f9d0e0c10c45362032a5f71a0878cc2a1a9"
+  "Graph/hungarian.cpp": "2fda6f9d0e0c10c45362032a5f71a0878cc2a1a9",
+  "Search/longest_increasing_subsequence.cpp": "cabc2f0c357326f6e4c6c56c38debac21b4d34e7"
 }

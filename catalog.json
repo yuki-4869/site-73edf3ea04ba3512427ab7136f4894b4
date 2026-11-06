@@ -483,6 +483,13 @@
     "categoryId": "Geometry"
   },
   {
+    "title": "最長増加部分列（LIS）",
+    "path": "Search/longest_increasing_subsequence.cpp",
+    "description": "狭義増加・非減少の最長部分列、添字の復元、各位置で終わる長さをO(N log N)で取得",
+    "category": "探索・オフライン処理",
+    "categoryId": "Search"
+  },
+  {
     "title": "Mo法",
     "path": "Search/mo.cpp",
     "description": "オフライン区間クエリ。add/remove/output を指定",

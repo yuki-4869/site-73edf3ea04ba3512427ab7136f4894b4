@@ -1,9 +1,9 @@
 using C=FPS::value_type;
 using Vec=vector<C>;
 size_t checks=0;
-mt19937_64 generator(4869);
+mt19937_64 fps_test_rng(4869);
 void require(bool ok){if(!ok)std::abort();++checks;}
-C random_value(){return (ll)(generator()%C::mod());}
+C random_value(){return (ll)(fps_test_rng()%C::mod());}
 FPS random_fps(int count){FPS f(count);for(auto& value:f)value=random_value();return f;}
 void trim(FPS& a){while(!a.empty()&&a.back()==C(0))a.pop_back();}
 FPS padded(FPS a,int count){a.resize(count);return a;}
@@ -74,7 +74,7 @@ void core_tests(){
     vector<int> sizes={0,1,2,3,7,16,31,32,33,59,60,61,63,64,65,100,127,128,129,200,255,256,257};
     for(int size:sizes){
         for(int test=0;test<4;test++){
-            FPS a=random_fps(size),b=random_fps(test==0?0:1+generator()%150);
+            FPS a=random_fps(size),b=random_fps(test==0?0:1+fps_test_rng()%150);
             require(a*b==naive_mul(a,b));
             FPS original=a,other=b;
             auto sum=a+b,difference=a-b;
@@ -99,7 +99,7 @@ void core_tests(){
                 require(a.inv(0).empty()&&a.log(0).empty()&&a.exp(0).empty()&&a.sqrt(0).empty());
                 continue;
             }
-            a[0]=C(1+generator()%(C::mod()-1));
+            a[0]=C(1+fps_test_rng()%(C::mod()-1));
             require(a.inv(size)==naive_inv(a,size));
             auto identity=padded(naive_mul(a,a.inv(size),size),size);
             require(identity[0]==C(1));
@@ -109,7 +109,7 @@ void core_tests(){
             a[0]=0;
             require(a.exp(size)==naive_exp(a,size));
             for(ll exponent:{0LL,1LL,2LL,5LL})require(a.pow(exponent,size)==naive_pow(a,exponent,size));
-            FPS root=random_fps(size);root[0]=C(1+generator()%(C::mod()-1));
+            FPS root=random_fps(size);root[0]=C(1+fps_test_rng()%(C::mod()-1));
             auto square=padded(naive_mul(root,root,size),size);
             auto actual=square.sqrt(size);
             require(actual.size()==(size_t)size);
@@ -124,7 +124,7 @@ void core_tests(){
         }
     }
     for(int test=0;test<300;test++){
-        int n=generator()%180,m=1+generator()%100;
+        int n=fps_test_rng()%180,m=1+fps_test_rng()%100;
         FPS a=random_fps(n),b=random_fps(m);
         if(b.back()==C(0))b.back()=1;
         if(test%3==0){a.resize(n+3);b.resize(m+3);}
@@ -204,8 +204,8 @@ void rational_tests(){
     require(bostan_mori(FPS{1},FPS{1,-1},LLONG_MAX)==C(1));
     require(linear_recurrence(Vec{0,1},Vec{1,1},LLONG_MAX)==fibonacci(LLONG_MAX).first);
     for(int test=0;test<160;test++){
-        FPS numerator=random_fps(generator()%120),denominator=random_fps(1+generator()%70);
-        denominator[0]=C(1+generator()%(C::mod()-1));
+        FPS numerator=random_fps(fps_test_rng()%120),denominator=random_fps(1+fps_test_rng()%70);
+        denominator[0]=C(1+fps_test_rng()%(C::mod()-1));
         Vec sequence(221);
         for(int i=0;i<221;i++){
             C value=i<(int)numerator.size()?numerator[i]:C(0);
@@ -215,7 +215,7 @@ void rational_tests(){
         for(int n:{0,1,2,20,100,220})require(bostan_mori(numerator,denominator,n)==sequence[n]);
     }
     for(int test=0;test<150;test++){
-        int order=generator()%13;Vec coefficients(order),sequence(220);
+        int order=fps_test_rng()%13;Vec coefficients(order),sequence(220);
         for(auto& x:coefficients)x=random_value();
         for(int i=0;i<order;i++)sequence[i]=random_value();
         for(int i=order;i<220;i++)for(int j=0;j<order;j++)sequence[i]+=coefficients[j]*sequence[i-j-1];
@@ -226,7 +226,7 @@ void rational_tests(){
         require(linear_recurrence(start,inferred,219)==sequence[219]);
     }
     for(int test=0;test<120;test++){
-        Vec data(generator()%10);for(auto& x:data)x=generator()%4;
+        Vec data(fps_test_rng()%10);for(auto& x:data)x=fps_test_rng()%4;
         auto inferred=berlekamp_massey(data);
         require(inferred.size()==(size_t)minimum_order(data));
         for(int i=inferred.size();i<(int)data.size();i++){
@@ -238,7 +238,7 @@ void rational_tests(){
 void points_and_products_tests(){
     for(int n:{0,1,2,16,31,32,33,50,63,64,65,100,129}){
         Vec points(n);C offset=random_value();for(int i=0;i<n;i++)points[i]=offset+17*i;
-        shuffle(points.begin(),points.end(),generator);
+        shuffle(points.begin(),points.end(),fps_test_rng);
         FPSPointSet tree(points);
         FPS product={1};for(C value:points)product=naive_mul(product,FPS{-value,1});
         require(tree.product()==product&&product_linear(points)==product);
@@ -257,8 +257,8 @@ void points_and_products_tests(){
         for(int i=0;i<n;i++)require(values[i]==f.eval(duplicate[i]));
     }
     for(int test=0;test<160;test++){
-        vector<FPS> factors(generator()%20);FPS expected={1};
-        for(auto& f:factors){f=random_fps(generator()%10);expected=naive_mul(expected,f);}
+        vector<FPS> factors(fps_test_rng()%20);FPS expected={1};
+        for(auto& f:factors){f=random_fps(fps_test_rng()%10);expected=naive_mul(expected,f);}
         trim(expected);auto original=factors;
         require(polynomial_product(factors)==expected&&factors==original);
     }

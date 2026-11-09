@@ -78,5 +78,6 @@
   "FPSandPolynomial/multipoint.cpp": "613499c6e81df603f8561d96980f5347e8521a87",
   "FPSandPolynomial/polynomial_product.cpp": "02666a0121b3e2af798f28a9814679b8e7c330a8",
   "FPSandPolynomial/combinatorial_fps.cpp": "9cb4ca7960a6fed4d99bd79f2923d29560b7b145",
-  "DataStructureSegment/persistent_lazy_segment_tree.cpp": "b21b6d919df355d8160551253d96ee110376f768"
+  "DataStructureSegment/persistent_lazy_segment_tree.cpp": "b21b6d919df355d8160551253d96ee110376f768",
+  "Tree/centroid_decomposition.cpp": "5d119bf1561abb6616c3c5c6bfb7622762f57a65"
 }

@@ -280,6 +280,13 @@
     "categoryId": "Tree"
   },
   {
+    "title": "重心分解",
+    "path": "Tree/centroid_decomposition.cpp",
+    "description": "重心木の親・深さ、祖先重心と元の木での距離を反復処理で構築",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
     "title": "Virtual Tree",
     "path": "Tree/virtual_tree.cpp",
     "description": "DFS順・深さ・LCA関数を与えて構築",

@@ -462,6 +462,13 @@
     "categoryId": "String"
   },
   {
+    "title": "回文木（Eertree）",
+    "path": "String/palindromic_tree.cpp",
+    "description": "末尾追加で異なる回文をID管理、最長回文接尾辞・出現区間・重なりを含む出現数",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "Lyndon分解・最小巡回シフト",
     "path": "String/lyndon_factorization.cpp",
     "description": "Duval法による線形時間のLyndon分解と辞書順最小の巡回シフト、同値時は最小位置",

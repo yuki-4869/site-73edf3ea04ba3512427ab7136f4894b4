@@ -19,7 +19,7 @@
 | [高度なデータ構造](#category-5) | 3 |
 | [CHT・離散凸性](#category-6) | 3 |
 | [グラフ](#category-7) | 8 |
-| [木](#category-8) | 8 |
+| [木](#category-8) | 12 |
 | [整数論](#category-9) | 8 |
 | [組合せ](#category-10) | 2 |
 | [線形代数](#category-11) | 3 |
@@ -119,6 +119,9 @@
 | [Cartesian Tree](Tree/cartesian_tree.md) | 最小値を根に持つ木を構築 | [コード](../../Tree/cartesian_tree.cpp) |
 | [LCA](Tree/lca.md) | 最小共通祖先・距離・祖先判定 | [コード](../../Tree/lca.cpp) |
 | [Heavy-Light Decomposition](Tree/hld.md) | パスを区間分解。非可換演算向けの順序にも対応 | [コード](../../Tree/hld.cpp) |
+| [Link-Cut Tree（基本版）](Tree/link_cut_tree_basic.md) | 動的な森の辺追加削除・連結判定・根指定LCA・パス上の頂点取得 | [コード](../../Tree/link_cut_tree_basic.cpp) |
+| [Link-Cut Tree（パス集計）](Tree/link_cut_tree.md) | 動的な森の一点更新・非可換パス集計・境界探索、総和／最小／最大の設定済み型 | [コード](../../Tree/link_cut_tree.cpp) |
+| [Link-Cut Tree（遅延更新）](Tree/lazy_link_cut_tree.md) | 動的な森のパス遅延更新・非可換集計・境界探索、加算和／代入最小の設定済み型 | [コード](../../Tree/lazy_link_cut_tree.cpp) |
 | [全方位木DP](Tree/rerooting.md) | merge・lift・add_vertex を指定 | [コード](../../Tree/rerooting.cpp) |
 | [木の直径・最遠距離](Tree/tree_diameter.md) | 重みなし・非負重み付きの直径・最遠距離・中心を取得 | [コード](../../Tree/tree_diameter.cpp) |
 | [木の重心](Tree/tree_centroid.md) | 重みなし・頂点重み付きの重心情報 | [コード](../../Tree/tree_centroid.cpp) |

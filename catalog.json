@@ -259,6 +259,27 @@
     "categoryId": "Tree"
   },
   {
+    "title": "Link-Cut Tree（基本版）",
+    "path": "Tree/link_cut_tree_basic.cpp",
+    "description": "動的な森の辺追加削除・連結判定・根指定LCA・パス上の頂点取得",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "Link-Cut Tree（パス集計）",
+    "path": "Tree/link_cut_tree.cpp",
+    "description": "動的な森の一点更新・非可換パス集計・境界探索、総和／最小／最大の設定済み型",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "Link-Cut Tree（遅延更新）",
+    "path": "Tree/lazy_link_cut_tree.cpp",
+    "description": "動的な森のパス遅延更新・非可換集計・境界探索、加算和／代入最小の設定済み型",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
     "title": "全方位木DP",
     "path": "Tree/rerooting.cpp",
     "description": "merge・lift・add_vertex を指定",

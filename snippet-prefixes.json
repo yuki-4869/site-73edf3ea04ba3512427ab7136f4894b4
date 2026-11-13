@@ -518,5 +518,31 @@
       "combinatorial_fps",
       "combfps"
     ]
+  },
+  "Tree/link_cut_tree_basic.cpp": {
+    "name": "Link-Cut Tree（基本版）",
+    "prefix": [
+      "lctbasic",
+      "link_cut_tree_basic",
+      "LinkCutTreeBasic"
+    ]
+  },
+  "Tree/link_cut_tree.cpp": {
+    "name": "Link-Cut Tree（パス集計）",
+    "prefix": [
+      "lct",
+      "link_cut_tree",
+      "LinkCutTree"
+    ]
+  },
+  "Tree/lazy_link_cut_tree.cpp": {
+    "name": "Link-Cut Tree（遅延更新）",
+    "prefix": [
+      "lctlazy",
+      "lazy_link_cut_tree",
+      "LazyLinkCutTree",
+      "LCTAddSum",
+      "LCTAssignMin"
+    ]
   }
 }

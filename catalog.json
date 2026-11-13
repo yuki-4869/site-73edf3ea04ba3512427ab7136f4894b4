@@ -579,5 +579,12 @@
     "description": "整数点集合の凸包を反時計回りに構築、境界上の点の保持を選択、128 bit外積",
     "category": "幾何",
     "categoryId": "Geometry"
+  },
+  {
+    "title": "平面最近点対（整数座標）",
+    "path": "Geometry/closest_pair.cpp",
+    "description": "元の添字付きで最近点対を取得、128 bitの正確な二乗距離、O(N log N)",
+    "category": "幾何",
+    "categoryId": "Geometry"
   }
 ]

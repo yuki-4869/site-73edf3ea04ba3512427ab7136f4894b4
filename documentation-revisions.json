@@ -80,5 +80,6 @@
   "FPSandPolynomial/combinatorial_fps.cpp": "9cb4ca7960a6fed4d99bd79f2923d29560b7b145",
   "DataStructureSegment/persistent_lazy_segment_tree.cpp": "b21b6d919df355d8160551253d96ee110376f768",
   "Tree/centroid_decomposition.cpp": "5d119bf1561abb6616c3c5c6bfb7622762f57a65",
-  "String/palindromic_tree.cpp": "6f6188ee2e4550d7be7594a60e12c063222629f3"
+  "String/palindromic_tree.cpp": "6f6188ee2e4550d7be7594a60e12c063222629f3",
+  "Geometry/closest_pair.cpp": "a5a4306d78a307f2ca7046eebe0e1f5dbd0e9ce9"
 }

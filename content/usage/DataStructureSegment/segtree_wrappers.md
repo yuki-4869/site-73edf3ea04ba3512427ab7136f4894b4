@@ -1,6 +1,6 @@
 # ACL segtree の各種ラッパー
 
-[説明書の目次](../index.md) · [コード](../../../DataStructureSegment/segtree_wrappers.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/933b86ab8c6dde6d09fbe6328e4778a780264ed3/DataStructureSegment/segtree_wrappers.cpp)
+[説明書の目次](../index.md) · [コード](../../../DataStructureSegment/segtree_wrappers.cpp)
 
 ACL segtreeの演算を用途ごとに設定したラッパー集です。
 
@@ -12,7 +12,7 @@ N=列長。各クラスのSは下表を参照。非可換な演算も添字の�
 
 **共通の前提**
 
-- ACL segtreeが必要。N>=0、0<=l<=r<=N、0<=i<N。演算の結果は各型に収め、極値用番兵を実データとして使いません。
+- ACL segtreeが必要。N>=0、0<=l<=r<=N、0<=i<N。演算の結果は各型に収め、極値用番兵を使う型では番兵を実データとして使いません。Second型は番兵を使わず、llの全範囲を保持できます。
 
 <details>
 <summary>API一覧</summary>
@@ -39,6 +39,8 @@ N=列長。各クラスのSは下表を参照。非可換な演算も添字の�
 ```cpp
 template<class S,S(*op)(S,S),S(*e)()>
 struct SegBase;
+using SegMaxSecond=SegSecond_impl::Tree<true>;
+using SegMinSecond=SegSecond_impl::Tree<false>;
 struct SegMinMax;
 struct SegArgMax;
 struct SegArgMin;
@@ -46,6 +48,43 @@ struct SegMaxSubarray;
 struct SegAffine;
 struct SegBracket;
 ```
+
+## 重複を除いた上位・下位2つ
+
+`SegMaxSecond` は異なる上位2つを降順に、`SegMinSecond` は異なる下位2つを昇順に保持します。
+
+| メンバー | 意味 | 有効な条件 |
+| --- | --- | --- |
+| `first` | 最大値／最小値 | count >= 1 |
+| `second` | 異なる2番目の最大値／最小値 | count == 2 |
+| `count` | 保持している異なる値の個数。0・1・2のいずれか | 常に有効 |
+
+countは最大2で、区間内の全種類数ではありません。例えば `{5,5,3,1}` の上位は `{5,3,2}`、下位は `{1,3,2}` です。
+空区間はcount=0、値が1種類だけならcount=1です。無効なfirst/secondの値には依存しないでください。
+番兵値と実データを混ぜないため、LLONG_MIN・LLONG_MAXも入力に使えます。
+
+```cpp
+Type seg;
+Type seg(int n);
+Type seg(const vector<ll>& values);
+Type seg(const vector<Type::S>& leaves);
+void seg.set(int i,ll value);
+void seg.set(int i,Type::S leaf);
+Type::S seg.get(int i);
+Type::S seg.prod(int l,int r);
+Type::S seg.all_prod();
+int seg.max_right(int l,auto g);
+int seg.min_left(int r,auto g);
+// 関数ポインタgをテンプレート引数にするmax_right<g>(l) / min_left<g>(r)も使用可。
+```
+
+TypeはSegMaxSecondまたはSegMinSecondです。既定構築は空の木です。
+**n構築は未設定の葉をn個**用意し、各葉のcountは0です。すべて0で初期化する場合は `vector<ll>(n)` を渡します。
+生のSで葉を設定する場合、countは0または1とし、count=1では `{value,0,1}` とします。
+添字・区間はACLと同じ0-indexed・半開区間です。n構築の範囲は0以上2^29以下で、不正な長さはメッセージなしで停止します。
+構築O(N)、set/prod/境界探索O(log N)、get/all_prodはO(1)、保持領域O(N)です。
+境界探索のgはSを受け取り、単位元でtrueかつ区間拡張に対して単調である必要があります。
+例えば `g(s) = s.count < 2` は、異なる値が2種類以上になる直前までを探索できます。
 
 ## この実装の注意点
 
@@ -286,6 +325,8 @@ bool valid(int l,int r);
 | クラス | 区間型S | 用途 |
 | --- | --- | --- |
 | `SegMax` | `ll` | 最大値 |
+| `SegMaxSecond` | `S{first,second,count}` | 重複を除いた上位2つ |
+| `SegMinSecond` | `S{first,second,count}` | 重複を除いた下位2つ |
 | `SegMin` | `ll` | 最小値 |
 | `SegSum` | `ll` | 和 |
 | `SegXOR` | `ll` | XOR |
@@ -338,6 +379,15 @@ SegSum s(vl{1,2,3}); assert(s.prod(0,3)==6);
 s.set(1,10); assert(s.prod(0,3)==14);
 SegArgMin m(vl{3,1,1}); assert(m.prod(0,3).id==1);
 SegBracket b(string("()()")); assert(b.valid(0,4));
+SegMaxSecond top(vl{5,5,3,1});
+auto high=top.prod(0,4);
+assert(high.count==2 && high.first==5 && high.second==3);
+top.set(2,5);
+assert(top.prod(0,3).count==1);
+SegMinSecond bottom(vl{5,5,3,1});
+auto low=bottom.prod(0,4);
+assert(low.count==2 && low.first==1 && low.second==3);
+assert(bottom.prod(2,2).count==0);
 ```
 
 ## メモリ

@@ -1,8 +1,8 @@
 # 遅延セグメント木の用途別ラッパー
 
-[説明書の目次](../index.md) · [コード](../../../DataStructureSegment/lazy_segtree_wrappers.cpp) · [確認対象の改訂版](https://github.com/yuki-4869/Algorithm/blob/f9177dec185cbc540c81fa7c94c944c1e87348ac/DataStructureSegment/lazy_segtree_wrappers.cpp)
+[説明書の目次](../index.md) · [コード](../../../DataStructureSegment/lazy_segtree_wrappers.cpp)
 
-ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転などで使う17種類のラッパーです。
+ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転などで使う21種類のラッパーです。重複を除いた上位・下位2つを扱う区間加算版・区間代入版も含みます。
 2026-10-15改訂。末尾コメントのコンパイルエラーを修正し、構築方法・境界検査・空の木の扱いを統一しました。
 
 **記号**
@@ -18,6 +18,10 @@ ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転など�
 | --- | --- | --- | --- | --- | --- |
 | `LazyAddMin` | 加算 | 最小 | `long long` | `long long（加算値）` | `add / min` |
 | `LazyAddMax` | 加算 | 最大 | `long long` | `long long（加算値）` | `add / max` |
+| `LazyAddMaxSecond` | 加算 | 異なる上位2つ | `{first,second,count}` | `long long（加算値）` | `add / prod` |
+| `LazyAddMinSecond` | 加算 | 異なる下位2つ | `{first,second,count}` | `long long（加算値）` | `add / prod` |
+| `LazyAssignMaxSecond` | 代入 | 異なる上位2つ | `{first,second,count}` | `LazyAssignF` | `assign / prod` |
+| `LazyAssignMinSecond` | 代入 | 異なる下位2つ | `{first,second,count}` | `LazyAssignF` | `assign / prod` |
 | `LazyAddSum` | 加算 | 和 | `{val,size}` | `long long（加算値）` | `add / sum` |
 | `LazyAssignMin` | 代入 | 最小 | `long long` | `LazyAssignF` | `assign / min` |
 | `LazyAssignMax` | 代入 | 最大 | `long long` | `LazyAssignF` | `assign / max` |
@@ -37,6 +41,30 @@ ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転など�
 
 表のTypeは、具体型の名前に置き換えて使います。Sがstructの型では、`get(i)`は整数そのものではなく、その葉の情報です。
 
+## 重複を除いた上位・下位2つ
+
+Second型のSは `{first,second,count}` です。MaxSecondでは大きい順、MinSecondでは小さい順に異なる値を最大2個保持します。
+countは0・1・2の保持数で、区間内の全種類数ではありません。firstはcount>=1、secondはcount==2のときだけ使えます。
+空区間ではcount=0、1種類しかない区間ではcount=1です。無効なフィールドを番兵として判定しないでください。
+
+例えば `{5,5,3,1}` の上位は `{5,3,2}`、下位は `{1,3,2}` です。
+Add型は保持した有効な値にだけ加算し、Assign型は非空区間を `{代入値,0,1}` に変換します。
+区間全体を同じ値に代入すれば、重複を除いた値は1個になります。
+
+| 型 | 区間更新 | 点更新 |
+| --- | --- | --- |
+| `LazyAddMaxSecond` / `LazyAddMinSecond` | `add(l,r,x)` または `apply(l,r,x)` で加算 | `set(i,x)` で置換、`apply(i,x)` で加算 |
+| `LazyAssignMaxSecond` / `LazyAssignMinSecond` | `assign(l,r,x)` または `apply(l,r,x)` で代入 | `set(i,x)` または `apply(i,x)` で代入 |
+
+構築、size/empty、get/prod/all_prod、境界探索、コピー・ムーブは以下の共通APIを使えます。
+vector<long long>からの構築では葉を自動変換し、n構築は実要素をすべて0にします。
+継承しているvector<S>構築や `set(i,S)` を使う場合、各葉は `{値,0,1}` としてください。
+Assign型は生のタグ `LazyAssignF{x,true}` による点・区間更新にも対応し、`LazyAssignF{}` は変更しません。
+`max_right/min_left` の述語はSを受け取り、例えば `s.count<2` で値が1種類の区間の境界を探せます。
+
+番兵値を使わないので、LLONG_MIN・LLONG_MAXも保持・代入できます。加算後の値と、未伝播の加算タグの合成はlong longに収まる必要があります。
+更新・点取得・区間取得・境界探索はO(log N)、all_prod/size/emptyはO(1)、構築・保持領域はO(N)です。
+
 ## 依存関係・数値範囲
 
 標準ヘッダーとACLは基本テンプレートから読み込みます。codecfでは `<atcoder/lazysegtree>` を追加します。
@@ -46,8 +74,8 @@ ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転など�
 
 - 0<=i<N、0<=l<=r<=N、0<=N<=2^29。無効な添字・区間、負の長さ、長さの上限超過はメッセージなしで停止します。
 - 整数版では要素・区間和・中間積・遅延タグの合成がlong longに収まること。算術オーバーフローを一律に検出する実装ではありません。
-- 最小値・最大値・位置付き情報を扱う型の実要素は、`-LSEG_INF < A[i] < LSEG_INF`。`LSEG_INF=2^62`は単位元に使用します。
-- 生のSをsetする場合は、葉のsize=1、Arg型のid=iなど、その型のメタデータも正しく設定してください。
+- Second型以外で最小値・最大値・位置付き情報を扱う型の実要素は、`-LSEG_INF < A[i] < LSEG_INF`。`LSEG_INF=2^62`は単位元に使用します。
+- 生のSをsetする場合は、葉のsize=1、Arg型のid=i、Second型の `{値,0,1}` など、その型のメタデータも正しく設定してください。
 
 LazyAffineSumは法998244353を明示的に使います。別の法には `LazyAffineSumT<atcoder::modint1000000007>` などを使います。
 動的modintを使う場合、木の使用中は法を変えないでください。
@@ -199,6 +227,7 @@ LazyAddArgMin / LazyAddArgMax / LazyFlipSum / LazyFlipInv / LazyAPAddSumには�
 | 最小値・最大値 | LSEG_INF / -LSEG_INF |
 | 和・1の個数・転倒数・size | 0 |
 | Arg型のid | LSEG_INF |
+| Second型のcount | 0。first/secondは無効 |
 
 単位元に更新を作用させても空情報を保つようにしています。長さ0の木やムーブ元にもprod(0,0)、all_prod、空区間更新・境界探索を使用できます。
 
@@ -230,6 +259,17 @@ flip.flip(0,3); assert(flip.inversions(0,3)==1);
 
 LazyAPAddSum ap(4); ap.add_ap(1,4,10,3);
 assert(ap.sum(0,4)==39 && ap.get(3).sum==16);
+
+LazyAddMaxSecond top(std::vector<long long>{5,5,3,1});
+top.add(0,3,10);
+auto high=top.prod(0,4);
+assert(high.count==2 && high.first==15 && high.second==13);
+LazyAssignMinSecond bottom(std::vector<long long>{5,5,3,1});
+bottom.assign(0,4,7);
+assert(bottom.all_prod().count==1);
+bottom.set(1,2);
+auto low=bottom.prod(0,4);
+assert(low.count==2 && low.first==2 && low.second==7);
 ```
 
 ## 旧版からの移行
@@ -258,3 +298,8 @@ g++ -std=c++23 -O2 -I/path/to/ac-library tests/segment_wrappers_test.cpp -o /tmp
 ```
 
 メモリO(N)。テストは全入力やオーバーフロー条件を網羅するものではありません。
+
+## Second型の追加検証
+
+専用テスト `tests/second_extrema_test.cpp` で、重複を含む列の全列挙、通常配列とのランダム比較、結合則・写像の合成、空区間・境界探索・コピー・ムーブ、long longの両端を確認します。
+従来のラッパーの回帰テストと、3種類の基本テンプレートとの組み合わせも確認します。

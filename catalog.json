@@ -121,14 +121,14 @@
   {
     "title": "ACL segtree の各種ラッパー",
     "path": "DataStructureSegment/segtree_wrappers.cpp",
-    "description": "最小／最大／和などの型と演算",
+    "description": "最大／最小／和、重複を除く上位・下位2つなどの型と演算",
     "category": "区間データ構造",
     "categoryId": "DataStructureSegment"
   },
   {
     "title": "ACL lazy_segtree の各種ラッパー",
     "path": "DataStructureSegment/lazy_segtree_wrappers.cpp",
-    "description": "17種類の区間更新・取得、境界検査・全API一覧（改訂済み）",
+    "description": "21種類の区間更新・取得、重複を除く上位・下位2つ、境界検査・全API一覧",
     "category": "区間データ構造",
     "categoryId": "DataStructureSegment"
   },

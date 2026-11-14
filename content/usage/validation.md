@@ -1,5 +1,24 @@
 # C++23での確認結果
 
+## 重複を除いた上位・下位2つ（2026-11-14）
+
+[Seg](DataStructureSegment/segtree_wrappers.md) にSegMaxSecond・SegMinSecond、[LazySeg](DataStructureSegment/lazy_segtree_wrappers.md) に区間加算版・区間代入版の計4型を追加しました。
+すべてS={first,second,count}で、countは保持する異なる値の個数を0・1・2で表します。番兵値を使わずlong longの両端を保持できます。
+
+| 検証 | 結果 |
+| --- | --- |
+| 通常・NDEBUG・ASan/UBSan | 各8,994,563件で成功 |
+| 3種類の値からなる長さ7以下の全列挙 | 全区間の異なる上位・下位2つが直接ソート・重複除去と一致 |
+| 6型・120,000回のランダム操作 | 点更新、区間加算・代入、境界探索、全体取得が通常配列と一致 |
+| モノイド・写像の法則 | 単位元・結合則、加算・代入の分配、タグ合成順が一致 |
+| 空区間・全要素同値・LLONG_MIN/MAX | 無効な第2値を参照せず、代入後はcount=1、空区間はcount=0 |
+| 構築・コピー・ムーブ・200,000要素 | 成功。LazySegの不正入力検査とムーブ元の空状態も確認 |
+| 既存のLazySeg・Beatsラッパー | 回帰テストと163,840グループステップが成功 |
+
+専用テストは `tests/second_extrema_test.cpp` で、公開時にも通常・NDEBUGで実行します。
+ASan/UBSanでは実行環境の制限によりLeakSanitizerを無効にしています。
+Segのn構築は未設定の葉、LazySegの具体型のn構築は0の実要素です。加算後の値・加算タグの合成はlong longに収めてください。
+
 ## Link-Cut Tree 3版の追加（2026-11-14）
 
 [基本版](Tree/link_cut_tree_basic.md)・[パス集計版](Tree/link_cut_tree.md)・[遅延更新版](Tree/lazy_link_cut_tree.md) を追加しました。

@@ -161,6 +161,13 @@
     "categoryId": "DiscreteConvexity"
   },
   {
+    "title": "Slope Trick（凸区分線形関数）",
+    "path": "DiscreteConvexity/slope_trick.cpp",
+    "description": "絶対値・片側コスト追加、前後・区間内の最小化、平行移動、関数の結合、最小値と最小化区間",
+    "category": "CHT・離散凸性",
+    "categoryId": "DiscreteConvexity"
+  },
+  {
     "title": "Convex Hull Trick",
     "path": "DiscreteConvexity/convex_hull_trick.cpp",
     "description": "傾きの追加順に制約。query の x の順序は任意",

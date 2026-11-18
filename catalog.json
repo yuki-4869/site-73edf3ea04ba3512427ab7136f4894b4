@@ -343,6 +343,13 @@
     "categoryId": "MathNumberTheory"
   },
   {
+    "title": "離散対数（非互いに素対応）",
+    "path": "MathNumberTheory/discrete_log.cpp",
+    "description": "a^x≡b mod mの最小非負指数、合成数・非互いに素・解なしに対応、拡張BSGS",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
     "title": "10^6 以下の素数表",
     "path": "MathNumberTheory/primes_upto_1000000.txt",
     "description": "78,498 個の素数データ",

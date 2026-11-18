@@ -85,5 +85,6 @@
   "Tree/link_cut_tree_basic.cpp": "5ab47d773a5e57d52b49638ba6604e1ba1615333",
   "Tree/link_cut_tree.cpp": "0e0cfb1cd45ca170cdad0eea5a878560ff2760ad",
   "Tree/lazy_link_cut_tree.cpp": "b1157c9cd79198c817f89430484418474ba66a0d",
-  "DiscreteConvexity/slope_trick.cpp": "9690435814dbab215531d648dbaa628eccbbf598"
+  "DiscreteConvexity/slope_trick.cpp": "9690435814dbab215531d648dbaa628eccbbf598",
+  "MathNumberTheory/discrete_log.cpp": "0e08e17dc0d8df525eff4852736e64cbfda1aac1"
 }

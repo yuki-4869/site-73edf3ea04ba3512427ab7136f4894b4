@@ -196,6 +196,13 @@
     "categoryId": "Graph"
   },
   {
+    "title": "一般グラフ最大マッチング（Blossom法）",
+    "path": "Graph/general_matching.cpp",
+    "description": "奇数閉路を含む無向グラフの最大ペア数・対応先・元辺番号を復元、多重辺にも対応、O(N^3+M)",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
     "title": "最小費用割当（Hungarian法）",
     "path": "Graph/hungarian.cpp",
     "description": "長方形・負費用に対応する最小費用割当と復元、128bit合計、O(N²M)",

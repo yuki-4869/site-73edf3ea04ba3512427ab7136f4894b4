@@ -628,5 +628,12 @@
     "description": "元の添字付きで最近点対を取得、128 bitの正確な二乗距離、O(N log N)",
     "category": "幾何",
     "categoryId": "Geometry"
+  },
+  {
+    "title": "長方形の和集合面積",
+    "path": "Geometry/rectangle_union_area.cpp",
+    "description": "整数座標の軸平行長方形を走査線で処理し、重複を除いた面積を128 bitで計算、O(N log N)",
+    "category": "幾何",
+    "categoryId": "Geometry"
   }
 ]

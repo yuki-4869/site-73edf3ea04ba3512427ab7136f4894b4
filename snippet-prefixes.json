@@ -225,6 +225,14 @@
       "gf2_gaussian_elimination"
     ]
   },
+  "LinearAlgebra/matrix_power.cpp": {
+    "name": "行列累乗",
+    "prefix": [
+      "matrix_power",
+      "MatrixMod",
+      "行列累乗"
+    ]
+  },
   "LinearAlgebra/xor_basis.cpp": {
     "name": "XOR基底",
     "prefix": [

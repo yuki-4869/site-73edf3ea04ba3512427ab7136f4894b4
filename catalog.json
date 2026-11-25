@@ -441,6 +441,13 @@
     "categoryId": "LinearAlgebra"
   },
   {
+    "title": "行列累乗",
+    "path": "LinearAlgebra/matrix_power.cpp",
+    "description": "mod・min-plus・真偽値の累乗、ベクトルへの適用、累乗和、複数クエリ用の二乗前計算",
+    "category": "線形代数",
+    "categoryId": "LinearAlgebra"
+  },
+  {
     "title": "XOR畳み込み（FWHT）",
     "path": "FPSandPolynomial/xor_convolution.cpp",
     "description": "mod版の逆変換は gcd(N,mod)=1 が必要",

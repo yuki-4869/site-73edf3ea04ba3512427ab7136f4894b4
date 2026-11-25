@@ -1,6 +1,6 @@
 # 複数テストケース用テンプレート
 
-[説明書の目次](../index.md) · [コード](../../../Templates/multiple_test_cases.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/933b86ab8c6dde6d09fbe6328e4778a780264ed3/Templates/multiple_test_cases.cpp)
+[説明書の目次](../index.md) · [コード](../../../Templates/multiple_test_cases.cpp) · [確認対象の公開版](https://github.com/yuki-4869/Algorithm/blob/20809030ec2ae4d3840009cdee2bafbd7f7c7adc/Templates/multiple_test_cases.cpp)
 
 競技プログラミングの共通型・入出力・数学補助関数・最短距離をまとめたテンプレートです。
 
@@ -31,6 +31,7 @@ Nはvector長または二項係数の上側。ll=long long、LL=__int128。
 - [vec_max](#api-12)
 - [vec_sum](#api-13)
 - [cin_vl](#api-14)
+- [cin_vs](#api-cin-vs)
 - [cin_vvl](#api-15)
 - [cin_xy](#api-16)
 - [cin_xyz](#api-17)
@@ -90,10 +91,11 @@ mainまたはsolveの関数本体が途中で終わる記入用ファイルで�
 ## vec2
 
 ```cpp
-auto vec2(ll n,ll m,T x=T());
+template<class T=ll>
+auto vec2(ll n,ll m,std::type_identity_t<T> x=T());
 ```
 
-n×mの二次元vectorをxで初期化して返します。T省略時ll。
+n×mの二次元vectorをxで初期化して返します。型を省略したときの要素型は、`vec2(n, m, -1)` のように初期値を指定しても `ll` です。初期値を省略すると `T()` で初期化します。
 
 **計算量**
 
@@ -104,10 +106,11 @@ n×mの二次元vectorをxで初期化して返します。T省略時ll。
 ## vec3
 
 ```cpp
-auto vec3(ll n,ll m,ll l,T x=T());
+template<class T=ll>
+auto vec3(ll n,ll m,ll l,std::type_identity_t<T> x=T());
 ```
 
-n×m×lの三次元vectorをxで初期化して返します。
+n×m×lの三次元vectorをxで初期化して返します。型を省略したときの要素型は、`vec3(n, m, l, -1)` のように初期値を指定しても `ll` です。初期値を省略すると `T()` で初期化します。
 
 **計算量**
 
@@ -118,10 +121,11 @@ n×m×lの三次元vectorをxで初期化して返します。
 ## vec4
 
 ```cpp
-auto vec4(ll a,ll b,ll c,ll d,T x=T());
+template<class T=ll>
+auto vec4(ll a,ll b,ll c,ll d,std::type_identity_t<T> x=T());
 ```
 
-a×b×c×dの四次元vectorをxで初期化して返します。
+a×b×c×dの四次元vectorをxで初期化して返します。型を省略したときの要素型は、`vec4(a, b, c, d, -1)` のように初期値を指定しても `ll` です。初期値を省略すると `T()` で初期化します。
 
 **計算量**
 
@@ -296,6 +300,26 @@ n個の値を標準入力から読みvector<T>で返します。T省略時ll。
 **計算量**
 
 - O(n)。
+
+<a id="api-cin-vs"></a>
+
+## cin_vs
+
+```cpp
+vs cin_vs(ll n);
+```
+
+空白や改行で区切られた文字列を標準入力から `n` 個読み、`vs`（`vector<string>`）で返します。`cin_vl<string>(n)` と同じ動作です。`n = 0` では入力を読まず空の配列を返します。
+
+```cpp
+ll n;
+cin >> n;
+vs s = cin_vs(n);
+```
+
+**計算量**
+
+- `O(n + L)`。ここで `L` は読み取る文字と読み飛ばす空白の総数です。
 
 <a id="api-15"></a>
 
@@ -934,7 +958,7 @@ N!/(N-r)!をmintで返します。範囲外では0。
 
 ## dijkstra（単一始点・複数始点の最短距離）
 
-6個のオーバーロードを各1行にまとめています。行番号の基準となる `code`（`template.cpp`）では97〜102行目です。`codet`・`codecf` は `code` と共通関数の順序を揃え、行数の一致は要求しません。
+6個のオーバーロードを各1行にまとめています。行番号の基準となる `code`（`template.cpp`）では98〜103行目です。`codet`・`codecf` は `code` と共通関数の順序を揃え、行数の一致は要求しません。
 
 ```cpp
 vl dijkstra(const graph& g,ll s);
@@ -990,7 +1014,7 @@ assert((dijkstra(wg,{0,2})==vl{0,5,0,inf}));
 const vl Pow2;
 ```
 
-`Pow2[i]` は `2^i`（`0<=i<=60`）です。61個の値をすべて `ll` 型の整数リテラルとして展開し、`code`（`template.cpp`）の103行目に配置しています。`codet`・`codecf` では行数より共通宣言の順序を優先します。利用時の前計算関数の呼び出しは不要です。
+`Pow2[i]` は `2^i`（`0<=i<=60`）です。61個の値をすべて `ll` 型の整数リテラルとして展開し、`code`（`template.cpp`）の104行目に配置しています。`codet`・`codecf` では行数より共通宣言の順序を優先します。利用時の前計算関数の呼び出しは不要です。
 
 `Pow2[0]=1LL`、`Pow2[60]=1152921504606846976LL` です。全要素が `ll` の正数範囲内に収まります。
 
@@ -1053,6 +1077,11 @@ cout_ver(vl{3,1,4});       // 3、1、4をそれぞれ別の行へ出力
 必要な定義を用意して、次の処理を `main` 内で実行します。`assert` で結果を確認しています。
 
 ```cpp
+auto grid = vec2(2, 3, -1);
+static_assert(std::is_same_v<decltype(grid), vvl>);
+assert(grid[1][2] == -1);
+auto labels = vec2<string>(2, 3, "empty");
+assert(labels[1][2] == "empty");
 vl a={3,1,3}; assert(vec_sum(a)==7);
 assert((compress(a)==vl{1,0,1}));
 assert(ceil_div(-5,2)==-2 && floor_div(-5,2)==-3);

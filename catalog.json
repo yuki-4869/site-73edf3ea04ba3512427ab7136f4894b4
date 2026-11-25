@@ -511,6 +511,13 @@
     "categoryId": "String"
   },
   {
+    "title": "接尾辞オートマトン（Suffix Automaton）",
+    "path": "String/suffix_automaton.cpp",
+    "description": "英小文字列を線形時間で前処理し、部分文字列の出現回数・異なる部分文字列数・最長共通部分文字列長を取得",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "Lyndon分解・最小巡回シフト",
     "path": "String/lyndon_factorization.cpp",
     "description": "Duval法による線形時間のLyndon分解と辞書順最小の巡回シフト、同値時は最小位置",

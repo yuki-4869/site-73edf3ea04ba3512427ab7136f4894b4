@@ -532,6 +532,13 @@
     "categoryId": "String"
   },
   {
+    "title": "レーベンシュタイン距離",
+    "path": "String/levenshtein_distance.cpp",
+    "description": "文字列・数列を挿入・削除・置換で変換する最小操作回数。一次元DPで追加領域は短い方の長さに比例",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "Aho-Corasick",
     "path": "String/aho_corasick.cpp",
     "description": "複数文字列の照合。文字列追加後にbuild",

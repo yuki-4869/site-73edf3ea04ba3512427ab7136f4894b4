@@ -14,6 +14,8 @@ ACLのlazy_segtreeを、区間加算・代入・一次変換・0/1反転など�
 
 ## 型を選ぶ
 
+区間に持たせる情報や更新を自分で定義する場合は、[LazySegBase](#lazy-seg-base) を使います。
+
 | 型 | 更新 | 取得する情報 | S | F | 専用API |
 | --- | --- | --- | --- | --- | --- |
 | `LazyAddMin` | 加算 | 最小 | `long long` | `long long（加算値）` | `add / min` |
@@ -96,7 +98,6 @@ Type& operator=(Type&& other);
 modint型ではvector<Mint>などからも構築できます。
 コピーは独立した木となり、ムーブ元は長さ0として再利用できます。
 
-汎用の `LazySegBase<S,op,e,F,mp,cp,id>` も使用できます。この汎用基底の(n)はACLと同じく単位元をn個並べるため、具体型の(n)とは区別してください。
 一部の型では生のvector<S>からの構築も継承しています。通常は値のvectorか具体型のnによる構築を使うと、葉のメタデータを自動設定できます。
 
 **計算量**
@@ -148,6 +149,53 @@ max_rightはg(prod(l,r))が成立する最大のr、min_leftはg(prod(l,r))が�
 **計算量**
 
 - O(log N)。
+
+<a id="lazy-seg-base"></a>
+
+## 自作の遅延セグ木（LazySegBase）
+
+`lazy_segtree_wrappers.cpp` の先頭付近にある `LazySegBase<S, op, e, F, mp, cp, id>` に、区間の集約と更新を渡します。ラッパーのコードを基本テンプレートの `main` より前に置き、その後に自分の型と関数を定義します。`codecf` では `<atcoder/lazysegtree>` を追加します。
+
+| 引数 | 役割 |
+| --- | --- |
+| `S` | 各区間が持つ値の型 |
+| `op(S left, S right)` | 左右の区間をこの順序で結合する。結合則を満たす |
+| `e()` | 空区間の値。`op` の単位元 |
+| `F` | 区間に適用する更新の型 |
+| `mp(F f, S x)` | 区間 `x` に更新 `f` を適用する |
+| `cp(F f, F g)` | `g` の後に `f` を適用する更新を返す |
+| `id()` | 何もしない更新を返す |
+
+初期値は `vector<S>` で渡すと、各葉の要素数なども指定できます。`LazySegBase(n)` は `e()` を `n` 個並べます。操作は上の [共通API](#共通api) と同じく、0 始まり・半開区間 `[l,r)` です。各演算が定数時間なら、構築は `O(N)`、`apply` と `prod` は `O(log N)` です。更新と集約が満たす条件は [汎用遅延セグ木の穴埋めテンプレート](../Snippets/lazy_segtree_custom.md) で確認できます。
+
+### 例・区間内のアフィン変換を順番に合成する
+
+各コンテストの成績を `P` とし、参加後のレートを `19/20 * R + P/20` で計算します。セグ木の `S` には区間全体の変換 `a*R+b` を持ちます。成績を区間全体で `x` 加算すると、変換は `b` に `(1-a)*x` を加えることで更新できます。
+
+```cpp
+struct RateTransform { long double a, b; };
+RateTransform rate_op(RateTransform left, RateTransform right) {
+    return {right.a * left.a, right.a * left.b + right.b};
+}
+RateTransform rate_e() { return {1, 0}; }
+RateTransform rate_map(long long x, RateTransform f) {
+    return {f.a, f.b + (1 - f.a) * x};
+}
+long long rate_comp(long long f, long long g) { return f + g; }
+long long rate_id() { return 0; }
+
+using RatingSeg = LazySegBase<RateTransform, rate_op, rate_e,
+                             long long, rate_map, rate_comp, rate_id>;
+
+int main() {
+    const long double keep = 19.0L / 20;
+    RatingSeg seg(std::vector<RateTransform>{{keep, 5}, {keep, 10}, {keep, 15}});
+    seg.apply(1, 3, 20);  // 成績が {100, 220, 320} になる
+    auto f = seg.prod(0, 3);
+    long double start = 20 * seg.get(0).b;
+    assert(std::abs(f.a * start + f.b - 116.7L) < 1e-9L);
+}
+```
 
 ## 加算・代入・chmin・chmax
 

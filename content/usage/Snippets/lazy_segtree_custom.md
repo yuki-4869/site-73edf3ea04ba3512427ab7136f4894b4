@@ -12,7 +12,8 @@ S=集約情報、F=写像、mp=写像の作用、cp=写像の合成、id=恒等�
 
 **共通の前提**
 
-- LazySegBaseを先に定義します。opは結合則、eは単位元、mp(id(),x)=x、mp(cp(f,g),x)=mp(f,mp(g,x))、mp(f,op(x,y))=op(mp(f,x),mp(f,y))を満たすこと。
+- [遅延セグ木ラッパーの `LazySegBase`](../DataStructureSegment/lazy_segtree_wrappers.md#lazy-seg-base) を先に貼り付けます。
+- `op` は結合則を満たし、`e` は単位元です。更新は `mp(id(),x)=x`、`mp(cp(f,g),x)=mp(f,mp(g,x))`、`mp(f,op(x,y))=op(mp(f,x),mp(f,y))` を満たすように定義します。
 
 ## 型・テンプレート引数
 
@@ -26,14 +27,9 @@ struct LazyXXX;
 
 ## 使用例
 
-共通設定の後に置く、型・演算・mainを含む完成例です。`assert` は期待する結果を確認しています。
+基本テンプレートの共通定義と遅延セグ木ラッパーの後に置く、型・演算・`main` を含む例です。
 
 ```cpp
-template<class S,S(*op)(S,S),S(*e)(),class F,S(*mp)(F,S),F(*cp)(F,F),F(*id)()>
-struct LazySegBase:atcoder::lazy_segtree<S,op,e,F,mp,cp,id>{
-    using B=atcoder::lazy_segtree<S,op,e,F,mp,cp,id>;
-    using B::B;
-};
 namespace LazyXXX_impl {
     struct S { ll sum,size; };
     struct F { ll add; };

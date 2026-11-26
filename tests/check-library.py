@@ -115,10 +115,11 @@ def translation(path,template,example=False):
         else:
             text=text.replace('string S;','string S="abacaba";')
             code='auto radius=R[3]; auto length=2*radius-1; assert(radius==4 && length==7);'
-    if path in ['Snippets/segtree_custom.cpp','Snippets/lazy_segtree_custom.cpp'] and example:
+    if path=='Snippets/segtree_custom.cpp' and example:
         text=''
     elif path=='Snippets/lazy_segtree_custom.cpp':
-        text=implementation('DataStructureSegment/lazy_segtree_wrappers.cpp')+'\n'+text
+        wrapper=implementation('DataStructureSegment/lazy_segtree_wrappers.cpp')
+        text=wrapper if example else wrapper+'\n'+text
     inside = path=='String/palindrome_radius.cpp' and not example
     if inside:
         return prefix+'\nint main(){\n'+text+'\n'+code+'\n}\n'

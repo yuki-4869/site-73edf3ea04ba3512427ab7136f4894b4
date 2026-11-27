@@ -91,5 +91,6 @@
   "Geometry/rectangle_union_area.cpp": "2b84e946511a02ef1c2e1a8e166c2d3d6069f7cb",
   "String/suffix_automaton.cpp": "46c34ccbfb5f6cd16ec6685bb1e7b1fca33b5a31",
   "LinearAlgebra/matrix_power.cpp": "1323b3e33d394f5889bb3b6b16b2e71ec0e5bd04",
-  "String/levenshtein_distance.cpp": "1327cdb5f771484f1d23b7fb041a73bd7f644e1c"
+  "String/levenshtein_distance.cpp": "1327cdb5f771484f1d23b7fb041a73bd7f644e1c",
+  "Graph/kruskal.cpp": "a7aff37374688aa84a3388e3375eaf4f12bd3499"
 }

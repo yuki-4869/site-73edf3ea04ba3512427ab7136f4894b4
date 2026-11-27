@@ -23,6 +23,7 @@ OUT.mkdir(parents=True,exist_ok=True)
 SITE = Path(__file__).resolve().parents[1]
 TEMPLATES = {'code':'template.cpp','codet':'Templates/multiple_test_cases.cpp','codecf':'Templates/codeforces.cpp'}
 HEADERS = {
+    'Graph/kruskal.cpp':['atcoder/dsu'],
     'DataStructureSegment/segtree_wrappers.cpp':['atcoder/segtree'],
     'DataStructureSegment/lazy_segtree_wrappers.cpp':['atcoder/lazysegtree'],
     'Snippets/segtree_custom.cpp':['atcoder/segtree'],

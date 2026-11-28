@@ -1,18 +1,20 @@
 # 0-1 BFS・Dial法
 
-辺重みが小さい非負整数の有向グラフで、多始点最短路を求めます。重み上限をCとして、C+1個の循環バケットを使います。辺重みが0か1のときは頂点数と辺数に線形です。
+辺重みが非負整数の有向グラフで、多始点最短路を求めます。小さい重みでは循環バケットを使い、実際の辺重みが大きいときはradix heapへ切り替えます。辺重みが0か1のときは頂点数と辺数に線形です。
 
 ## API
 
 | API | 返り値・使い方 | 計算量 |
 | --- | --- | --- |
-| `ahc::dial_shortest_paths(edges,starts,max_edge)` | 距離と親を持つ `BoundedShortestPaths` | O(N+M+S+NC) |
+| `ahc::dial_shortest_paths(edges,starts,max_edge)` | 距離と親を持つ `BoundedShortestPaths` | 循環バケット O(N+M+S+NC)、radix heap O((N+M)B+S) |
 | `ahc::zero_one_bfs(edges,starts)` | 0-1重みの上記操作 | O(N+M+S) |
 | `result.distance[v]` | 最短距離の `long long`。未到達なら-1 | O(1) |
 | `result.parent[v]` | 最短経路上の直前頂点。始点と未到達は-1 | O(1) |
 | `result.path(v)` | 最短経路の `optional<vector<int>>`。未到達は `nullopt` | O(1+経路長) |
 
-頂点は0-indexedで、NはINT_MAX以下です。 `edges[u]` は `vector<pair<int,int>>` で、要素は（行き先, コスト）です。無向辺は両方向に追加します。重みは `[0,max_edge]` で、0-1 BFSでは0か1を渡します。 `starts` は始点集合で、Sは列の長さです。同距離経路の選択順は指定しません。使用領域は入力を除きO(N+M+C)です。大きなコスト上限では基本テンプレートのDijkstraが適しています。
+頂点は0-indexedで、NはINT_MAX以下です。 `edges[u]` は `vector<pair<int,int>>` で、要素は（行き先, コスト）です。無向辺は両方向に追加します。重みは `[0,max_edge]` で、0-1 BFSでは0か1を渡します。 `starts` は始点集合で、Sは列の長さです。同距離経路の選択順は指定しません。`max_edge` が4096以上の場合は辺の重みを確認します。4096以上の辺があれば64個のradix heapバケットを使い、空の距離を一つずつ進める処理を省きます。それ以外では循環バケットを使います。
+
+Cは循環バケットで使う重み上限、Bは処理中に登録する最大距離のビット数に1を足した値で最大64です。使用領域は入力を除き、循環バケットでO(N+M+C)、64 bit固定のradix heapでO(N+M)です。
 
 ## 使用例
 

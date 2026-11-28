@@ -45,6 +45,8 @@ auto answer = search.best_state();
 
 悪化量の範囲が狭い整数スコアで、同じ温度で近傍をまとめて試すときに使います。温度を更新するごとに表を作り直すため、1試行ごとに温度を変える場合は温度を直接渡します。悪化量が表の範囲外でも、その場で同じ受理確率を計算します。表の使用領域はO(max_loss)です。
 
+乱数の返り値が `double` または `float` なら、真の閾値以上で最小の `double` を前計算して比較します。乱数の取り得る値を考えると、元の `long double` の閾値を使った厳密な不等号と受理結果が一致します。 `probability()` は引き続き `long double` の確率を返し、その他の乱数の型でも従来の比較を使います。
+
 ```cpp
 ahc::AnnealingLossTable loss_table(1);
 for (int batch=0; batch<100; ++batch) {

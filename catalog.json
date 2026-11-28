@@ -154,6 +154,13 @@
     "categoryId": "DataStructureAdvanced"
   },
   {
+    "title": "永続キュー",
+    "path": "DataStructureAdvanced/persistent_queue.cpp",
+    "description": "過去の任意の版に push・pop して分岐できる FIFO キュー",
+    "category": "高度なデータ構造",
+    "categoryId": "DataStructureAdvanced"
+  },
+  {
     "title": "Li Chao Tree",
     "path": "DiscreteConvexity/li_chao_tree.cpp",
     "description": "直線・区間直線の最小値／最大値",
@@ -255,6 +262,20 @@
     "title": "LowLink",
     "path": "Graph/lowlink.cpp",
     "description": "橋・関節点などを計算",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "支配木（Dominator Tree）",
+    "path": "Graph/dominator_tree.cpp",
+    "description": "有向グラフの支配木を反復版 Lengauer–Tarjan 法で構築",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "最大独立集合（半分全列挙）",
+    "path": "Graph/maximum_independent_set.cpp",
+    "description": "頂点数 40 以下の無向グラフの最大独立集合を1つ復元",
     "category": "グラフ",
     "categoryId": "Graph"
   },
@@ -406,6 +427,13 @@
     "categoryId": "MathNumberTheory"
   },
   {
+    "title": "Stern–Brocot 木",
+    "path": "MathNumberTheory/stern_brocot_tree.cpp",
+    "description": "有理数の連長圧縮経路・復元・LCA・指定深さの祖先・部分木の範囲",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
     "title": "第二種スターリング数",
     "path": "MathCombinatorics/stirling_second.cpp",
     "description": "ACL dynamic_modint を使用",
@@ -511,6 +539,13 @@
     "categoryId": "FPSandPolynomial"
   },
   {
+    "title": "部分集合畳み込み（Subset Convolution）",
+    "path": "FPSandPolynomial/subset_convolution.cpp",
+    "description": "互いに素な部分集合への分割の総和を要素数別のゼータ・メビウス変換で求める",
+    "category": "FPS・多項式・畳み込み",
+    "categoryId": "FPSandPolynomial"
+  },
+  {
     "title": "回文半径",
     "path": "String/palindrome_radius.cpp",
     "description": "文字を中心とする奇数長回文の半径。関数内に貼り付けるスニペット",
@@ -602,6 +637,13 @@
     "categoryId": "String"
   },
   {
+    "title": "極大周期区間の列挙（Run Enumerate）",
+    "path": "String/run_enumerate.cpp",
+    "description": "文字列の run を最小周期と半開区間の組で一括列挙",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "偏角ソート",
     "path": "Geometry/argument_sort.cpp",
     "description": "整数座標の点を偏角順に整列",
@@ -661,6 +703,13 @@
     "title": "長方形の和集合面積",
     "path": "Geometry/rectangle_union_area.cpp",
     "description": "整数座標の軸平行長方形を走査線で処理し、重複を除いた面積を128 bitで計算、O(N log N)",
+    "category": "幾何",
+    "categoryId": "Geometry"
+  },
+  {
+    "title": "マンハッタン最小全域木",
+    "path": "Geometry/manhattan_mst.cpp",
+    "description": "マンハッタン距離の完全グラフの最小全域木を O(N log N) で復元",
     "category": "幾何",
     "categoryId": "Geometry"
   },

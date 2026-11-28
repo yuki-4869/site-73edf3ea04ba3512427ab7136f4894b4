@@ -108,5 +108,12 @@
   "Heuristic/rollback_array.cpp": "8c90bf222c151e6f0bbac0ed3d7258acabdee6c4",
   "Heuristic/spatial_buckets_2d.cpp": "35e19833bab70313c30f7dbef28201c6d2049500",
   "Heuristic/tour_moves.cpp": "edbc7ae3550ffe996f0d60a4153166494aa08ee5",
-  "Heuristic/weighted_sampler.cpp": "2b69e0fa3a6e500cdc0f56bed96bbdbb33e4b7e0"
+  "Heuristic/weighted_sampler.cpp": "2b69e0fa3a6e500cdc0f56bed96bbdbb33e4b7e0",
+  "Geometry/manhattan_mst.cpp": "1b75a11cd252b753f3fece19f5d089044854822b",
+  "Graph/dominator_tree.cpp": "e8963e6f074cc58a9e143387c30c0faabfee4648",
+  "Graph/maximum_independent_set.cpp": "001b4192244ec3c77366a5571b55c929a6bb90e8",
+  "DataStructureAdvanced/persistent_queue.cpp": "9931dda505042741fe5fc03713290f664fd52aa3",
+  "String/run_enumerate.cpp": "d9cb41b42952ee493a7ea73a5c398de90516845f",
+  "MathNumberTheory/stern_brocot_tree.cpp": "cf7af416814bedf2cb2a2910edfc8158d994926b",
+  "FPSandPolynomial/subset_convolution.cpp": "dcd0a6c7ec51c85a30aeb7888d9e9e7a8e6a1abe"
 }

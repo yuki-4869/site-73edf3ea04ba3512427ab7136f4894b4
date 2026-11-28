@@ -78,6 +78,8 @@ Nは要素・頂点数、Mは辺数、sigmaは異なる値数など、各ペー�
 
 | 使用するライブラリ | codecfへの追加 |
 | --- | --- |
+| マンハッタン最小全域木 | `#include <atcoder/dsu>` |
+| 極大周期区間の列挙 | `#include <atcoder/string>` |
 | セグ木ラッパー・汎用セグ木雛形 | `#include <atcoder/segtree>` |
 | 遅延セグ木ラッパー・汎用遅延セグ木雛形 | `#include <atcoder/lazysegtree>` |
 | FPS本体・Bostan–Mori・多点評価／補間・多項式総積・FPS組合せ数列 | `#include <atcoder/convolution>` |

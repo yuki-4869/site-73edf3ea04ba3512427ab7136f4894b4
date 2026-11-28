@@ -27,6 +27,7 @@ V=作成ノード数、P=パターン数、L=走査テキストの長さ。重�
 - [AhoCorasick::contains](#api-8)
 - [AhoCorasick::size](#api-9)
 - [AhoCorasick::pattern_count](#api-10)
+- [公開メンバ（terminal_node・bfs_order・nodes）](#public-members)
 
 </details>
 
@@ -73,7 +74,7 @@ int char_id(char c) const;
 int add(const string& s);
 ```
 
-パターン s を追加しパターン番号を返す
+パターン `s` を追加し、登録順の 0 始まりの ID を返します。`ac.terminal_node[id]` で、このパターンの終端ノード番号を取得できます。[公開メンバ](#public-members)
 
 **計算量**
 
@@ -177,6 +178,23 @@ int pattern_count() const;
 
 - O(1)。
 
+<a id="public-members"></a>
+
+## 公開メンバ（terminal_node・bfs_order・nodes）
+
+オートマトンを DP に使うときは、以下のメンバを参照できます。登録 ID とノード番号はいずれも 0 始まりで、根のノード番号は `0` です。
+
+| 書き方 | 取得できる情報 | 参照できる時点 |
+| --- | --- | --- |
+| `ac.terminal_node[id]` | `add()` が返した登録 ID に対応する終端ノード番号 | そのパターンの `add()` 後 |
+| `ac.bfs_order` | 根から深さの昇順に並んだノード番号の列 | `build()` 後 |
+| `ac.nodes[v].fail` | ノード `v` の failure link の行き先 | `build()` 後 |
+| `ac.nodes[v].terminal_count` | ノード `v` を終端とする登録パターンの個数 | 登録時から |
+| `ac.nodes[v].match_count` | ノード `v` にいるとき、末尾に一致する登録パターンの個数 | `build()` 後 |
+| `ac.nodes[v].next[k]` | 文字番号 `k` を読んだ後の遷移先。`k` は `ac.char_id(c)` で求める | `build()` 後 |
+
+添字による参照はいずれも `O(1)` です。`terminal_node` の長さは `ac.pattern_count()`、`build()` 後の `bfs_order` の長さは `ac.size()` です。重複登録では ID ごとに `terminal_node` の要素があり、ノード番号は同じになります。
+
 ## 使用例
 
 必要な定義を用意して、次の処理を `main` 内で実行します。`assert` で結果を確認しています。
@@ -186,6 +204,31 @@ AhoCorasick<> ac; auto a=ac.add("aba"); auto b=ac.add("ba"); ac.build();
 auto cnt=ac.count_each("ababa");
 assert(cnt[a]==2 && cnt[b]==2 && ac.count_all("ababa")==4);
 ```
+
+### 状態ごとに末尾で一致するパターンをビット集合にする
+
+`terminal_node` で各パターンの終端に印を付け、BFS 順に failure link の先から印を引き継ぎます。`ab` を読んだ直後には `ab` と `b` の両方が末尾に一致します。この例の `unsigned` に収める場合、パターン数は `std::numeric_limits<unsigned>::digits` 以下にします。[応用問題・ABC419 F](https://atcoder.jp/contests/abc419/tasks/abc419_f)
+
+```cpp
+AhoCorasick<> ac;
+int ab = ac.add("ab");
+int b = ac.add("b");
+ac.build();
+
+vector<unsigned> hit(ac.size());
+for (int id = 0; id < ac.pattern_count(); ++id) {
+    hit[ac.terminal_node[id]] |= 1u << id;
+}
+for (int v : ac.bfs_order) {
+    if (v != 0) hit[v] |= hit[ac.nodes[v].fail];
+}
+
+int state = ac.transition(ac.transition(0, 'a'), 'b');
+assert(state == ac.terminal_node[ab]);
+assert(hit[state] == ((1u << ab) | (1u << b)));
+```
+
+`build()` 後に、このビット集合を `O(V+P)` 時間・`O(V)` 追加メモリで作れます。
 
 ## メモリ
 

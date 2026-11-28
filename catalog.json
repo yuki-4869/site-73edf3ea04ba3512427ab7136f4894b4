@@ -681,7 +681,7 @@
   {
     "title": "焼き鈍し法・山登り法",
     "path": "Heuristic/simulated_annealing.cpp",
-    "description": "差分で受理を判定し、現在状態と最良状態を保持",
+    "description": "差分で受理し最良状態を保持。整数スコアの悪化量の受理確率を表にできる",
     "category": "ヒューリスティック（AHC）",
     "categoryId": "Heuristic"
   },
@@ -702,14 +702,14 @@
   {
     "title": "グリッド多始点BFS",
     "path": "Heuristic/grid_bfs.cpp",
-    "description": "壁・一方通行に対応し、距離とURDL経路を取得",
+    "description": "壁・一方通行に対応し、距離とURDL経路を取得。固定盤面の反復探索も高速化",
     "category": "ヒューリスティック（AHC）",
     "categoryId": "Heuristic"
   },
   {
     "title": "ビット盤面（横64列まで）",
     "path": "Heuristic/bit_grid.cpp",
-    "description": "1行1ワードで4近傍展開・到達領域を計算",
+    "description": "1行1ワードで4近傍展開・到達領域を計算。新しく到達した行を再処理",
     "category": "ヒューリスティック（AHC）",
     "categoryId": "Heuristic"
   },
@@ -717,6 +717,62 @@
     "title": "最近傍法・巡回路2-opt",
     "path": "Heuristic/two_opt.cpp",
     "description": "初期巡回路・閉路費用・区間反転の差分と改善",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "整数IDの動的集合",
+    "path": "Heuristic/indexed_set.cpp",
+    "description": "追加・削除・所属判定と非空集合からの一様抽選用の密な列",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "巻き戻せる配列",
+    "path": "Heuristic/rollback_array.cpp",
+    "description": "点代入を記録し、近傍の試し適用をまとめて取り消す",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "動的な重み付き抽選",
+    "path": "Heuristic/weighted_sampler.cpp",
+    "description": "Fenwick木で重み変更と抽選の位置を管理",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "ビーム探索の経路復元",
+    "path": "Heuristic/beam_trace.cpp",
+    "description": "採用候補の親と操作を保存して手順を復元",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "巡回路の交換・挿入近傍",
+    "path": "Heuristic/tour_moves.cpp",
+    "description": "非対称コストでも2点交換と1点移動の差分を定数時間で評価",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "2次元Fenwick木",
+    "path": "Heuristic/grid_fenwick.cpp",
+    "description": "1点加算と半開長方形の区間和",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "0-1 BFS・Dial法",
+    "path": "Heuristic/bounded_shortest_path.cpp",
+    "description": "小さい非負整数重みでの多始点最短路・経路復元",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "動的2次元空間バケット",
+    "path": "Heuristic/spatial_buckets_2d.cpp",
+    "description": "座標を持つ点の移動・削除と小範囲の繰り返し照会",
     "category": "ヒューリスティック（AHC）",
     "categoryId": "Heuristic"
   }

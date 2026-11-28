@@ -600,5 +600,54 @@
     "prefix": [
       "ahc_2opt"
     ]
+  },
+  "Heuristic/indexed_set.cpp": {
+    "name": "整数IDの動的集合",
+    "prefix": [
+      "ahc_indexed_set"
+    ]
+  },
+  "Heuristic/rollback_array.cpp": {
+    "name": "巻き戻せる配列",
+    "prefix": [
+      "ahc_rollback_array"
+    ]
+  },
+  "Heuristic/weighted_sampler.cpp": {
+    "name": "動的な重み付き抽選",
+    "prefix": [
+      "ahc_weighted_sampler"
+    ]
+  },
+  "Heuristic/beam_trace.cpp": {
+    "name": "ビーム探索の経路復元",
+    "prefix": [
+      "ahc_beam_trace"
+    ]
+  },
+  "Heuristic/tour_moves.cpp": {
+    "name": "巡回路の交換・挿入近傍",
+    "prefix": [
+      "ahc_tour_moves"
+    ]
+  },
+  "Heuristic/grid_fenwick.cpp": {
+    "name": "2次元Fenwick木",
+    "prefix": [
+      "ahc_grid_fenwick"
+    ]
+  },
+  "Heuristic/bounded_shortest_path.cpp": {
+    "name": "0-1 BFS・Dial法",
+    "prefix": [
+      "ahc_dial",
+      "ahc_01bfs"
+    ]
+  },
+  "Heuristic/spatial_buckets_2d.cpp": {
+    "name": "動的2次元空間バケット",
+    "prefix": [
+      "ahc_spatial_buckets"
+    ]
   }
 }

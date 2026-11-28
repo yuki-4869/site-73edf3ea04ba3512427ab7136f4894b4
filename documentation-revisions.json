@@ -94,11 +94,19 @@
   "String/levenshtein_distance.cpp": "1327cdb5f771484f1d23b7fb041a73bd7f644e1c",
   "Graph/kruskal.cpp": "a7aff37374688aa84a3388e3375eaf4f12bd3499",
   "Heuristic/beam_selection.cpp": "560bec4b82c6258e769a2b8da485ff3e44421370",
-  "Heuristic/bit_grid.cpp": "ffb8437c6663674acda4851a09d12aa90c2b0eea",
-  "Heuristic/grid_bfs.cpp": "db1b9f89b252a832fa37d4c7958934e7fd752175",
+  "Heuristic/bit_grid.cpp": "1c61f3431576c6fc30f7bded28fe8d857d751c04",
+  "Heuristic/grid_bfs.cpp": "6985ca1eeb27fbeef505a1dbf3e892324752d7e7",
   "Heuristic/random.cpp": "7ea7948d5c489505533d25a2d7cecf89761e616a",
-  "Heuristic/simulated_annealing.cpp": "fb4e6956e1c355fdbc16ac7e5753432978ada174",
+  "Heuristic/simulated_annealing.cpp": "c55f5abea946a3a08cbbcf20f39a1fa4bc083502",
   "Heuristic/timer.cpp": "0f0bc2542f59bc73970d715da4e3189f6f87ef76",
   "Heuristic/two_opt.cpp": "995e355bc5a067437b336b8f7a1ba5f487264b78",
-  "Heuristic/zobrist_hash.cpp": "4e6d859d36b3f95554219ca4ec73dfee5376fd09"
+  "Heuristic/zobrist_hash.cpp": "4e6d859d36b3f95554219ca4ec73dfee5376fd09",
+  "Heuristic/beam_trace.cpp": "ec735e4abf09da7703e10f9bf7075310140ed8eb",
+  "Heuristic/bounded_shortest_path.cpp": "400c8faf6978f2ec7e2d53d64a1cef7f8f0ce6ad",
+  "Heuristic/grid_fenwick.cpp": "b8868465243c27c5a097d19b5e11da0c969bba26",
+  "Heuristic/indexed_set.cpp": "905410a84c663d564ea0ae59392a9e97068ab755",
+  "Heuristic/rollback_array.cpp": "8c90bf222c151e6f0bbac0ed3d7258acabdee6c4",
+  "Heuristic/spatial_buckets_2d.cpp": "35e19833bab70313c30f7dbef28201c6d2049500",
+  "Heuristic/tour_moves.cpp": "cd19d0b5903342dd03b7d772a85b9074bbaf36a4",
+  "Heuristic/weighted_sampler.cpp": "eb0f21e3a1cb0a5b7a518e59ddf584843ec34162"
 }

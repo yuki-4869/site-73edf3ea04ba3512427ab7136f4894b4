@@ -28,7 +28,7 @@
 | [幾何](#category-14) | 1 |
 | [探索・オフライン処理](#category-15) | 1 |
 | [穴埋め用スニペット](#category-16) | 3 |
-| [ヒューリスティック（AHC）](#category-17) | 8 |
+| [ヒューリスティック（AHC）](#category-17) | 16 |
 
 <a id="category-1"></a>
 
@@ -229,9 +229,17 @@
 | --- | --- | --- |
 | [高速乱数（SplitMix64）](Heuristic/random.md) | seedで再現できる64 bit乱数・一様整数・実数・シャッフル | [コード](../../Heuristic/random.cpp) |
 | [時間計測（AHC）](Heuristic/timer.md) | ミリ秒単位の実時間・残り時間・経過率 | [コード](../../Heuristic/timer.cpp) |
-| [焼き鈍し法・山登り法](Heuristic/simulated_annealing.md) | 差分で受理を判定し、現在状態と最良状態を保持 | [コード](../../Heuristic/simulated_annealing.cpp) |
+| [焼き鈍し法・山登り法](Heuristic/simulated_annealing.md) | 差分で受理し最良状態を保持。整数スコアの悪化量の受理確率を表にできる | [コード](../../Heuristic/simulated_annealing.cpp) |
 | [ビーム探索の候補選択](Heuristic/beam_selection.md) | 親番号と操作を保存し、任意の重複排除と上位幅の選出 | [コード](../../Heuristic/beam_selection.cpp) |
 | [Zobristハッシュ](Heuristic/zobrist_hash.md) | 盤面や列を表す64 bitキーの差分更新 | [コード](../../Heuristic/zobrist_hash.cpp) |
-| [グリッド多始点BFS](Heuristic/grid_bfs.md) | 壁・一方通行に対応し、距離とURDL経路を取得 | [コード](../../Heuristic/grid_bfs.cpp) |
-| [ビット盤面（横64列まで）](Heuristic/bit_grid.md) | 1行1ワードで4近傍展開・到達領域を計算 | [コード](../../Heuristic/bit_grid.cpp) |
+| [グリッド多始点BFS](Heuristic/grid_bfs.md) | 壁・一方通行に対応し、距離とURDL経路を取得。固定盤面の反復探索も高速化 | [コード](../../Heuristic/grid_bfs.cpp) |
+| [ビット盤面（横64列まで）](Heuristic/bit_grid.md) | 1行1ワードで4近傍展開・到達領域を計算。新しく到達した行を再処理 | [コード](../../Heuristic/bit_grid.cpp) |
 | [最近傍法・巡回路2-opt](Heuristic/two_opt.md) | 初期巡回路・閉路費用・区間反転の差分と改善 | [コード](../../Heuristic/two_opt.cpp) |
+| [整数IDの動的集合](Heuristic/indexed_set.md) | 追加・削除・所属判定と非空集合からの一様抽選用の密な列 | [コード](../../Heuristic/indexed_set.cpp) |
+| [巻き戻せる配列](Heuristic/rollback_array.md) | 点代入を記録し、近傍の試し適用をまとめて取り消す | [コード](../../Heuristic/rollback_array.cpp) |
+| [動的な重み付き抽選](Heuristic/weighted_sampler.md) | Fenwick木で重み変更と抽選の位置を管理 | [コード](../../Heuristic/weighted_sampler.cpp) |
+| [ビーム探索の経路復元](Heuristic/beam_trace.md) | 採用候補の親と操作を保存して手順を復元 | [コード](../../Heuristic/beam_trace.cpp) |
+| [巡回路の交換・挿入近傍](Heuristic/tour_moves.md) | 非対称コストでも2点交換と1点移動の差分を定数時間で評価 | [コード](../../Heuristic/tour_moves.cpp) |
+| [2次元Fenwick木](Heuristic/grid_fenwick.md) | 1点加算と半開長方形の区間和 | [コード](../../Heuristic/grid_fenwick.cpp) |
+| [0-1 BFS・Dial法](Heuristic/bounded_shortest_path.md) | 小さい非負整数重みでの多始点最短路・経路復元 | [コード](../../Heuristic/bounded_shortest_path.cpp) |
+| [動的2次元空間バケット](Heuristic/spatial_buckets_2d.md) | 座標を持つ点の移動・削除と小範囲の繰り返し照会 | [コード](../../Heuristic/spatial_buckets_2d.cpp) |

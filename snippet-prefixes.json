@@ -552,5 +552,53 @@
       "LCTAddSum",
       "LCTAssignMin"
     ]
+  },
+  "Heuristic/random.cpp": {
+    "name": "高速乱数（SplitMix64）",
+    "prefix": [
+      "ahc_rng"
+    ]
+  },
+  "Heuristic/timer.cpp": {
+    "name": "時間計測（AHC）",
+    "prefix": [
+      "ahc_timer"
+    ]
+  },
+  "Heuristic/simulated_annealing.cpp": {
+    "name": "焼き鈍し法・山登り法",
+    "prefix": [
+      "ahc_sa"
+    ]
+  },
+  "Heuristic/beam_selection.cpp": {
+    "name": "ビーム探索の候補選択",
+    "prefix": [
+      "ahc_beam"
+    ]
+  },
+  "Heuristic/zobrist_hash.cpp": {
+    "name": "Zobristハッシュ",
+    "prefix": [
+      "ahc_zobrist"
+    ]
+  },
+  "Heuristic/grid_bfs.cpp": {
+    "name": "グリッド多始点BFS",
+    "prefix": [
+      "ahc_grid_bfs"
+    ]
+  },
+  "Heuristic/bit_grid.cpp": {
+    "name": "ビット盤面（横64列まで）",
+    "prefix": [
+      "ahc_bitgrid"
+    ]
+  },
+  "Heuristic/two_opt.cpp": {
+    "name": "最近傍法・巡回路2-opt",
+    "prefix": [
+      "ahc_2opt"
+    ]
   }
 }

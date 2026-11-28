@@ -663,5 +663,61 @@
     "description": "整数座標の軸平行長方形を走査線で処理し、重複を除いた面積を128 bitで計算、O(N log N)",
     "category": "幾何",
     "categoryId": "Geometry"
+  },
+  {
+    "title": "高速乱数（SplitMix64）",
+    "path": "Heuristic/random.cpp",
+    "description": "seedで再現できる64 bit乱数・一様整数・実数・シャッフル",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "時間計測（AHC）",
+    "path": "Heuristic/timer.cpp",
+    "description": "ミリ秒単位の実時間・残り時間・経過率",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "焼き鈍し法・山登り法",
+    "path": "Heuristic/simulated_annealing.cpp",
+    "description": "差分で受理を判定し、現在状態と最良状態を保持",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "ビーム探索の候補選択",
+    "path": "Heuristic/beam_selection.cpp",
+    "description": "親番号と操作を保存し、任意の重複排除と上位幅の選出",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "Zobristハッシュ",
+    "path": "Heuristic/zobrist_hash.cpp",
+    "description": "盤面や列を表す64 bitキーの差分更新",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "グリッド多始点BFS",
+    "path": "Heuristic/grid_bfs.cpp",
+    "description": "壁・一方通行に対応し、距離とURDL経路を取得",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "ビット盤面（横64列まで）",
+    "path": "Heuristic/bit_grid.cpp",
+    "description": "1行1ワードで4近傍展開・到達領域を計算",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
+  },
+  {
+    "title": "最近傍法・巡回路2-opt",
+    "path": "Heuristic/two_opt.cpp",
+    "description": "初期巡回路・閉路費用・区間反転の差分と改善",
+    "category": "ヒューリスティック（AHC）",
+    "categoryId": "Heuristic"
   }
 ]

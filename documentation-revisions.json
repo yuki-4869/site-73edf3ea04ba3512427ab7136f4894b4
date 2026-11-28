@@ -92,5 +92,13 @@
   "String/suffix_automaton.cpp": "46c34ccbfb5f6cd16ec6685bb1e7b1fca33b5a31",
   "LinearAlgebra/matrix_power.cpp": "1323b3e33d394f5889bb3b6b16b2e71ec0e5bd04",
   "String/levenshtein_distance.cpp": "1327cdb5f771484f1d23b7fb041a73bd7f644e1c",
-  "Graph/kruskal.cpp": "a7aff37374688aa84a3388e3375eaf4f12bd3499"
+  "Graph/kruskal.cpp": "a7aff37374688aa84a3388e3375eaf4f12bd3499",
+  "Heuristic/beam_selection.cpp": "560bec4b82c6258e769a2b8da485ff3e44421370",
+  "Heuristic/bit_grid.cpp": "ffb8437c6663674acda4851a09d12aa90c2b0eea",
+  "Heuristic/grid_bfs.cpp": "db1b9f89b252a832fa37d4c7958934e7fd752175",
+  "Heuristic/random.cpp": "7ea7948d5c489505533d25a2d7cecf89761e616a",
+  "Heuristic/simulated_annealing.cpp": "fb4e6956e1c355fdbc16ac7e5753432978ada174",
+  "Heuristic/timer.cpp": "0f0bc2542f59bc73970d715da4e3189f6f87ef76",
+  "Heuristic/two_opt.cpp": "995e355bc5a067437b336b8f7a1ba5f487264b78",
+  "Heuristic/zobrist_hash.cpp": "4e6d859d36b3f95554219ca4ec73dfee5376fd09"
 }

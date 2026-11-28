@@ -28,6 +28,7 @@
 | [幾何](#category-14) | 1 |
 | [探索・オフライン処理](#category-15) | 1 |
 | [穴埋め用スニペット](#category-16) | 3 |
+| [ヒューリスティック（AHC）](#category-17) | 8 |
 
 <a id="category-1"></a>
 
@@ -219,3 +220,18 @@
 | [ACL lazy_segtree の穴埋めテンプレート](Snippets/lazy_segtree_custom.md) | S・F・各演算を定義。LazySegBase に依存 | [コード](../../Snippets/lazy_segtree_custom.cpp) |
 
 各ページにリンクした公開版の実装に基づきます。確認できた不備は各ページの「この実装の注意点」に記載しています。
+
+<a id="category-17"></a>
+
+## ヒューリスティック（AHC）
+
+| 説明ページ | 内容 | 実装 |
+| --- | --- | --- |
+| [高速乱数（SplitMix64）](Heuristic/random.md) | seedで再現できる64 bit乱数・一様整数・実数・シャッフル | [コード](../../Heuristic/random.cpp) |
+| [時間計測（AHC）](Heuristic/timer.md) | ミリ秒単位の実時間・残り時間・経過率 | [コード](../../Heuristic/timer.cpp) |
+| [焼き鈍し法・山登り法](Heuristic/simulated_annealing.md) | 差分で受理を判定し、現在状態と最良状態を保持 | [コード](../../Heuristic/simulated_annealing.cpp) |
+| [ビーム探索の候補選択](Heuristic/beam_selection.md) | 親番号と操作を保存し、任意の重複排除と上位幅の選出 | [コード](../../Heuristic/beam_selection.cpp) |
+| [Zobristハッシュ](Heuristic/zobrist_hash.md) | 盤面や列を表す64 bitキーの差分更新 | [コード](../../Heuristic/zobrist_hash.cpp) |
+| [グリッド多始点BFS](Heuristic/grid_bfs.md) | 壁・一方通行に対応し、距離とURDL経路を取得 | [コード](../../Heuristic/grid_bfs.cpp) |
+| [ビット盤面（横64列まで）](Heuristic/bit_grid.md) | 1行1ワードで4近傍展開・到達領域を計算 | [コード](../../Heuristic/bit_grid.cpp) |
+| [最近傍法・巡回路2-opt](Heuristic/two_opt.md) | 初期巡回路・閉路費用・区間反転の差分と改善 | [コード](../../Heuristic/two_opt.cpp) |

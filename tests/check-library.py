@@ -23,6 +23,10 @@ OUT.mkdir(parents=True,exist_ok=True)
 SITE = Path(__file__).resolve().parents[1]
 TEMPLATES = {'code':'template.cpp','codet':'Templates/multiple_test_cases.cpp','codecf':'Templates/codeforces.cpp'}
 HEADERS = {
+    'DataStructureBasic/static_range_count_distinct.cpp':['atcoder/fenwicktree'],
+    'Graph/minimum_steiner_tree.cpp':['atcoder/dsu'],
+    'Tree/tree_distance_frequency.cpp':['atcoder/convolution'],
+    'String/wildcard_pattern_matching.cpp':['atcoder/convolution'],
     'Graph/kruskal.cpp':['atcoder/dsu'],
     'Geometry/manhattan_mst.cpp':['atcoder/dsu'],
     'String/run_enumerate.cpp':['atcoder/string'],
@@ -30,6 +34,11 @@ HEADERS = {
     'DataStructureSegment/lazy_segtree_wrappers.cpp':['atcoder/lazysegtree'],
     'Snippets/segtree_custom.cpp':['atcoder/segtree'],
     'Snippets/lazy_segtree_custom.cpp':['atcoder/lazysegtree'],
+}
+PASTE_DEPENDENCIES = {
+    'Geometry/furthest_pair.cpp':'Geometry/convex_hull.cpp',
+    'Tree/tree_distance_frequency.cpp':'Tree/centroid_decomposition.cpp',
+    'MathNumberTheory/summatory_totient.cpp':'MathNumberTheory/linear_sieve.cpp',
 }
 FPS_EXTENSIONS = {
     'FPSandPolynomial/bostan_mori.cpp',
@@ -101,6 +110,8 @@ def translation(path,template,example=False):
     if template=='codecf':
         prefix=''.join('#include <'+h+'>\n' for h in HEADERS.get(path,[]))+prefix
     text=implementation(path)
+    if path in PASTE_DEPENDENCIES:
+        text=implementation(PASTE_DEPENDENCIES[path])+'\n'+text
     if path in FPS_EXTENSIONS:
         text=implementation('FPSandPolynomial/fps.cpp')+'\n'+text
     code=basic(path)

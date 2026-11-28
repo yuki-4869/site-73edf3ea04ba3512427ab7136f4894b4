@@ -70,6 +70,20 @@
     "categoryId": "DataStructureBasic"
   },
   {
+    "title": "区間集約付き deque（SWAG）",
+    "path": "DataStructureBasic/swag_deque.cpp",
+    "description": "両端から追加・削除しつつ、要素順の全体集約を取得",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
+    "title": "静的区間の異なる値の個数",
+    "path": "DataStructureBasic/static_range_count_distinct.cpp",
+    "description": "更新のない配列で半開区間ごとの値の種類数を求める",
+    "category": "基礎データ構造",
+    "categoryId": "DataStructureBasic"
+  },
+  {
     "title": "Disjoint Sparse Table",
     "path": "DataStructureSegment/disjoint_sparse_table.cpp",
     "description": "静的な結合的区間積をO(1)で取得、非可換演算にも対応",
@@ -157,6 +171,13 @@
     "title": "永続キュー",
     "path": "DataStructureAdvanced/persistent_queue.cpp",
     "description": "過去の任意の版に push・pop して分岐できる FIFO キュー",
+    "category": "高度なデータ構造",
+    "categoryId": "DataStructureAdvanced"
+  },
+  {
+    "title": "完全永続 Union-Find",
+    "path": "DataStructureAdvanced/persistent_union_find.cpp",
+    "description": "過去の版から分岐できる、成分サイズ付きの Union-Find",
     "category": "高度なデータ構造",
     "categoryId": "DataStructureAdvanced"
   },
@@ -280,6 +301,27 @@
     "categoryId": "Graph"
   },
   {
+    "title": "補グラフの連結成分",
+    "path": "Graph/complement_components.cpp",
+    "description": "補グラフの辺を明示せず、連結成分を復元",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "無向グラフの三角形列挙",
+    "path": "Graph/enumerate_triangles.cpp",
+    "description": "単純無向グラフの三角形を重複なしで列挙",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
+    "title": "最小 Steiner 木",
+    "path": "Graph/minimum_steiner_tree.cpp",
+    "description": "少数の指定頂点を最小コストでつなぎ、入力辺 ID を復元",
+    "category": "グラフ",
+    "categoryId": "Graph"
+  },
+  {
     "title": "Cartesian Tree",
     "path": "Tree/cartesian_tree.cpp",
     "description": "最小値を根に持つ木を構築",
@@ -364,6 +406,20 @@
     "categoryId": "Tree"
   },
   {
+    "title": "根付き部分木の同型分類",
+    "path": "Tree/rooted_subtree_isomorphism.cpp",
+    "description": "子の順序を区別せず、各頂点の根付き部分木を決定的に分類",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
+    "title": "木の距離別頂点対数",
+    "path": "Tree/tree_distance_frequency.cpp",
+    "description": "無向木の距離ごとの頂点対数を重心分解と畳み込みで集計",
+    "category": "木",
+    "categoryId": "Tree"
+  },
+  {
     "title": "約数列挙",
     "path": "MathNumberTheory/divisors.cpp",
     "description": "正の整数の約数列挙。負数について確認事項あり",
@@ -430,6 +486,20 @@
     "title": "Stern–Brocot 木",
     "path": "MathNumberTheory/stern_brocot_tree.cpp",
     "description": "有理数の連長圧縮経路・復元・LCA・指定深さの祖先・部分木の範囲",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "素数 mod の平方根",
+    "path": "MathNumberTheory/modular_sqrt.cpp",
+    "description": "Tonelli–Shanks 法で平方根を1つ求める",
+    "category": "整数論",
+    "categoryId": "MathNumberTheory"
+  },
+  {
+    "title": "トーティエント関数の累積和",
+    "path": "MathNumberTheory/summatory_totient.cpp",
+    "description": "商ごとのメモ化で Euler の φ の累積和を $O(N^{2/3})$ で計算",
     "category": "整数論",
     "categoryId": "MathNumberTheory"
   },
@@ -644,6 +714,13 @@
     "categoryId": "String"
   },
   {
+    "title": "ワイルドカード付き文字列照合",
+    "path": "String/wildcard_pattern_matching.cpp",
+    "description": "テキスト・パターン両側の * を扱い、全開始位置の一致を決定的に判定",
+    "category": "文字列",
+    "categoryId": "String"
+  },
+  {
     "title": "偏角ソート",
     "path": "Geometry/argument_sort.cpp",
     "description": "整数座標の点を偏角順に整列",
@@ -710,6 +787,13 @@
     "title": "マンハッタン最小全域木",
     "path": "Geometry/manhattan_mst.cpp",
     "description": "マンハッタン距離の完全グラフの最小全域木を O(N log N) で復元",
+    "category": "幾何",
+    "categoryId": "Geometry"
+  },
+  {
+    "title": "平面上の最遠点対",
+    "path": "Geometry/furthest_pair.cpp",
+    "description": "整数座標点の最大ユークリッド距離を回転キャリパーで計算",
     "category": "幾何",
     "categoryId": "Geometry"
   },

@@ -115,5 +115,17 @@
   "DataStructureAdvanced/persistent_queue.cpp": "9931dda505042741fe5fc03713290f664fd52aa3",
   "String/run_enumerate.cpp": "d9cb41b42952ee493a7ea73a5c398de90516845f",
   "MathNumberTheory/stern_brocot_tree.cpp": "cf7af416814bedf2cb2a2910edfc8158d994926b",
-  "FPSandPolynomial/subset_convolution.cpp": "dcd0a6c7ec51c85a30aeb7888d9e9e7a8e6a1abe"
+  "FPSandPolynomial/subset_convolution.cpp": "dcd0a6c7ec51c85a30aeb7888d9e9e7a8e6a1abe",
+  "DataStructureAdvanced/persistent_union_find.cpp": "dc451c0592eefea1ac30cdd482ef2cec503f8300",
+  "DataStructureBasic/static_range_count_distinct.cpp": "e8f60f5dfcfa87b5bce1b56957f0e98c6eba2f17",
+  "DataStructureBasic/swag_deque.cpp": "c2ebfcf8ad9278a6465ec4ed05f5d2d6592039b9",
+  "Geometry/furthest_pair.cpp": "8ee648e967240714495a4d90f138518a1c0b05e9",
+  "Graph/complement_components.cpp": "c1b245aeb4c9aa792d698876f5f61953f4857994",
+  "Graph/enumerate_triangles.cpp": "9c41c3f3f3a6c6723336ca679c56c2562eaad429",
+  "Graph/minimum_steiner_tree.cpp": "512a0774c28299a57fcf2ad7ef6d25e5d66111f9",
+  "MathNumberTheory/modular_sqrt.cpp": "b34fb678dab8fd3a910177ad1fd752290c993d46",
+  "MathNumberTheory/summatory_totient.cpp": "b44db6f0aa90ebbe4cb65a79e9796fa047763215",
+  "String/wildcard_pattern_matching.cpp": "6128e0cd3b4042ba0e4ad23c0120b2d9dc1dcbc8",
+  "Tree/rooted_subtree_isomorphism.cpp": "2c527c66e9f5c938fb9b354e5e3ce4eeaf3c591d",
+  "Tree/tree_distance_frequency.cpp": "38bbe049968843887cd8b0af4660adb2441b2cef"
 }
